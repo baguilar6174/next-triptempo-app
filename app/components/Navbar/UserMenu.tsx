@@ -6,7 +6,7 @@ import { AiOutlineMenu } from 'react-icons/ai';
 import { Avatar } from '../Avatar';
 import { MenuItem } from './MenuItem';
 import { User } from '../../interfaces/user';
-import { useLoginModalStore, useRegisterModalStore } from '../../store';
+import { useLoginModalStore, useRegisterModalStore, useRentModalStore } from '../../store';
 
 interface UserMenuProps {
 	currentUser?: User;
@@ -17,6 +17,7 @@ export const UserMenu: React.FC<UserMenuProps> = (props: UserMenuProps) => {
 
 	const registerModalStore = useRegisterModalStore();
 	const loginModalStore = useLoginModalStore();
+	const rentModalStore = useRentModalStore();
 
 	const [isMenuOpen, setIsMenuOpen] = React.useState<boolean>(false);
 
@@ -24,11 +25,17 @@ export const UserMenu: React.FC<UserMenuProps> = (props: UserMenuProps) => {
 		setIsMenuOpen((value) => !value);
 	}, []);
 
+	const onRent = React.useCallback(() => {
+		if (!currentUser) return loginModalStore.onOpen();
+		// Open rent modal
+		rentModalStore.onOpen();
+	}, [currentUser, loginModalStore, rentModalStore]);
+
 	return (
 		<div className="relative">
 			<div className="flex flex-row items-center gap-3">
 				<div
-					onClick={() => {}}
+					onClick={onRent}
 					className="hidden md:block text-sm font-semibold py-3 px-4 rounded-full hover:bg-neutral-100 transition cursor-pointer"
 				>
 					your home
@@ -51,7 +58,7 @@ export const UserMenu: React.FC<UserMenuProps> = (props: UserMenuProps) => {
 								<MenuItem onClick={() => {}} label="My trips" />
 								<MenuItem onClick={() => {}} label="My favorites" />
 								<MenuItem onClick={() => {}} label="My reservations" />
-								<MenuItem onClick={() => {}} label="My home" />
+								<MenuItem onClick={rentModalStore.onOpen} label="My home" />
 								<hr />
 								<MenuItem onClick={() => {}} label="Logout" />
 							</React.Fragment>
