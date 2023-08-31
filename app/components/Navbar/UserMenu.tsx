@@ -5,8 +5,8 @@ import React from 'react';
 import { AiOutlineMenu } from 'react-icons/ai';
 import { Avatar } from '../Avatar';
 import { MenuItem } from './MenuItem';
-import useRegisterModal from '../../hooks/useRegisterModal';
 import { User } from '../../interfaces/user';
+import { useLoginModalStore, useRegisterModalStore } from '../../store';
 
 interface UserMenuProps {
 	currentUser?: User;
@@ -15,7 +15,8 @@ interface UserMenuProps {
 export const UserMenu: React.FC<UserMenuProps> = (props: UserMenuProps) => {
 	const { currentUser } = props;
 
-	const registerModal = useRegisterModal();
+	const registerModalStore = useRegisterModalStore();
+	const loginModalStore = useLoginModalStore();
 
 	const [isMenuOpen, setIsMenuOpen] = React.useState<boolean>(false);
 
@@ -56,8 +57,8 @@ export const UserMenu: React.FC<UserMenuProps> = (props: UserMenuProps) => {
 							</React.Fragment>
 						) : (
 							<React.Fragment>
-								<MenuItem onClick={() => {}} label="Login" />
-								<MenuItem onClick={registerModal.onOpen} label="Sign up" />
+								<MenuItem onClick={loginModalStore.onOpen} label="Login" />
+								<MenuItem onClick={registerModalStore.onOpen} label="Sign up" />
 							</React.Fragment>
 						)}
 					</div>

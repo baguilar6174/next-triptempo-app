@@ -31,6 +31,8 @@ If your want to create build production, run `yarn build`
 - Next JS
 - Typescript
 - Eslint & Prettier
+- Zustand
+- Tailwind CSS
 
 ### What I learned
 

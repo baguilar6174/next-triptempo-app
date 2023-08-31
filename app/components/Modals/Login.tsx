@@ -11,7 +11,7 @@ import { toast } from 'react-hot-toast';
 import { Button } from '../Button';
 import { useLoginModalStore, useRegisterModalStore } from '../../store';
 
-export const RegisterModal = () => {
+export const LoginModal = () => {
 	const registerModalStore = useRegisterModalStore();
 	const loginModalStore = useLoginModalStore();
 
@@ -21,7 +21,6 @@ export const RegisterModal = () => {
 		formState: { errors }
 	} = useForm<FieldValues>({
 		defaultValues: {
-			name: '',
 			email: '',
 			password: ''
 		}
@@ -33,20 +32,19 @@ export const RegisterModal = () => {
 		setIsLoading(true);
 		console.log(data);
 		toast.success('Success');
-		registerModalStore.onClose();
+		loginModalStore.onClose();
 		setIsLoading(false);
 	};
 
 	const onToggle = React.useCallback(() => {
-		loginModalStore.onOpen();
-		registerModalStore.onClose();
+		loginModalStore.onClose();
+		registerModalStore.onOpen();
 	}, [loginModalStore, registerModalStore]);
 
 	const bodyContent = (
 		<div className="flex flex-col gap-4">
-			<Heading title="Wlecome to Trip Tempo" subtitle="Create an account" />
-			<Input id="email" label="Email" type="email" disabled={isLoading} register={register} errors={errors} required />
-			<Input id="name" label="Name" disabled={isLoading} register={register} errors={errors} required />
+			<Heading title="Welcome back" subtitle="Login to your account!" />
+			<Input id="email" label="Email" disabled={isLoading} register={register} errors={errors} required />
 			<Input
 				id="password"
 				label="Password"
@@ -63,12 +61,12 @@ export const RegisterModal = () => {
 		<div className="flex flex-col gap-4 mt-3">
 			<hr />
 			<Button outline label="Continue with Google" icon={FcGoogle} onClick={() => {}} />
-			<Button outline label="Continue with GitHub" icon={AiFillGithub} onClick={() => {}} />
+			<Button outline label="Continue with Github" icon={AiFillGithub} onClick={() => {}} />
 			<div className="text-neutral-500 text-center mt-4 font-light">
-				<div className="flex flex-row items-center justify-center gap-2">
-					<div>Already have an account?</div>
+				<div className="justify-center flex flex-row items-center gap-2">
+					<div>First time using Airbnb?</div>
 					<div onClick={onToggle} className="text-neutral-800 cursor-pointer hover:underline">
-						Log in
+						Create an account
 					</div>
 				</div>
 			</div>
@@ -78,10 +76,10 @@ export const RegisterModal = () => {
 	return (
 		<Modal
 			disabled={isLoading}
-			isOpen={registerModalStore.isOpen}
-			title="Register"
+			isOpen={loginModalStore.isOpen}
+			title="Login"
 			actionLabel="Continue"
-			onClose={registerModalStore.onClose}
+			onClose={loginModalStore.onClose}
 			onSubmit={handleSubmit(onSubmit)}
 			body={bodyContent}
 			footer={footerContent}
