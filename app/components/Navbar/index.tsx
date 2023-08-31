@@ -1,11 +1,18 @@
 'use client';
 
+import { User } from '../../interfaces/user';
 import { Container } from '../Container';
 import { Logo } from './Logo';
 import { Search } from './Search';
 import { UserMenu } from './UserMenu';
 
-export const Nabvar = () => {
+interface NavbarProps {
+	currentUser?: User;
+}
+
+export const Navbar: React.FC<NavbarProps> = (props: NavbarProps) => {
+	const { currentUser } = props;
+
 	return (
 		<div className="fixed w-full bg-white z-10 shadow-sm">
 			<div className="py-4 border-b-[1px]">
@@ -13,7 +20,7 @@ export const Nabvar = () => {
 					<div className="flex flex-row items-center justify-between gap-3 md:gap-0">
 						<Logo />
 						<Search />
-						<UserMenu />
+						<UserMenu currentUser={currentUser} />
 					</div>
 				</Container>
 			</div>

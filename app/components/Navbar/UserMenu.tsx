@@ -5,8 +5,18 @@ import React from 'react';
 import { AiOutlineMenu } from 'react-icons/ai';
 import { Avatar } from '../Avatar';
 import { MenuItem } from './MenuItem';
+import useRegisterModal from '../../hooks/useRegisterModal';
+import { User } from '../../interfaces/user';
 
-export const UserMenu = () => {
+interface UserMenuProps {
+	currentUser?: User;
+}
+
+export const UserMenu: React.FC<UserMenuProps> = (props: UserMenuProps) => {
+	const { currentUser } = props;
+
+	const registerModal = useRegisterModal();
+
 	const [isMenuOpen, setIsMenuOpen] = React.useState<boolean>(false);
 
 	const toggleOpen = React.useCallback(() => {
@@ -35,10 +45,21 @@ export const UserMenu = () => {
 			{isMenuOpen && (
 				<div className="absolute rounded-xl shadow-md w-[40vw] md:w-3/4 bg-white overflow-hidden right-0 top-12 text-sm ">
 					<div className="flex flex-col cursor-pointer">
-						<React.Fragment>
-							<MenuItem onClick={() => {}} label="Login" />
-							<MenuItem onClick={() => {}} label="Sign up" />
-						</React.Fragment>
+						{currentUser ? (
+							<React.Fragment>
+								<MenuItem onClick={() => {}} label="My trips" />
+								<MenuItem onClick={() => {}} label="My favorites" />
+								<MenuItem onClick={() => {}} label="My reservations" />
+								<MenuItem onClick={() => {}} label="My home" />
+								<hr />
+								<MenuItem onClick={() => {}} label="Logout" />
+							</React.Fragment>
+						) : (
+							<React.Fragment>
+								<MenuItem onClick={() => {}} label="Login" />
+								<MenuItem onClick={registerModal.onOpen} label="Sign up" />
+							</React.Fragment>
+						)}
 					</div>
 				</div>
 			)}
