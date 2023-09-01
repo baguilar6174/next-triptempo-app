@@ -7,7 +7,7 @@ import { RegisterModal } from './components/Modals/Register';
 import ToasterProvider from './providers/ToastProvider';
 import { LoginModal } from './components/Modals/Login';
 import { RentModal } from './components/Modals/Rent';
-import { User } from './interfaces/user';
+import { getCurrentUser } from './data/mock';
 
 const font = Nunito({ subsets: ['latin'] });
 
@@ -17,14 +17,7 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
-	// const currentUser = undefined;
-	const currentUser: User = {
-		id: '1',
-		name: 'Bryan Aguilar',
-		email: 'baguilar@test.com',
-		emailVerified: true,
-		image: ''
-	};
+	const currentUser = getCurrentUser();
 
 	return (
 		<html lang="en">

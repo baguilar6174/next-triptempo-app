@@ -1,6 +1,6 @@
 const options = [
 	{
-		value: 'Value',
+		value: 'HR',
 		label: 'label',
 		region: 'region'
 	}
