@@ -8,6 +8,7 @@ import ToasterProvider from './providers/ToastProvider';
 import { LoginModal } from './components/Modals/Login';
 import { RentModal } from './components/Modals/Rent';
 import { getCurrentUser } from './data/mock';
+import { SearchModal } from './components/Modals/Search';
 
 const font = Nunito({ subsets: ['latin'] });
 
@@ -27,6 +28,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 				<RegisterModal />
 				<LoginModal />
 				<RentModal />
+				<SearchModal />
 				<Navbar currentUser={currentUser} />
 				<div className="pb-20 pt-28">{children}</div>
 			</body>

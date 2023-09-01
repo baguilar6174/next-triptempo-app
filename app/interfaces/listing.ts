@@ -5,7 +5,7 @@ export interface SafeListing {
 	imageSrc: string;
 	category: string;
 	roomCount: number;
-	bathroomCOunt: number;
+	bathroomCount: number;
 	guestCount: number;
 	locationValue: string;
 	price: number;

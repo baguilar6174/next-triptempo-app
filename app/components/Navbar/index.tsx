@@ -1,6 +1,6 @@
 'use client';
 
-import { User } from '../../interfaces/user';
+import { SafeUser } from '../../interfaces/user';
 import { Container } from '../Container';
 import { Categories } from './Categories';
 import { Logo } from './Logo';
@@ -8,7 +8,7 @@ import { Search } from './Search';
 import { UserMenu } from './UserMenu';
 
 interface NavbarProps {
-	currentUser?: User;
+	currentUser?: SafeUser;
 }
 
 export const Navbar: React.FC<NavbarProps> = (props: NavbarProps) => {

@@ -13,14 +13,14 @@ import { Counter } from '../Inputs/Counter';
 import toast from 'react-hot-toast';
 import { useRouter } from 'next/navigation';
 
-enum STEPS {
-	CATEGORY = 0,
-	LOCATION = 1,
-	INFO = 2,
-	IMAGES = 3,
-	DESCRIPTION = 4,
-	PRICE = 5
-}
+const STEPS = {
+	CATEGORY: 0,
+	LOCATION: 1,
+	INFO: 2,
+	IMAGES: 3,
+	DESCRIPTION: 4,
+	PRICE: 5
+};
 
 export const RentModal = () => {
 	const router = useRouter();

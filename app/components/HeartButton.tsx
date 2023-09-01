@@ -10,6 +10,7 @@ interface HeartButtonProps {
 }
 
 export const HeartButton: React.FC<HeartButtonProps> = (props: HeartButtonProps) => {
+	// eslint-disable-next-line no-unused-vars
 	const { listingId, currentUser } = props;
 
 	const hasFavorited = false;

@@ -5,11 +5,11 @@ import React from 'react';
 import { AiOutlineMenu } from 'react-icons/ai';
 import { Avatar } from '../Avatar';
 import { MenuItem } from './MenuItem';
-import { User } from '../../interfaces/user';
+import { SafeUser } from '../../interfaces/user';
 import { useLoginModalStore, useRegisterModalStore, useRentModalStore } from '../../store';
 
 interface UserMenuProps {
-	currentUser?: User;
+	currentUser?: SafeUser;
 }
 
 export const UserMenu: React.FC<UserMenuProps> = (props: UserMenuProps) => {
