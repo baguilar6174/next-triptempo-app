@@ -48,7 +48,7 @@ If your want to create build production, run `yarn build`
 
 ## TODO:
 
--
+- Create seed to data
 
 ## Trip Tempo App
 
