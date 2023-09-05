@@ -44,7 +44,7 @@ model City {
 model TransportationProvider {
   id     Int     @id @default(autoincrement())
   name   String
-  logo   String
+  logo   String?
   routes Route[]
 
   @@map("tbl_transportation_provider")
@@ -63,17 +63,17 @@ model BusTerminal {
 
 // Model for Routes
 model Route {
-  id                       Int                     @id @default(autoincrement())
-  startCityId              Int                     @map("start_city_id")
-  endCityId                Int                     @map("end_city_id")
+  id                       Int                    @id @default(autoincrement())
+  startCityId              Int                    @map("start_city_id")
+  endCityId                Int                    @map("end_city_id")
   distance                 Int
   price                    Float
-  estimatedTravelTime      Int                     @map("estimated_travel_time")
-  transportationProviderId Int?                    @map("transportation_provider_id")
-  startCity                City                    @relation("StartCityRoutes", fields: [startCityId], references: [id])
-  endCity                  City                    @relation("EndCityRoutes", fields: [endCityId], references: [id])
+  estimatedTravelTime      Int                    @map("estimated_travel_time")
+  transportationProviderId Int                    @map("transportation_provider_id")
+  startCity                City                   @relation("StartCityRoutes", fields: [startCityId], references: [id])
+  endCity                  City                   @relation("EndCityRoutes", fields: [endCityId], references: [id])
   schedules                Schedule[]
-  transportationProvider   TransportationProvider? @relation(fields: [transportationProviderId], references: [id])
+  transportationProvider   TransportationProvider @relation(fields: [transportationProviderId], references: [id])
 
   @@map("tbl_route")
 }

@@ -5,6 +5,9 @@ import { Container } from './Container';
 import { Heading } from './Heading';
 import { Button } from './Button';
 import { SelectValue, CustomSelect } from './Inputs/Select';
+import { ResultCard } from './ResultCard';
+import axios from 'axios';
+import { Schedule } from '../interfaces/schedule';
 
 interface SearchProps {
 	cities: SelectValue[];
@@ -15,6 +18,7 @@ export const Search: React.FC<SearchProps> = (props: SearchProps) => {
 
 	const [startCity, setStartCity] = React.useState<SelectValue>();
 	const [endCity, setEndCity] = React.useState<SelectValue>();
+	const [schedules, setSchedules] = React.useState<Schedule[]>();
 
 	return (
 		<Container>
@@ -34,10 +38,32 @@ export const Search: React.FC<SearchProps> = (props: SearchProps) => {
 				/>
 				<Button label="Search" onClick={onSubmit} />
 			</div>
+			{/* results */}
+			{schedules && (
+				<>
+					<div className="pt-10">
+						<p className="text-neutral-500">
+							We&apos;ve found <span className="text-rose-500">523</span> results
+						</p>
+					</div>
+					{schedules.map((schedule) => (
+						<ResultCard key={schedule.id} schedule={schedule} />
+					))}
+				</>
+			)}
 		</Container>
 	);
 
-	function onSubmit() {
-		console.log({ startCity, endCity });
+	async function onSubmit() {
+		if (!startCity || !endCity) return;
+		/* const data = await getSchedules(startCity.value, endCity.value);
+		console.log(data); */
+		const { data } = await axios.get('/api/cities', {
+			params: {
+				startCityId: startCity.value,
+				endCityId: endCity.value
+			}
+		});
+		setSchedules(data);
 	}
 };

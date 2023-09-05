@@ -1,8 +1,8 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import prisma from '../../../app/libs/prisma';
-import { Schedule } from '@prisma/client';
+import { Schedule } from '../../../app/interfaces/schedule';
 
-type Data = { message: string } | Schedule[];
+type Data = { message: string } | any[];
 
 export default function handler(req: NextApiRequest, res: NextApiResponse<Data>): void | Promise<void> {
 	switch (req.method) {
@@ -14,41 +14,48 @@ export default function handler(req: NextApiRequest, res: NextApiResponse<Data>)
 }
 
 const getAll = async (req: NextApiRequest, res: NextApiResponse<Data>): Promise<void> => {
+	const { startCityId, endCityId } = req.query;
+
 	try {
-		const data = await prisma.schedule.findMany({
+		const data = await prisma.transportationProvider.findMany({
 			where: {
-				route: {
-					startCity: {
-						name: 'Riobamba'
-					},
-					endCity: {
-						name: 'Quito'
+				routes: {
+					some: {
+						startCityId: Number(startCityId),
+						endCityId: Number(endCityId)
 					}
 				}
 			},
-			include: {
-				route: {
-					include: {
-						startCity: {
+			select: {
+				id: true,
+				name: true,
+				routes: {
+					select: {
+						schedules: {
 							select: {
-								name: true
+								departureTime: true
 							}
 						},
-						endCity: {
-							select: {
-								name: true
-							}
-						},
-						transportationProvider: {
-							select: {
-								name: true
-							}
-						}
+						estimatedTravelTime: true,
+						distance: true,
+						price: true
 					}
 				}
 			}
 		});
-		res.status(200).json(data);
+		const format = data.map((el): Schedule => {
+			return {
+				id: el.id,
+				transportationProvider: el.name,
+				estimatedTravelTime: el.routes[0].estimatedTravelTime,
+				distance: el.routes[0].distance,
+				price: el.routes[0].price,
+				schedules: el.routes[0].schedules.map(function (item) {
+					return item['departureTime'];
+				})
+			};
+		});
+		res.status(200).json(format);
 	} catch (error) {
 		console.log(error);
 		return res.status(500).json({ message: 'Something was wrong (check logs)' });
