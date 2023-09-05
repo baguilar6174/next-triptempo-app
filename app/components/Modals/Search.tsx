@@ -5,7 +5,6 @@ import { Modal } from './Modal';
 import { useSearchModalStore } from '../../store/searchModalStore';
 import { Heading } from '../Heading';
 import { Counter } from '../Inputs/Counter';
-import CountrySelect, { CountrySelectValue } from '../Inputs/CountrySelect';
 import { useRouter, useSearchParams } from 'next/navigation';
 import qs from 'query-string';
 
@@ -21,7 +20,7 @@ export const SearchModal = () => {
 	const params = useSearchParams();
 
 	const [step, setStep] = React.useState(STEPS.LOCATION);
-	const [location, setLocation] = React.useState<CountrySelectValue>();
+	/* const [location, setLocation] = React.useState<SelectValue>(); */
 	const [guestCount, setGuestCount] = React.useState(1);
 	const [roomCount, setRoomCount] = React.useState(1);
 	const [bathroomCount, setBathroomCount] = React.useState(1);
@@ -46,7 +45,6 @@ export const SearchModal = () => {
 
 		const updatedQuery: any = {
 			...currentQuery,
-			locationValue: location?.value,
 			guestCount,
 			roomCount,
 			bathroomCount
@@ -63,7 +61,7 @@ export const SearchModal = () => {
 		setStep(STEPS.LOCATION);
 		searchModalStore.onClose();
 		router.push(url);
-	}, [step, onNext, params, location?.value, guestCount, roomCount, bathroomCount, searchModalStore, router]);
+	}, [step, onNext, params, guestCount, roomCount, bathroomCount, searchModalStore, router]);
 
 	const secondaryActionLabel = React.useMemo(() => {
 		if (step === STEPS.LOCATION) {
@@ -76,7 +74,7 @@ export const SearchModal = () => {
 	let bodyContent = (
 		<div className="flex flex-col gap-8">
 			<Heading title="Where do you wanna go?" subtitle="Find the perfect location!" />
-			<CountrySelect value={location} onChange={(value) => setLocation(value as CountrySelectValue)} />
+			{/* <CustomSelect value={location} onChange={(value) => setLocation(value as SelectValue)} /> */}
 		</div>
 	);
 

@@ -1,36 +1,39 @@
 'use client';
 
 import Select from 'react-select';
-import { useCountriesStore } from '../../store';
 
-export type CountrySelectValue = {
+export type SelectValue = {
 	label: string;
 	region: string;
-	value: string;
+	province: string;
+	value: number;
 };
 
 interface CountrySelectProps {
-	value?: CountrySelectValue;
+	placeholder?: string;
+	value?: SelectValue;
+	options: SelectValue[];
 	// eslint-disable-next-line no-unused-vars
-	onChange: (value: CountrySelectValue) => void;
+	onChange: (value: SelectValue) => void;
 }
 
-const CountrySelect: React.FC<CountrySelectProps> = (props: CountrySelectProps) => {
-	const { value, onChange } = props;
-	const { getAll } = useCountriesStore();
+export const CustomSelect: React.FC<CountrySelectProps> = (props: CountrySelectProps) => {
+	const { value, onChange, options, placeholder = '' } = props;
 
 	return (
 		<div>
 			<Select
-				placeholder="Anywhere"
+				placeholder={placeholder}
 				isClearable
-				options={getAll()}
+				id="selectbox"
+				instanceId="selectbox"
+				options={options}
 				value={value}
-				onChange={(value) => onChange(value as CountrySelectValue)}
+				onChange={(value) => onChange(value as SelectValue)}
 				formatOptionLabel={(option: any) => (
 					<div className="flex flex-row items-center gap-3">
 						<div>
-							{option.label},<span className="text-neutral-500 ml-1">{option.region}</span>
+							{option.label},<span className="text-neutral-500 ml-1">{option.province}</span>
 						</div>
 					</div>
 				)}
@@ -52,5 +55,3 @@ const CountrySelect: React.FC<CountrySelectProps> = (props: CountrySelectProps) 
 		</div>
 	);
 };
-
-export default CountrySelect;

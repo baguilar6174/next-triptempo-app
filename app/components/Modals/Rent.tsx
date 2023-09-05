@@ -8,7 +8,6 @@ import { Input } from '../Inputs/Input';
 import { categories } from '../Navbar/Categories';
 import { CategoryInput } from '../Inputs/CategoryInput';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
-import CountrySelect from '../Inputs/CountrySelect';
 import { Counter } from '../Inputs/Counter';
 import toast from 'react-hot-toast';
 import { useRouter } from 'next/navigation';
@@ -49,7 +48,6 @@ export const RentModal = () => {
 		}
 	});
 
-	const location = watch('location');
 	const category = watch('category');
 	const guestCount = watch('guestCount');
 	const roomCount = watch('roomCount');
@@ -115,7 +113,7 @@ export const RentModal = () => {
 		bodyContent = (
 			<div className="flex flex-col gap-8">
 				<Heading title="Where is your place located?" subtitle="Help guests find you!" />
-				<CountrySelect value={location} onChange={(value) => setCustomValue('location', value)} />
+				{/* <CustomSelect  value={location} onChange={(value) => setCustomValue('location', value)} /> */}
 			</div>
 		);
 	}

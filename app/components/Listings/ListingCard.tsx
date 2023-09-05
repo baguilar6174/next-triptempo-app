@@ -7,7 +7,6 @@ import { useRouter } from 'next/navigation';
 import { SafeListing } from '../../interfaces/listing';
 import { SafeUser } from '../../interfaces/user';
 import { SafeReservation } from '../../interfaces/reservation';
-import { useCountriesStore } from '../../store';
 import { Button } from '../Button';
 import { HeartButton } from '../HeartButton';
 
@@ -26,9 +25,6 @@ export const ListingCard: React.FC<ListingCardProps> = (props: ListingCardProps)
 	const { data, reservation, onAction, disabled, actionLabel, actionId = '', currentUser } = props;
 
 	const router = useRouter();
-	const { getByValue } = useCountriesStore();
-
-	const location = getByValue(data.locationValue);
 
 	const handleCancel = React.useCallback(
 		(e: React.MouseEvent<HTMLButtonElement>) => {
@@ -65,9 +61,9 @@ export const ListingCard: React.FC<ListingCardProps> = (props: ListingCardProps)
 						<HeartButton listingId={data.id} currentUser={currentUser} />
 					</div>
 				</div>
-				<div className="font-semibold text-lg">
+				{/* <div className="font-semibold text-lg">
 					{location?.region}, {location?.label}
-				</div>
+				</div> */}
 				<div className="font-light text-neutral-500">{reservationDate || data.category}</div>
 				<div className="flex flex-row items-center gap-1">
 					<div className="font-semibold">$ {price}</div>
