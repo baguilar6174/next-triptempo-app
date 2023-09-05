@@ -44,6 +44,7 @@ model City {
 model TransportationProvider {
   id     Int     @id @default(autoincrement())
   name   String
+  logo   String
   routes Route[]
 
   @@map("tbl_transportation_provider")

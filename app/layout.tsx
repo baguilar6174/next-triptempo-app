@@ -4,7 +4,6 @@ import { Nunito } from 'next/font/google';
 
 import { Navbar } from './components/Navbar';
 import { RegisterModal } from './components/Modals/Register';
-import ToasterProvider from './providers/ToastProvider';
 import { LoginModal } from './components/Modals/Login';
 import { RentModal } from './components/Modals/Rent';
 import { getCurrentUser } from './data/mock';
@@ -23,7 +22,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 	return (
 		<html lang="en">
 			<body className={font.className}>
-				<ToasterProvider />
 				{/* Modals */}
 				<RegisterModal />
 				<LoginModal />

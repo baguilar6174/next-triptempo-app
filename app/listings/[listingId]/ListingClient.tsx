@@ -9,7 +9,6 @@ import { ListingHead } from '../../components/Listings/ListingHead';
 import { ListingInfo } from '../../components/Listings/ListingInfo';
 import { ListingReservation } from '../../components/Listings/ListingReservation';
 import { useLoginModalStore } from '../../store';
-import toast from 'react-hot-toast';
 import { useRouter } from 'next/navigation';
 
 interface ListingClientProps {
@@ -32,7 +31,6 @@ export const ListingClient: React.FC<ListingClientProps> = (props: ListingClient
 	const onCreateReservation = React.useCallback(() => {
 		if (!currentUser) return loginModal.onOpen();
 		setIsLoading(true);
-		toast.success('Listing reserved!');
 		router.push('/trips');
 		setIsLoading(false);
 	}, [currentUser, loginModal, router]);

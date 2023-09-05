@@ -7,7 +7,6 @@ import { ListingCard } from '../components/Listings/ListingCard';
 import { Container } from '../components/Container';
 import { Heading } from '../components/Heading';
 import { useRouter } from 'next/navigation';
-import toast from 'react-hot-toast';
 
 interface TripsClientProps {
 	reservations: SafeReservation[];
@@ -23,7 +22,6 @@ export const TripsClient: React.FC<TripsClientProps> = (props: TripsClientProps)
 	const onCancel = React.useCallback(
 		(id: string) => {
 			setDeletingId(id);
-			toast.success('Reservation cancelled');
 			router.refresh();
 			setDeletingId('');
 		},

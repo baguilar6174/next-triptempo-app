@@ -20,9 +20,11 @@ yarn
 
 ## Running the app
 
+- Rename `.env.template` to `.env` and add your environment variables
+- Connect to Postgres database
+- Run `npx prisma db push` to create tables and relationships
 - Run `yarn dev`
-
-If your want to create build production, run `yarn build`
+- If your want to create build production, run `yarn build`
 
 ## My process
 
@@ -35,10 +37,6 @@ If your want to create build production, run `yarn build`
 - Tailwind CSS
 - Prisma
 
-### What I learned
-
--
-
 ## Development Features
 
 -
@@ -50,6 +48,7 @@ If your want to create build production, run `yarn build`
 ## TODO:
 
 - Create seed to data
+- Internationalization
 
 ## Trip Tempo App
 

@@ -9,7 +9,6 @@ import { categories } from '../Navbar/Categories';
 import { CategoryInput } from '../Inputs/CategoryInput';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import { Counter } from '../Inputs/Counter';
-import toast from 'react-hot-toast';
 import { useRouter } from 'next/navigation';
 
 const STEPS = {
@@ -73,7 +72,6 @@ export const RentModal = () => {
 		if (step !== STEPS.PRICE) return onNext();
 		setIsLoading(true);
 		console.log(data);
-		toast.success('Listing created!');
 		router.refresh();
 		reset();
 		setStep(STEPS.CATEGORY);

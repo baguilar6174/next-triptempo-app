@@ -7,7 +7,6 @@ import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import { Modal } from './Modal';
 import { Heading } from '../Heading';
 import { Input } from '../Inputs/Input';
-import { toast } from 'react-hot-toast';
 import { Button } from '../Button';
 import { useLoginModalStore, useRegisterModalStore } from '../../store';
 
@@ -31,7 +30,6 @@ export const LoginModal = () => {
 	const onSubmit: SubmitHandler<FieldValues> = (data) => {
 		setIsLoading(true);
 		console.log(data);
-		toast.success('Success');
 		loginModalStore.onClose();
 		setIsLoading(false);
 	};
