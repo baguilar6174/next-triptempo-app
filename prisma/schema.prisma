@@ -7,23 +7,44 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+// Model for Provinces
+model Region {
+  id        Int        @id @default(autoincrement())
+  name      String     @unique
+  provinces Province[]
+
+  @@map("tbl_region")
+}
+
+// Model for Provinces
+model Province {
+  id       Int    @id @default(autoincrement())
+  name     String @unique
+  regionId Int
+  cities   City[]
+  region   Region @relation(fields: [regionId], references: [id])
+
+  @@map("tbl_province")
+}
+
 // Model for Cities
 model City {
   id           Int           @id @default(autoincrement())
-  name         String
+  name         String        @unique
+  provinceId   Int
   busTerminals BusTerminal[]
   routesStart  Route[]       @relation("StartCityRoutes")
   routesEnd    Route[]       @relation("EndCityRoutes")
+  province     Province      @relation(fields: [provinceId], references: [id])
 
   @@map("tbl_city")
 }
 
 // Model for Transportation Providers
 model TransportationProvider {
-  id          Int     @id @default(autoincrement())
-  name        String
-  contactInfo String? @map("contact_info")
-  routes      Route[]
+  id     Int     @id @default(autoincrement())
+  name   String
+  routes Route[]
 
   @@map("tbl_transportation_provider")
 }
@@ -45,6 +66,7 @@ model Route {
   startCityId              Int                     @map("start_city_id")
   endCityId                Int                     @map("end_city_id")
   distance                 Int
+  price                    Float
   estimatedTravelTime      Int                     @map("estimated_travel_time")
   transportationProviderId Int?                    @map("transportation_provider_id")
   startCity                City                    @relation("StartCityRoutes", fields: [startCityId], references: [id])
@@ -60,8 +82,6 @@ model Schedule {
   id            Int           @id @default(autoincrement())
   routeId       Int           @map("route_id")
   departureTime String        @map("departure_time")
-  arrivalTime   String        @map("arrival_time")
-  date          DateTime
   route         Route         @relation(fields: [routeId], references: [id])
   reservations  Reservation[]
 

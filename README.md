@@ -33,6 +33,7 @@ If your want to create build production, run `yarn build`
 - Eslint & Prettier
 - Zustand
 - Tailwind CSS
+- Prisma
 
 ### What I learned
 
