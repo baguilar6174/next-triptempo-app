@@ -99,8 +99,8 @@ export const cities: City[] = [
 ];
 
 export const transportationProviders: TransportationProvider[] = [
-	{ id: 1, name: 'Cooperativa Patria', logo: null },
-	{ id: 2, name: 'Cooperativa Chimborazo', logo: null }
+	{ id: 1, name: 'Cooperativa Patria', logo: null, details: null },
+	{ id: 2, name: 'Cooperativa Chimborazo', logo: null, details: null }
 ];
 
 export const routes: Route[] = [
