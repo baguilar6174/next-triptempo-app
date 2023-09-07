@@ -5,6 +5,10 @@ import { Container } from './Container';
 import { Heading } from './Heading';
 import { Button } from './Button';
 import { SelectValue, CustomSelect } from './Inputs/Select';
+import { useSchedulesStore } from '../store';
+import { ResultCard } from './ResultCard';
+import { Loader } from './Loader';
+import EmptyState from './EmptyState';
 
 interface SearchProps {
 	cities: SelectValue[];
@@ -13,9 +17,10 @@ interface SearchProps {
 export const Search: React.FC<SearchProps> = (props: SearchProps) => {
 	const { cities } = props;
 
+	const { isLoading, fetchSchedules, schedules } = useSchedulesStore();
+
 	const [startCity, setStartCity] = React.useState<SelectValue>();
 	const [endCity, setEndCity] = React.useState<SelectValue>();
-	/* const [schedules, setSchedules] = React.useState<Schedule[]>(); */
 
 	return (
 		<Container>
@@ -36,24 +41,27 @@ export const Search: React.FC<SearchProps> = (props: SearchProps) => {
 				<Button label="Search" onClick={onSubmit} />
 			</div>
 			{/* results */}
-			{/* {schedules && (
+			{isLoading && <Loader />}
+			{schedules.length === 0 && <EmptyState />}
+			{schedules.length !== 0 && (
 				<>
 					<div className="pt-10">
 						<p className="text-neutral-500">
-							We&apos;ve found <span className="text-rose-500">523</span> results
+							We&apos;ve found <span className="text-rose-500">{schedules.length}</span> results
 						</p>
 					</div>
 					{schedules.map((schedule) => (
 						<ResultCard key={schedule.id} schedule={schedule} />
 					))}
 				</>
-			)} */}
+			)}
 		</Container>
 	);
 
 	async function onSubmit() {
-		/* if (!startCity || !endCity) return;
-		const { data } = await axios.get('/api/cities', {
+		if (!startCity || !endCity) return;
+		fetchSchedules(startCity.value, endCity.value);
+		/*const { data } = await axios.get('/api/cities', {
 			params: {
 				startCityId: startCity.value,
 				endCityId: endCity.value

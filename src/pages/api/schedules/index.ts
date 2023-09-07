@@ -29,11 +29,16 @@ const getAll = async (req: NextApiRequest, res: NextApiResponse<Data>): Promise<
 			select: {
 				id: true,
 				name: true,
+				logo: true,
+				details: true,
 				routes: {
 					select: {
 						schedules: {
 							select: {
 								departureTime: true
+							},
+							orderBy: {
+								departureTime: 'asc'
 							}
 						},
 						estimatedTravelTime: true,
@@ -43,11 +48,13 @@ const getAll = async (req: NextApiRequest, res: NextApiResponse<Data>): Promise<
 				}
 			}
 		});
-		const format = data.map(({ id, name, routes }): Schedule => {
+		const format = data.map(({ id, name, logo, routes, details }): Schedule => {
 			const { distance, estimatedTravelTime, price, schedules } = routes[0];
 			return {
 				id,
 				transportationProvider: name,
+				transportationProviderLogo: logo,
+				transportationProviderDetails: details,
 				estimatedTravelTime,
 				distance,
 				price,

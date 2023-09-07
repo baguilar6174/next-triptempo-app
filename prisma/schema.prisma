@@ -42,10 +42,11 @@ model City {
 
 // Model for Transportation Providers
 model TransportationProvider {
-  id     Int     @id @default(autoincrement())
-  name   String
-  logo   String?
-  routes Route[]
+  id      Int     @id @default(autoincrement())
+  name    String
+  logo    String?
+  details String?
+  routes  Route[]
 
   @@map("tbl_transportation_provider")
 }
