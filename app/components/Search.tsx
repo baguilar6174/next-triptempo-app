@@ -56,8 +56,6 @@ export const Search: React.FC<SearchProps> = (props: SearchProps) => {
 
 	async function onSubmit() {
 		if (!startCity || !endCity) return;
-		/* const data = await getSchedules(startCity.value, endCity.value);
-		console.log(data); */
 		const { data } = await axios.get('/api/cities', {
 			params: {
 				startCityId: startCity.value,

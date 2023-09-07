@@ -2,7 +2,7 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 import prisma from '../../../app/libs/prisma';
 import { Schedule } from '../../../app/interfaces/schedule';
 
-type Data = { message: string } | any[];
+type Data = { message: string } | Schedule[];
 
 export default function handler(req: NextApiRequest, res: NextApiResponse<Data>): void | Promise<void> {
 	switch (req.method) {
@@ -43,16 +43,15 @@ const getAll = async (req: NextApiRequest, res: NextApiResponse<Data>): Promise<
 				}
 			}
 		});
-		const format = data.map((el): Schedule => {
+		const format = data.map(({ id, name, routes }): Schedule => {
+			const { distance, estimatedTravelTime, price, schedules } = routes[0];
 			return {
-				id: el.id,
-				transportationProvider: el.name,
-				estimatedTravelTime: el.routes[0].estimatedTravelTime,
-				distance: el.routes[0].distance,
-				price: el.routes[0].price,
-				schedules: el.routes[0].schedules.map(function (item) {
-					return item['departureTime'];
-				})
+				id,
+				transportationProvider: name,
+				estimatedTravelTime,
+				distance,
+				price,
+				schedules: schedules.map((item) => item.departureTime)
 			};
 		});
 		res.status(200).json(format);
