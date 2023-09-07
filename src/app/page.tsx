@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Search } from '../components/Search';
+import { Search } from '../components/SearchClient';
 import getCities from '../actions/cities';
 
 export default async function Home() {

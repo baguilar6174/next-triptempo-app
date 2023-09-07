@@ -1,24 +1,30 @@
 'use client';
 
-import Select from 'react-select';
+import Select, { FormatOptionLabelMeta } from 'react-select';
 
-export type SelectValue = {
+export type SelectValueBase = {
 	label: string;
-	region: string;
-	province: string;
 	value: number;
 };
 
-interface CountrySelectProps {
+interface CustomSelectProps {
 	placeholder?: string;
-	value?: SelectValue;
-	options: SelectValue[];
+	value?: SelectValueBase;
+	options: SelectValueBase[];
 	// eslint-disable-next-line no-unused-vars
-	onChange: (value: SelectValue) => void;
+	onChange: (value: SelectValueBase) => void;
+	// eslint-disable-next-line no-unused-vars
+	formatOptionLabel?: (data: any, formatOptionLabelMeta: FormatOptionLabelMeta<SelectValueBase>) => React.ReactNode;
 }
 
-export const CustomSelect: React.FC<CountrySelectProps> = (props: CountrySelectProps) => {
-	const { value, onChange, options, placeholder = '' } = props;
+export const CustomSelect: React.FC<CustomSelectProps> = (props: CustomSelectProps) => {
+	const defaultFormatOptionLabel = (option: SelectValueBase) => (
+		<div className="flex flex-row items-center gap-3">
+			<div>{option.label}</div>
+		</div>
+	);
+
+	const { value, onChange, options, formatOptionLabel = defaultFormatOptionLabel, placeholder = '' } = props;
 
 	return (
 		<div>
@@ -29,14 +35,8 @@ export const CustomSelect: React.FC<CountrySelectProps> = (props: CountrySelectP
 				instanceId="selectbox"
 				options={options}
 				value={value}
-				onChange={(value) => onChange(value as SelectValue)}
-				formatOptionLabel={(option: any) => (
-					<div className="flex flex-row items-center gap-3">
-						<div>
-							{option.label},<span className="text-neutral-500 ml-1">{option.province}</span>
-						</div>
-					</div>
-				)}
+				onChange={(value) => onChange(value as SelectValueBase)}
+				formatOptionLabel={formatOptionLabel}
 				classNames={{
 					control: () => 'p-3 border-2',
 					input: () => 'text-lg',

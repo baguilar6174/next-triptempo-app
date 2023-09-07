@@ -4,14 +4,15 @@ import React from 'react';
 import { Container } from './Container';
 import { Heading } from './Heading';
 import { Button } from './Button';
-import { SelectValue, CustomSelect } from './Inputs/Select';
+import { CustomSelect } from './Inputs/Select';
 import { useSchedulesStore } from '../store';
 import { ResultCard } from './ResultCard';
 import { Loader } from './Loader';
 import EmptyState from './EmptyState';
+import { CitiesSelectValue } from '../types';
 
 interface SearchProps {
-	cities: SelectValue[];
+	cities: CitiesSelectValue[];
 }
 
 export const Search: React.FC<SearchProps> = (props: SearchProps) => {
@@ -19,8 +20,16 @@ export const Search: React.FC<SearchProps> = (props: SearchProps) => {
 
 	const { isLoading, fetchSchedules, schedules } = useSchedulesStore();
 
-	const [startCity, setStartCity] = React.useState<SelectValue>();
-	const [endCity, setEndCity] = React.useState<SelectValue>();
+	const [startCity, setStartCity] = React.useState<CitiesSelectValue>();
+	const [endCity, setEndCity] = React.useState<CitiesSelectValue>();
+
+	const formatOptionLabel = (option: CitiesSelectValue) => (
+		<div className="flex flex-row items-center gap-3">
+			<div>
+				{option.label},<span className="text-neutral-500 ml-1">{option.province}</span>
+			</div>
+		</div>
+	);
 
 	return (
 		<Container>
@@ -30,13 +39,15 @@ export const Search: React.FC<SearchProps> = (props: SearchProps) => {
 					options={cities.filter((city) => city.value != endCity?.value)}
 					placeholder="Where from?"
 					value={startCity}
-					onChange={(value) => setStartCity(value as SelectValue)}
+					onChange={(value) => setStartCity(value as CitiesSelectValue)}
+					formatOptionLabel={formatOptionLabel}
 				/>
 				<CustomSelect
 					options={cities.filter((city) => city.value != startCity?.value)}
 					placeholder="Where to?"
 					value={endCity}
-					onChange={(value) => setEndCity(value as SelectValue)}
+					onChange={(value) => setEndCity(value as CitiesSelectValue)}
+					formatOptionLabel={formatOptionLabel}
 				/>
 				<Button label="Search" onClick={onSubmit} />
 			</div>
