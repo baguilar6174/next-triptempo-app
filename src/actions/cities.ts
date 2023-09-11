@@ -1,7 +1,7 @@
-import { SelectValue } from '../components/Inputs/Select';
 import prisma from '../libs/prisma';
+import { CitiesSelectValue } from '../types';
 
-export default async function getCities(): Promise<SelectValue[]> {
+export default async function getCities(): Promise<CitiesSelectValue[]> {
 	try {
 		const cities = await prisma.city.findMany({
 			include: {
@@ -12,7 +12,7 @@ export default async function getCities(): Promise<SelectValue[]> {
 				}
 			}
 		});
-		return cities.map((city): SelectValue => {
+		return cities.map((city): CitiesSelectValue => {
 			return {
 				value: city.id,
 				label: city.name,
