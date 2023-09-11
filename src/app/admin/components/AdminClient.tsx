@@ -8,6 +8,9 @@ import { Button } from '../../../components/Button';
 import { CitiesSelectValue } from '../../../types';
 import { Input } from '../../../components/Inputs/Input';
 import { FieldValues, useForm } from 'react-hook-form';
+import { GiPathDistance } from 'react-icons/gi';
+import { AiOutlineFieldTime } from 'react-icons/ai';
+import { RiMoneyDollarCircleFill } from 'react-icons/ri';
 
 interface AdminClientProps {
 	providers: SelectValueBase[];
@@ -43,7 +46,7 @@ export const AdminClient: React.FC<AdminClientProps> = (props: AdminClientProps)
 	return (
 		<Container>
 			<Heading title="Create Routes" subtitle="Here you can create routes" />
-			<div className="mt-5 grid grid-cols-1 lg:grid-cols-3 gap-8">
+			<div className="mt-5 grid grid-cols-1 lg:grid-cols-4 gap-8">
 				<CustomSelect
 					options={providers}
 					placeholder="Provider"
@@ -64,18 +67,33 @@ export const AdminClient: React.FC<AdminClientProps> = (props: AdminClientProps)
 					onChange={(value) => setEndCity(value as CitiesSelectValue)}
 					formatOptionLabel={formatOptionLabel}
 				/>
-				<Input id="distance" label="Distance" formatPrice type="number" register={register} errors={errors} required />
 				<Input
-					id="estimatedTravelTime"
-					label="Estimated travel time"
-					formatPrice
+					id="distance"
+					label="Distance"
+					icon={GiPathDistance}
 					type="number"
 					register={register}
 					errors={errors}
 					required
 				/>
-				<Input id="price" label="Price" formatPrice type="number" register={register} errors={errors} required />
-				<Input id="df" label="dffsd" register={register} errors={errors} required />
+				<Input
+					id="estimatedTravelTime"
+					label="Estimated travel time"
+					icon={AiOutlineFieldTime}
+					type="number"
+					register={register}
+					errors={errors}
+					required
+				/>
+				<Input
+					id="price"
+					label="Price"
+					icon={RiMoneyDollarCircleFill}
+					type="number"
+					register={register}
+					errors={errors}
+					required
+				/>
 				<Button label="Save" onClick={onSubmit} />
 			</div>
 		</Container>
