@@ -64,7 +64,7 @@ model BusTerminal {
 
 // Model for Routes
 model Route {
-  id                       Int                    @id @default(autoincrement())
+  id                       Int                    @unique @default(autoincrement())
   startCityId              Int                    @map("start_city_id")
   endCityId                Int                    @map("end_city_id")
   distance                 Int
@@ -76,6 +76,7 @@ model Route {
   schedules                Schedule[]
   transportationProvider   TransportationProvider @relation(fields: [transportationProviderId], references: [id])
 
+  @@id([id, startCityId, endCityId, transportationProviderId])
   @@map("tbl_route")
 }
 

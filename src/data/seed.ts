@@ -99,8 +99,19 @@ export const cities: City[] = [
 ];
 
 export const transportationProviders: TransportationProvider[] = [
-	{ id: 1, name: 'Cooperativa Patria', logo: null, details: null },
-	{ id: 2, name: 'Cooperativa Chimborazo', logo: null, details: null }
+	{
+		id: 1,
+		name: 'Cooperativa Patria',
+		logo: 'patria.png',
+		details: 'Cooperativa de Transportes Patria con más de 55 años sirviendo a nuestros clientes'
+	},
+	{
+		id: 2,
+		name: 'Cooperativa Chimborazo',
+		logo: 'chimborazo.png',
+		details:
+			'Transportes Chimborazo es una empresa especializada en el Transporte y envío de encomiendas en Ecuador. Comprometida con las necesidades de sus clientes.'
+	}
 ];
 
 export const routes: Route[] = [
@@ -125,8 +136,41 @@ export const routes: Route[] = [
 ];
 
 export const schedules: CreateScheduleDTO[] = [
-	{ routeId: 1, departureTime: '3:15' },
-	{ routeId: 1, departureTime: '5:30' },
-	{ routeId: 2, departureTime: '6:30' },
-	{ routeId: 2, departureTime: '9:45' }
+	{ routeId: 1, departureTime: '03:30' },
+	{ routeId: 1, departureTime: '05:00' },
+	{ routeId: 1, departureTime: '07:00' },
+	{ routeId: 1, departureTime: '08:00' },
+	{ routeId: 1, departureTime: '08:30' },
+	{ routeId: 1, departureTime: '09:45' },
+	{ routeId: 1, departureTime: '10:00' },
+	{ routeId: 1, departureTime: '11:30' },
+	{ routeId: 1, departureTime: '11:45' },
+	{ routeId: 1, departureTime: '12:15' },
+	{ routeId: 1, departureTime: '13:00' },
+	{ routeId: 1, departureTime: '14:15' },
+	{ routeId: 1, departureTime: '14:30' },
+	{ routeId: 1, departureTime: '16:15' },
+	{ routeId: 1, departureTime: '17:45' },
+	{ routeId: 1, departureTime: '18:15' },
+	{ routeId: 1, departureTime: '18:45' },
+	{ routeId: 1, departureTime: '19:15' },
+	{ routeId: 1, departureTime: '19:45' },
+	{ routeId: 1, departureTime: '20:15' },
+	{ routeId: 1, departureTime: '22:00' },
+	{ routeId: 2, departureTime: '03:15' },
+	{ routeId: 2, departureTime: '05:30' },
+	{ routeId: 2, departureTime: '06:30' },
+	{ routeId: 2, departureTime: '06:45' },
+	{ routeId: 2, departureTime: '09:15' },
+	{ routeId: 2, departureTime: '09:30' },
+	{ routeId: 2, departureTime: '10:45' },
+	{ routeId: 2, departureTime: '11:00' },
+	{ routeId: 2, departureTime: '12:00' },
+	{ routeId: 2, departureTime: '12:30' },
+	{ routeId: 2, departureTime: '13:15' },
+	{ routeId: 2, departureTime: '14:00' },
+	{ routeId: 2, departureTime: '15:15' },
+	{ routeId: 2, departureTime: '17:00' },
+	{ routeId: 2, departureTime: '17:30' },
+	{ routeId: 2, departureTime: '19:00' }
 ];

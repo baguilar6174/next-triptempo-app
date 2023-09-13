@@ -1,7 +1,7 @@
 'use client';
 
 import { HTMLInputTypeAttribute } from 'react';
-import { FieldErrors, FieldValues, UseFormRegister } from 'react-hook-form';
+import { FieldErrors, UseFormRegister } from 'react-hook-form';
 import { IconType } from 'react-icons';
 
 interface InputProps {
@@ -11,7 +11,7 @@ interface InputProps {
 	disabled?: boolean;
 	icon?: IconType;
 	required?: boolean;
-	register: UseFormRegister<FieldValues>;
+	register: UseFormRegister<any>;
 	errors: FieldErrors;
 }
 

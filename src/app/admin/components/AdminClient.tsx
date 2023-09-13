@@ -7,33 +7,68 @@ import { CustomSelect, SelectValueBase } from '../../../components/Inputs/Select
 import { Button } from '../../../components/Button';
 import { CitiesSelectValue } from '../../../types';
 import { Input } from '../../../components/Inputs/Input';
-import { FieldValues, useForm } from 'react-hook-form';
+import { SubmitHandler, useForm } from 'react-hook-form';
 import { GiPathDistance } from 'react-icons/gi';
 import { AiOutlineFieldTime } from 'react-icons/ai';
 import { RiMoneyDollarCircleFill } from 'react-icons/ri';
+import { useAdminStore } from '../../../store';
+import { City, TransportationProvider } from '@prisma/client';
 
 interface AdminClientProps {
 	providers: SelectValueBase[];
 	cities: CitiesSelectValue[];
 }
 
+type FormValues = {
+	distance: number;
+	estimatedTravelTime: number;
+	price: number;
+	transportationProvider: TransportationProvider;
+	startCity: City;
+	endCity: City;
+};
+
 export const AdminClient: React.FC<AdminClientProps> = (props: AdminClientProps) => {
 	const { providers, cities } = props;
 
-	const [provider, setProvider] = React.useState<SelectValueBase>();
-	const [startCity, setStartCity] = React.useState<CitiesSelectValue>();
-	const [endCity, setEndCity] = React.useState<CitiesSelectValue>();
+	const { createRoute } = useAdminStore();
 
 	const {
 		register,
+		handleSubmit,
+		setValue,
+		watch,
 		formState: { errors }
-	} = useForm<FieldValues>({
+	} = useForm<FormValues>({
 		defaultValues: {
-			distance: 0,
-			estimatedTravelTime: 0,
-			price: 0
+			distance: undefined,
+			estimatedTravelTime: undefined,
+			price: undefined,
+			transportationProvider: undefined,
+			startCity: undefined,
+			endCity: undefined
 		}
 	});
+
+	const transportationProvider = watch('transportationProvider');
+	const startCity = watch('startCity');
+	const endCity = watch('endCity');
+
+	const setCustomValue = (id: any, value: any) => {
+		setValue(id, value, {
+			shouldDirty: true,
+			shouldTouch: true,
+			shouldValidate: true
+		});
+	};
+
+	const onSubmit: SubmitHandler<FormValues> = (data) =>
+		createRoute({
+			...data,
+			distance: Number(data.distance),
+			price: Number(data.price),
+			estimatedTravelTime: Number(data.estimatedTravelTime)
+		});
 
 	const formatOptionLabel = (option: CitiesSelectValue) => (
 		<div className="flex flex-row items-center gap-3">
@@ -50,21 +85,21 @@ export const AdminClient: React.FC<AdminClientProps> = (props: AdminClientProps)
 				<CustomSelect
 					options={providers}
 					placeholder="Provider"
-					value={provider}
-					onChange={(value) => setProvider(value as SelectValueBase)}
+					value={transportationProvider}
+					onChange={(value) => setCustomValue('transportationProvider', value)}
 				/>
 				<CustomSelect
-					options={cities.filter((city) => city.value != endCity?.value)}
+					options={cities.filter((city) => city.value != endCity?.id)}
 					placeholder="Where from?"
 					value={startCity}
-					onChange={(value) => setStartCity(value as CitiesSelectValue)}
+					onChange={(value) => setCustomValue('startCity', value)}
 					formatOptionLabel={formatOptionLabel}
 				/>
 				<CustomSelect
-					options={cities.filter((city) => city.value != startCity?.value)}
+					options={cities.filter((city) => city.value != startCity?.id)}
 					placeholder="Where to?"
 					value={endCity}
-					onChange={(value) => setEndCity(value as CitiesSelectValue)}
+					onChange={(value) => setCustomValue('endCity', value)}
 					formatOptionLabel={formatOptionLabel}
 				/>
 				<Input
@@ -94,12 +129,8 @@ export const AdminClient: React.FC<AdminClientProps> = (props: AdminClientProps)
 					errors={errors}
 					required
 				/>
-				<Button label="Save" onClick={onSubmit} />
+				<Button label="Save" onClick={handleSubmit(onSubmit)} />
 			</div>
 		</Container>
 	);
-
-	function onSubmit() {
-		console.log(provider);
-	}
 };
