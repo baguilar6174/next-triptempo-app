@@ -36,6 +36,10 @@ yarn
 - Zustand
 - Tailwind CSS
 - Prisma
+- Axios
+- React Hook Form
+- React Select
+- React Icons
 
 ## Development Features
 

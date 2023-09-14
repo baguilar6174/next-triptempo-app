@@ -1,13 +1,8 @@
 import { create } from 'zustand';
 import axios from 'axios';
+import { APIError } from '../types';
 
 const URL = '/api/admin';
-
-export type APIError<Data = Record<string, string>> = {
-	code: string | undefined;
-	message: string;
-	data: Data;
-};
 
 interface AdminStore {
 	isLoading: boolean;
@@ -30,9 +25,9 @@ export const useAdminStore = create<AdminStore>((set, get) => ({
 		} catch (error) {
 			if (axios.isAxiosError(error)) {
 				const { message, response, code } = error;
-				console.log(error);
 				set({
 					...state,
+					isLoading: false,
 					error: {
 						code,
 						data: response?.data,
@@ -42,8 +37,6 @@ export const useAdminStore = create<AdminStore>((set, get) => ({
 			} else {
 				console.error(error);
 			}
-		} finally {
-			set({ isLoading: false });
 		}
 	}
 }));
