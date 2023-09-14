@@ -12,7 +12,7 @@ import { GiPathDistance } from 'react-icons/gi';
 import { AiOutlineFieldTime } from 'react-icons/ai';
 import { RiMoneyDollarCircleFill } from 'react-icons/ri';
 import { useAdminStore } from '../../../store';
-import { City, TransportationProvider } from '@prisma/client';
+import { Loader } from '../../../components/Loader';
 
 interface AdminClientProps {
 	providers: SelectValueBase[];
@@ -23,15 +23,15 @@ type FormValues = {
 	distance: number;
 	estimatedTravelTime: number;
 	price: number;
-	transportationProvider: TransportationProvider;
-	startCity: City;
-	endCity: City;
+	transportationProvider: SelectValueBase;
+	startCity: CitiesSelectValue;
+	endCity: CitiesSelectValue;
 };
 
 export const AdminClient: React.FC<AdminClientProps> = (props: AdminClientProps) => {
 	const { providers, cities } = props;
 
-	const { createRoute } = useAdminStore();
+	const { createRoute, isLoading, error } = useAdminStore();
 
 	const {
 		register,
@@ -62,13 +62,14 @@ export const AdminClient: React.FC<AdminClientProps> = (props: AdminClientProps)
 		});
 	};
 
-	const onSubmit: SubmitHandler<FormValues> = (data) =>
+	const onSubmit: SubmitHandler<FormValues> = (data) => {
 		createRoute({
 			...data,
 			distance: Number(data.distance),
 			price: Number(data.price),
 			estimatedTravelTime: Number(data.estimatedTravelTime)
 		});
+	};
 
 	const formatOptionLabel = (option: CitiesSelectValue) => (
 		<div className="flex flex-row items-center gap-3">
@@ -89,14 +90,14 @@ export const AdminClient: React.FC<AdminClientProps> = (props: AdminClientProps)
 					onChange={(value) => setCustomValue('transportationProvider', value)}
 				/>
 				<CustomSelect
-					options={cities.filter((city) => city.value != endCity?.id)}
+					options={cities.filter((city) => city.value != endCity?.value)}
 					placeholder="Where from?"
 					value={startCity}
 					onChange={(value) => setCustomValue('startCity', value)}
 					formatOptionLabel={formatOptionLabel}
 				/>
 				<CustomSelect
-					options={cities.filter((city) => city.value != startCity?.id)}
+					options={cities.filter((city) => city.value != startCity?.value)}
 					placeholder="Where to?"
 					value={endCity}
 					onChange={(value) => setCustomValue('endCity', value)}
@@ -131,6 +132,9 @@ export const AdminClient: React.FC<AdminClientProps> = (props: AdminClientProps)
 				/>
 				<Button label="Save" onClick={handleSubmit(onSubmit)} />
 			</div>
+			{/* results */}
+			{isLoading && <Loader />}
+			{error && <p> {error.data.message} </p>}
 		</Container>
 	);
 };

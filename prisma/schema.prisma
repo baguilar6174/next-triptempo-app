@@ -76,7 +76,7 @@ model Route {
   schedules                Schedule[]
   transportationProvider   TransportationProvider @relation(fields: [transportationProviderId], references: [id])
 
-  @@id([id, startCityId, endCityId, transportationProviderId])
+  @@id([startCityId, endCityId, transportationProviderId])
   @@map("tbl_route")
 }
 
