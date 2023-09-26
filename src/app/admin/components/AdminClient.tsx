@@ -13,6 +13,7 @@ import { AiOutlineFieldTime } from 'react-icons/ai';
 import { RiMoneyDollarCircleFill } from 'react-icons/ri';
 import { useAdminStore } from '../../../store';
 import { Loader } from '../../../components/Loader';
+import { Alert } from '../../../components/Alert';
 
 interface AdminClientProps {
 	providers: SelectValueBase[];
@@ -134,7 +135,7 @@ export const AdminClient: React.FC<AdminClientProps> = (props: AdminClientProps)
 			</div>
 			{/* results */}
 			{isLoading && <Loader />}
-			{error && <p> {error.data.message} </p>}
+			{error && <Alert title={error.data.message} kind="ERROR" />}
 		</Container>
 	);
 };

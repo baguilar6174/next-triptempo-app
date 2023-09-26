@@ -22,6 +22,7 @@ export const useAdminStore = create<AdminStore>((set, get) => ({
 		try {
 			const response = await axios.post(URL, params);
 			console.log(response);
+			// TODO: return data and show success alert
 		} catch (error) {
 			if (axios.isAxiosError(error)) {
 				const { message, response, code } = error;
@@ -37,6 +38,11 @@ export const useAdminStore = create<AdminStore>((set, get) => ({
 			} else {
 				console.error(error);
 			}
+		} finally {
+			set({
+				...state,
+				isLoading: true
+			});
 		}
 	}
 }));
