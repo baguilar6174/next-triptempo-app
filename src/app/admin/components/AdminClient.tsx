@@ -20,7 +20,7 @@ interface AdminClientProps {
 	cities: CitiesSelectValue[];
 }
 
-type FormValues = {
+export type AdminFormValues = {
 	distance: number;
 	estimatedTravelTime: number;
 	price: number;
@@ -32,7 +32,7 @@ type FormValues = {
 export const AdminClient: React.FC<AdminClientProps> = (props: AdminClientProps) => {
 	const { providers, cities } = props;
 
-	const { createRoute, isLoading, error } = useAdminStore();
+	const { createRoute, isLoading, error, message } = useAdminStore();
 
 	const {
 		register,
@@ -40,7 +40,7 @@ export const AdminClient: React.FC<AdminClientProps> = (props: AdminClientProps)
 		setValue,
 		watch,
 		formState: { errors }
-	} = useForm<FormValues>({
+	} = useForm<AdminFormValues>({
 		defaultValues: {
 			distance: undefined,
 			estimatedTravelTime: undefined,
@@ -63,7 +63,7 @@ export const AdminClient: React.FC<AdminClientProps> = (props: AdminClientProps)
 		});
 	};
 
-	const onSubmit: SubmitHandler<FormValues> = (data) => {
+	const onSubmit: SubmitHandler<AdminFormValues> = (data) => {
 		createRoute({
 			...data,
 			distance: Number(data.distance),
@@ -136,6 +136,7 @@ export const AdminClient: React.FC<AdminClientProps> = (props: AdminClientProps)
 			{/* results */}
 			{isLoading && <Loader />}
 			{error && <Alert title={error.data.message} kind="ERROR" />}
+			{message && <Alert title={message} kind="SUCCESS" />}
 		</Container>
 	);
 };
