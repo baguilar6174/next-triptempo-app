@@ -53,6 +53,7 @@ yarn
 
 - Create seed to data
 - Internationalization
+- Define an schema to control errors and success data fron API
 
 ## Trip Tempo App
 
