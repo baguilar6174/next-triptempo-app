@@ -50,6 +50,12 @@ export enum CITIES {
 	AMBATO = 10
 }
 
+// TODO: Better codes to each provider
+export enum PROVIDERS {
+	COOP_PATRIA = 1,
+	COOP_CHIMBORAZO = 2
+}
+
 export const regions: Region[] = [
 	{ name: 'Litoral o Costa', id: REGIONS.COSTA },
 	{ name: 'Sierra o Interandina', id: REGIONS.SIERRA },
@@ -100,13 +106,14 @@ export const cities: City[] = [
 
 export const transportationProviders: TransportationProvider[] = [
 	{
-		id: 1,
+		id: PROVIDERS.COOP_PATRIA,
 		name: 'Cooperativa Patria',
 		logo: 'patria.png',
-		details: 'Cooperativa de Transportes Patria con más de 55 años sirviendo a nuestros clientes'
+		details:
+			'En la Cooperativa de Transportes Patria, nos enorgullecemos de brindar un servicio de transporte y encomiendas de alta calidad a nivel nacional.'
 	},
 	{
-		id: 2,
+		id: PROVIDERS.COOP_CHIMBORAZO,
 		name: 'Cooperativa Chimborazo',
 		logo: 'chimborazo.png',
 		details:
@@ -119,19 +126,37 @@ export const routes: Route[] = [
 		id: 1,
 		startCityId: CITIES.RIOBAMBA,
 		endCityId: CITIES.QUITO,
-		distance: 166.72,
+		distance: 166,
 		estimatedTravelTime: 3.5,
 		price: 5.5,
-		transportationProviderId: 1
+		transportationProviderId: PROVIDERS.COOP_PATRIA
 	},
 	{
 		id: 2,
 		startCityId: CITIES.RIOBAMBA,
 		endCityId: CITIES.QUITO,
-		distance: 166.72,
+		distance: 166,
 		estimatedTravelTime: 3.5,
 		price: 5.5,
-		transportationProviderId: 2
+		transportationProviderId: PROVIDERS.COOP_CHIMBORAZO
+	},
+	{
+		id: 3,
+		startCityId: CITIES.RIOBAMBA,
+		endCityId: CITIES.CUENCA,
+		distance: 262,
+		estimatedTravelTime: 6,
+		price: 9.4,
+		transportationProviderId: PROVIDERS.COOP_PATRIA
+	},
+	{
+		id: 4,
+		startCityId: CITIES.RIOBAMBA,
+		endCityId: CITIES.MACHALA,
+		distance: 313,
+		estimatedTravelTime: 6,
+		price: 8,
+		transportationProviderId: PROVIDERS.COOP_PATRIA
 	}
 ];
 
@@ -172,5 +197,15 @@ export const schedules: CreateScheduleDTO[] = [
 	{ routeId: 2, departureTime: '15:15' },
 	{ routeId: 2, departureTime: '17:00' },
 	{ routeId: 2, departureTime: '17:30' },
-	{ routeId: 2, departureTime: '19:00' }
+	{ routeId: 2, departureTime: '19:00' },
+	{ routeId: 3, departureTime: '05:30' },
+	{ routeId: 3, departureTime: '07:30' },
+	{ routeId: 3, departureTime: '09:30' },
+	{ routeId: 3, departureTime: '11:00' },
+	{ routeId: 3, departureTime: '13:00' },
+	{ routeId: 3, departureTime: '15:30' },
+	{ routeId: 3, departureTime: '19:30' },
+	{ routeId: 3, departureTime: '22:30' },
+	{ routeId: 4, departureTime: '09:45' },
+	{ routeId: 4, departureTime: '14:15' }
 ];

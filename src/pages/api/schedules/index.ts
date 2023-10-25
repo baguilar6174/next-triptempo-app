@@ -32,6 +32,10 @@ const getAll = async (req: NextApiRequest, res: NextApiResponse<Data>): Promise<
 				logo: true,
 				details: true,
 				routes: {
+					where: {
+						startCityId: Number(startCityId),
+						endCityId: Number(endCityId)
+					},
 					select: {
 						schedules: {
 							select: {
@@ -58,7 +62,7 @@ const getAll = async (req: NextApiRequest, res: NextApiResponse<Data>): Promise<
 				estimatedTravelTime,
 				distance,
 				price,
-				schedules: schedules.map((item) => item.departureTime)
+				schedules: schedules.map((item): string => item.departureTime)
 			};
 		});
 		res.status(200).json(format);
