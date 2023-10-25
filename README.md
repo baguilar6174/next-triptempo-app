@@ -1,6 +1,6 @@
 # Trip Tempo App
 
-This repository...
+This project presents an application that allows the user to consult Cooperative schedules between different cities in Ecuador, the application shows the available schedules of the different cooperatives between two cities.
 
 ## Installation
 
@@ -40,6 +40,7 @@ yarn
 - React Hook Form
 - React Select
 - React Icons
+- Railway Postgres DB
 
 ## Development Features
 
@@ -47,7 +48,14 @@ yarn
 
 ## Improves
 
--
+- Include maps (routes)
+- Include offices and terminals locations
+- Trasnportation model car (seats, etc)
+- Offices schedules
+- Routes stops (cities without buses terminals)
+- Round trip (round trip)
+- Find option closest to the current time.
+- Variable price
 
 ## TODO:
 
@@ -56,6 +64,12 @@ yarn
 - Define an schema to control errors and success data fron API
 
 ## Trip Tempo App
+
+<table>
+  <tr>
+    <td align="center" valign="center"><img src="./media/1.png" width="100%"></td>
+  </tr>
+</table>
 
 ## Stay in touch
 

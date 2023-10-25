@@ -49,7 +49,7 @@ export const Search: React.FC<SearchProps> = (props: SearchProps) => {
 					onChange={(value) => setEndCity(value as CitiesSelectValue)}
 					formatOptionLabel={formatOptionLabel}
 				/>
-				<Button label="Search" onClick={onSubmit} />
+				<Button label="Search Schedules" onClick={onSubmit} />
 			</div>
 			{/* results */}
 			{isLoading && <Loader />}
