@@ -95,7 +95,8 @@ export const cities: City[] = [
 	{ id: CITIES.CUENCA, name: 'Cuenca', provinceId: PROVINCES.AZUAY },
 	{ id: CITIES.RIOBAMBA, name: 'Riobamba', provinceId: PROVINCES.CHIMBORAZO },
 	{ id: CITIES.MACHALA, name: 'Machala', provinceId: PROVINCES.EL_ORO },
-	{ id: CITIES.QUITO, name: 'Quito', provinceId: PROVINCES.PICHINCHA }
+	{ id: CITIES.QUITO, name: 'Quito', provinceId: PROVINCES.PICHINCHA },
+	{ id: CITIES.GUAYAQUIL, name: 'Guayaquil', provinceId: PROVINCES.GUAYAS }
 ];
 
 export const transportationProviders: TransportationProvider[] = [
@@ -151,55 +152,106 @@ export const routes: Route[] = [
 		estimatedTravelTime: 6,
 		price: 8,
 		transportationProviderId: PROVIDERS.COOP_PATRIA
+	},
+	{
+		id: 5,
+		startCityId: CITIES.CUENCA,
+		endCityId: CITIES.RIOBAMBA,
+		distance: 262,
+		estimatedTravelTime: 6,
+		price: 9.4,
+		transportationProviderId: PROVIDERS.COOP_PATRIA
+	},
+	{
+		id: 6,
+		startCityId: CITIES.RIOBAMBA,
+		endCityId: CITIES.GUAYAQUIL,
+		distance: 227,
+		estimatedTravelTime: 5,
+		price: 9,
+		transportationProviderId: PROVIDERS.COOP_PATRIA
 	}
 ];
 
-export const schedules: CreateScheduleDTO[] = [
-	{ routeId: 1, departureTime: '03:30' },
-	{ routeId: 1, departureTime: '05:00' },
-	{ routeId: 1, departureTime: '07:00' },
-	{ routeId: 1, departureTime: '08:00' },
-	{ routeId: 1, departureTime: '08:30' },
-	{ routeId: 1, departureTime: '09:45' },
-	{ routeId: 1, departureTime: '10:00' },
-	{ routeId: 1, departureTime: '11:30' },
-	{ routeId: 1, departureTime: '11:45' },
-	{ routeId: 1, departureTime: '12:15' },
-	{ routeId: 1, departureTime: '13:00' },
-	{ routeId: 1, departureTime: '14:15' },
-	{ routeId: 1, departureTime: '14:30' },
-	{ routeId: 1, departureTime: '16:15' },
-	{ routeId: 1, departureTime: '17:45' },
-	{ routeId: 1, departureTime: '18:15' },
-	{ routeId: 1, departureTime: '18:45' },
-	{ routeId: 1, departureTime: '19:15' },
-	{ routeId: 1, departureTime: '19:45' },
-	{ routeId: 1, departureTime: '20:15' },
-	{ routeId: 1, departureTime: '22:00' },
-	{ routeId: 2, departureTime: '03:15' },
-	{ routeId: 2, departureTime: '05:30' },
-	{ routeId: 2, departureTime: '06:30' },
-	{ routeId: 2, departureTime: '06:45' },
-	{ routeId: 2, departureTime: '09:15' },
-	{ routeId: 2, departureTime: '09:30' },
-	{ routeId: 2, departureTime: '10:45' },
-	{ routeId: 2, departureTime: '11:00' },
-	{ routeId: 2, departureTime: '12:00' },
-	{ routeId: 2, departureTime: '12:30' },
-	{ routeId: 2, departureTime: '13:15' },
-	{ routeId: 2, departureTime: '14:00' },
-	{ routeId: 2, departureTime: '15:15' },
-	{ routeId: 2, departureTime: '17:00' },
-	{ routeId: 2, departureTime: '17:30' },
-	{ routeId: 2, departureTime: '19:00' },
-	{ routeId: 3, departureTime: '05:30' },
-	{ routeId: 3, departureTime: '07:30' },
-	{ routeId: 3, departureTime: '09:30' },
-	{ routeId: 3, departureTime: '11:00' },
-	{ routeId: 3, departureTime: '13:00' },
-	{ routeId: 3, departureTime: '15:30' },
-	{ routeId: 3, departureTime: '19:30' },
-	{ routeId: 3, departureTime: '22:30' },
-	{ routeId: 4, departureTime: '09:45' },
-	{ routeId: 4, departureTime: '14:15' }
-];
+const schedulesData = {
+	1: [
+		'03:30',
+		'05:00',
+		'07:00',
+		'08:00',
+		'08:30',
+		'09:45',
+		'10:00',
+		'11:30',
+		'11:45',
+		'12:15',
+		'13:00',
+		'14:15',
+		'14:30',
+		'16:15',
+		'17:45',
+		'18:15',
+		'18:45',
+		'19:15',
+		'19:45',
+		'20:15',
+		'22:00'
+	],
+	2: [
+		'03:15',
+		'05:30',
+		'06:30',
+		'06:45',
+		'09:15',
+		'09:30',
+		'10:45',
+		'11:00',
+		'12:00',
+		'12:30',
+		'13:15',
+		'14:00',
+		'15:15',
+		'17:00',
+		'17:30',
+		'19:00'
+	],
+	3: ['05:30', '07:30', '09:30', '11:00', '13:00', '15:30', '19:30', '22:30'],
+	4: ['09:45', '14:15'],
+	5: ['04:15', '05:15', '09:40', '11:15', '14:00', '15:30', '17:30', '19:15'],
+	6: [
+		'02:00',
+		'03:00',
+		'03:30',
+		'04:30',
+		'05:00',
+		'06:30',
+		'07:00',
+		'07:30',
+		'08:00',
+		'08:30',
+		'09:30',
+		'10:30',
+		'11:00',
+		'11:30',
+		'12:40',
+		'13:30',
+		'14:00',
+		'15:30',
+		'16:00',
+		'17:00',
+		'18:00',
+		'19:00',
+		'19:40',
+		'20:30',
+		'22:30'
+	]
+};
+
+export const schedules = Object.entries(schedulesData).flatMap(([routeId, departureTimes]): CreateScheduleDTO[] =>
+	departureTimes.map(
+		(departureTime): CreateScheduleDTO => ({
+			routeId: Number(routeId),
+			departureTime
+		})
+	)
+);
