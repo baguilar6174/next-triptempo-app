@@ -93,15 +93,9 @@ export const provinces: Province[] = [
 
 export const cities: City[] = [
 	{ id: CITIES.CUENCA, name: 'Cuenca', provinceId: PROVINCES.AZUAY },
-	{ id: CITIES.AZOGUES, name: 'Azogues', provinceId: PROVINCES.CANAR },
-	{ id: CITIES.CANAR, name: 'Cañar', provinceId: PROVINCES.CANAR },
-	{ id: CITIES.LA_TRONCAL, name: 'La Troncal', provinceId: PROVINCES.CANAR },
 	{ id: CITIES.RIOBAMBA, name: 'Riobamba', provinceId: PROVINCES.CHIMBORAZO },
 	{ id: CITIES.MACHALA, name: 'Machala', provinceId: PROVINCES.EL_ORO },
-	{ id: CITIES.GUAYAQUIL, name: 'Guayaquil', provinceId: PROVINCES.GUAYAS },
-	{ id: CITIES.LOJA, name: 'Loja', provinceId: PROVINCES.LOJA },
-	{ id: CITIES.QUITO, name: 'Quito', provinceId: PROVINCES.PICHINCHA },
-	{ id: CITIES.AMBATO, name: 'Ambato', provinceId: PROVINCES.TUNGURAHUA }
+	{ id: CITIES.QUITO, name: 'Quito', provinceId: PROVINCES.PICHINCHA }
 ];
 
 export const transportationProviders: TransportationProvider[] = [
