@@ -25,8 +25,8 @@ export const Search: React.FC<SearchProps> = (props: SearchProps) => {
 
 	const formatOptionLabel = (option: CitiesSelectValue) => (
 		<div className="flex flex-row items-center gap-3">
-			<div>
-				{option.label},<span className="text-neutral-500 ml-1">{option.province}</span>
+			<div className="text-light">
+				{option.label}, <span>{option.province}</span>
 			</div>
 		</div>
 	);
@@ -57,8 +57,8 @@ export const Search: React.FC<SearchProps> = (props: SearchProps) => {
 			{schedules.length !== 0 && (
 				<>
 					<div className="pt-10">
-						<p className="text-neutral-500">
-							We&apos;ve found <span className="text-rose-500">{schedules.length}</span> results
+						<p className="text-light">
+							We&apos;ve found <span className="text-darkNavy">{schedules.length}</span> results
 						</p>
 					</div>
 					{schedules.map((schedule) => (
@@ -72,12 +72,5 @@ export const Search: React.FC<SearchProps> = (props: SearchProps) => {
 	async function onSubmit() {
 		if (!startCity || !endCity) return;
 		fetchSchedules(startCity.value, endCity.value);
-		/*const { data } = await axios.get('/api/cities', {
-			params: {
-				startCityId: startCity.value,
-				endCityId: endCity.value
-			}
-		});
-		setSchedules(data); */
 	}
 };

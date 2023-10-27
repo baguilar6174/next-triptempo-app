@@ -19,7 +19,7 @@ interface CustomSelectProps {
 
 export const CustomSelect: React.FC<CustomSelectProps> = (props: CustomSelectProps) => {
 	const defaultFormatOptionLabel = (option: SelectValueBase) => (
-		<div className="flex flex-row items-center gap-3">
+		<div className="flex flex-row items-center gap-3 text-light">
 			<div>{option.label}</div>
 		</div>
 	);
@@ -38,7 +38,7 @@ export const CustomSelect: React.FC<CustomSelectProps> = (props: CustomSelectPro
 				onChange={(value) => onChange(value as SelectValueBase)}
 				formatOptionLabel={formatOptionLabel}
 				classNames={{
-					control: () => 'p-3 border-2',
+					control: () => 'p-3',
 					input: () => 'text-lg',
 					option: () => 'text-lg'
 				}}
@@ -46,11 +46,22 @@ export const CustomSelect: React.FC<CustomSelectProps> = (props: CustomSelectPro
 					...theme,
 					borderRadius: 6,
 					colors: {
-						...theme.colors,
-						primary: 'black',
-						primary25: '#ffe4e6'
+						...theme.colors
 					}
 				})}
+				styles={{
+					control: (baseStyles, state) => ({
+						...baseStyles,
+						backgroundColor: 'transparent',
+						borderColor: state.isFocused ? '#38D6FE' : 'white',
+						borderRadius: '2',
+						borderStyle: 'dashed'
+					}),
+					option: (baseStyles, { isFocused }) => ({
+						...baseStyles,
+						backgroundColor: isFocused ? 'gray' : '#272325'
+					})
+				}}
 			/>
 		</div>
 	);

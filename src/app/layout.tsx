@@ -1,11 +1,11 @@
 import './globals.css';
 import type { Metadata } from 'next';
-import { Nunito } from 'next/font/google';
+import { IBM_Plex_Mono } from 'next/font/google';
 import { RegisterModal } from '../components/Modals/Register';
 import { LoginModal } from '../components/Modals/Login';
 import { Navbar } from '../components/Navbar';
 
-const font = Nunito({ subsets: ['latin'] });
+const font = IBM_Plex_Mono({ subsets: ['latin'], weight: '400' });
 
 export const metadata: Metadata = {
 	title: 'Trip Tempo',
@@ -15,7 +15,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
 	return (
 		<html lang="en">
-			<body className={font.className}>
+			<body className={`${font.className} bg-light dark:bg-dark w-full min-h-screen`}>
 				{/* Modals */}
 				<RegisterModal />
 				<LoginModal />

@@ -8,22 +8,18 @@ interface ButtonProps {
 	// eslint-disable-next-line no-unused-vars
 	onClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
 	disabled?: boolean;
-	outline?: boolean;
 	small?: boolean;
 	icon?: IconType;
 }
 
 export const Button: React.FC<ButtonProps> = (props: ButtonProps) => {
-	const { label, onClick, disabled, outline, small, icon: Icon } = props;
+	const { label, onClick, disabled, small, icon: Icon } = props;
 	return (
 		<button
 			onClick={onClick}
 			disabled={disabled}
-			className={`relative disabled:opacity-70 disabled:cursor-not-allowed rounded-lg hover:opacity-80 transition w-full ${
-				outline ? 'bg-white' : 'bg-rose-500'
-			} ${outline ? 'border-black' : 'border-rose-500'} ${outline ? 'text-black' : 'text-white'} ${
-				small ? 'py-1' : 'py-3'
-			} ${small ? 'text-sm' : 'text-md'} ${small ? 'font-light' : 'font-semibold'} ${
+			className={`relative disabled:opacity-70 disabled:cursor-not-allowed rounded-sm transition w-full border-[1.5px] border-dashed hover:border-solid hover:border-darkNavy text-light hover:text-darkNavy hover:bg-darkNavy/10
+      ${small ? 'py-1' : 'py-3'} ${small ? 'text-sm' : 'text-md'} ${small ? 'font-light' : 'font-semibold'} ${
 				small ? 'border-[1px]' : 'border-2'
 			}`}
 		>

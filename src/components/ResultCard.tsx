@@ -8,7 +8,15 @@ interface ResultCardProps {
 
 export const ResultCard: React.FC<ResultCardProps> = (props: ResultCardProps) => {
 	const {
-		schedule: { transportationProvider, schedules, price, transportationProviderLogo, transportationProviderDetails }
+		schedule: {
+			transportationProvider,
+			schedules,
+			price,
+			transportationProviderLogo,
+			transportationProviderDetails,
+			distance,
+			estimatedTravelTime
+		}
 	} = props;
 
 	return (
@@ -21,19 +29,21 @@ export const ResultCard: React.FC<ResultCardProps> = (props: ResultCardProps) =>
 						<Image
 							alt="Avatar"
 							className="rounded-full"
-							height="100"
-							width="100"
+							height="80"
+							width="80"
 							src={`/images/buses/${transportationProviderLogo}`}
 						/>
-						{/* <div className="text-right">
+						<div className="text-right">
 							<h3 className="text-xl text-neutral-500 mb-2 font-semibold">$ {price}</h3>
-							<p className="text-neutral-400">{distance}</p>
-						</div> */}
+							<p className="text-neutral-400">{distance} km aprox</p>
+						</div>
 					</div>
 					<div className="mt-4">
 						<h2 className="text-xl flex items-center gap-4 mb-2">
 							{transportationProvider}
-							<span className="text-xs py-1 px-2 bg-rose-500 text-white font-bold rounded-md">$ {price}</span>
+							<span className="text-xs py-1 px-2 bg-rose-500 text-white font-bold rounded-md">
+								{estimatedTravelTime} hours aprox
+							</span>
 						</h2>
 						<p className="text-neutral-500">{transportationProviderDetails}</p>
 					</div>
