@@ -18,9 +18,10 @@ export const Alert: React.FC<AlertProps> = (props: AlertProps) => {
 	const { title, content, handleClose, kind = 'INFO' } = props;
 	const variant = VARIANTS[kind];
 
+	/* TODO: verify bg and variant colors */
 	return (
 		<div
-			className={`bg-${variant}-100 border border-${variant}-400 text-${variant}-700 px-4 py-3 rounded relative`}
+			className={`bg-${variant}-200 border border-${variant}-400 text-${variant}-700 px-4 py-3 rounded relative`}
 			role="alert"
 		>
 			<strong className="font-bold">{title}</strong>
