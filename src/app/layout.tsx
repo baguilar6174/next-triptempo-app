@@ -15,13 +15,13 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
 	return (
 		<html lang="en">
-			<body className={`${font.className} bg-light dark:bg-dark w-full min-h-screen`}>
+			<body className={`${font.className} bg-light dark:bg-dark w-full`}>
 				{/* Modals */}
 				<RegisterModal />
 				<LoginModal />
 				{/* Navbar */}
 				<Navbar />
-				<div className="pb-20 pt-28">{children}</div>
+				<div className="py-32">{children}</div>
 			</body>
 		</html>
 	);

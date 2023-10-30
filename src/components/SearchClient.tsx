@@ -8,7 +8,6 @@ import { CustomSelect } from './Inputs/Select';
 import { useSchedulesStore } from '../store';
 import { ResultCard } from './ResultCard';
 import { Loader } from './Loader';
-import EmptyState from './EmptyState';
 import { CitiesSelectValue } from '../types';
 import { Alert } from './Alert';
 
@@ -53,15 +52,14 @@ export const SearchClient: React.FC<SearchProps> = (props: SearchProps) => {
 				/>
 				<Button label="Search Schedules" onClick={onSubmit} />
 			</div>
-			{/* results */}
 			{isLoading && <Loader />}
-			{schedules.length === 0 && <EmptyState />}
+			{schedules.length === 0 && (
+				<div className="py-20 flex flex-col gap-2 justify-center items-center">
+					<Heading center title={'No results to show'} subtitle={'Try changing your search.'} />
+				</div>
+			)}
 			{showAlert && (
-				<Alert
-					title="You must indicate the city of origin and destination"
-					kind="ERROR"
-					handleClose={() => setShowAlert(false)}
-				/>
+				<Alert title="You must indicate the city of origin and destination" handleClose={() => setShowAlert(false)} />
 			)}
 			{schedules.length !== 0 && (
 				<React.Fragment>

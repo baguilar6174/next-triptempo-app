@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import EmptyState from '../components/EmptyState';
+import { Heading } from '../components/Heading';
 
 interface ErrorStateProps {
 	error: Error;
@@ -12,7 +12,11 @@ const ErrorState: React.FC<ErrorStateProps> = ({ error }) => {
 		console.error(error);
 	}, [error]);
 
-	return <EmptyState title="Uh Oh" subtitle="Something went wrong!" />;
+	return (
+		<div className="flex flex-col gap-2 justify-center items-center">
+			<Heading center title={'Uh Oh'} subtitle={'Something went wrong!'} />
+		</div>
+	);
 };
 
 export default ErrorState;
