@@ -71,6 +71,14 @@ yarn
   </tr>
 </table>
 
+## Database diagram
+
+<table>
+  <tr>
+    <td align="center" valign="center"><img src="./media/2.png" width="60%"></td>
+  </tr>
+</table>
+
 ## Stay in touch
 
 - Website - [www.bryan-aguilar.com](https://www.bryan-aguilar.com/)
