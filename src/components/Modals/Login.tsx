@@ -62,8 +62,8 @@ export const LoginModal = () => {
 			<Button label="Continue with Github" icon={AiFillGithub} onClick={() => {}} />
 			<div className="text-neutral-500 text-center mt-4 font-light">
 				<div className="justify-center flex flex-row items-center gap-2">
-					<div>First time using Airbnb?</div>
-					<div onClick={onToggle} className="text-neutral-800 cursor-pointer hover:underline">
+					<div className="text-light">First time using Airbnb?</div>
+					<div onClick={onToggle} className="text-light/80 cursor-pointer hover:underline">
 						Create an account
 					</div>
 				</div>

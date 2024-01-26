@@ -67,13 +67,13 @@ export const Modal: React.FC<ModalProps> = (props: ModalProps) => {
 							showModal ? 'opacity-100' : 'opacity-0'
 						}`}
 					>
-						<div className="translate h-full lg:h-auto md:h-auto border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
+						<div className="translate h-full lg:h-auto md:h-auto border rounded-lg shadow-lg relative flex flex-col w-full bg-dark outline-none focus:outline-none">
 							{/* Header */}
 							<div className="flex items-center p-6 rounded-t justify-center relative border-b-[1px]">
 								<button onClick={handleClose} className="p-1 border-0 hover:opacity-70 transition absolute left-9">
-									<IoMdClose size={18} />
+									<IoMdClose size={18} className="text-light" />
 								</button>
-								<div className="text-lg font-semibold">{title}</div>
+								<div className="text-lg font-semibold text-light">{title}</div>
 							</div>
 							{/* Body */}
 							<div className="relative p-6 flex-auto">{body}</div>

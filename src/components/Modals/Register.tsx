@@ -64,8 +64,8 @@ export const RegisterModal = () => {
 			<Button label="Continue with GitHub" icon={AiFillGithub} onClick={() => {}} />
 			<div className="text-neutral-500 text-center mt-4 font-light">
 				<div className="flex flex-row items-center justify-center gap-2">
-					<div>Already have an account?</div>
-					<div onClick={onToggle} className="text-neutral-800 cursor-pointer hover:underline">
+					<div className="text-light">Already have an account?</div>
+					<div onClick={onToggle} className="text-light/80 cursor-pointer hover:underline">
 						Log in
 					</div>
 				</div>
