@@ -18,6 +18,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 			<head>
 				<title>Trip Tempo</title>
 				<link rel="alternate" href="android-app://com.technisys.bancor.dev/https/pdd.bancor.com.ar/modo/.*" />
+				<meta name="google-site-verification" content="xZm79BsDUcxC29zagVkLrbi19WVlgoeZJwsQjnROZB8" />
 			</head>
 			<body className={`${font.className} bg-dark w-full`}>
 				{/* Modals */}
