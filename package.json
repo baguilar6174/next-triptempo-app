@@ -2,11 +2,6 @@
 	"name": "next-triptempo-app",
 	"version": "0.1.0",
 	"private": true,
-	"engines": {
-		"node": ">=v20.12.0",
-		"yarn": ">=1.22.22",
-		"npm": "please-use-yarn"
-	},
 	"scripts": {
 		"dev": "next dev",
 		"build": "prisma generate && next build",
