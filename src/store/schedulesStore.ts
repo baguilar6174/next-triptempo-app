@@ -11,13 +11,13 @@ interface SchedulesStore {
 	isLoading: boolean;
 	error?: APIError;
 	// eslint-disable-next-line no-unused-vars
-	fetchSchedules: (startCityId: number, endCityId: number) => void;
+	fetchSchedules: (startCityId: string, endCityId: string) => void;
 }
 
 export const useSchedulesStore = create<SchedulesStore>((set, get) => ({
 	schedules: [],
 	isLoading: false,
-	fetchSchedules: async (startCityId: number, endCityId: number) => {
+	fetchSchedules: async (startCityId: string, endCityId: string) => {
 		const state = get();
 		set({
 			...state,

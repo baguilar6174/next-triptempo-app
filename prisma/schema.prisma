@@ -18,7 +18,7 @@ model Region {
 
 // Model for Provinces
 model Province {
-  id       Int    @id @default(autoincrement())
+  id       String @id @unique
   name     String @unique
   regionId Int
   cities   City[]
@@ -29,9 +29,9 @@ model Province {
 
 // Model for Cities
 model City {
-  id           Int           @id @default(autoincrement())
+  id           String        @id @unique
   name         String        @unique
-  provinceId   Int
+  provinceId   String
   busTerminals BusTerminal[]
   routesStart  Route[]       @relation("StartCityRoutes")
   routesEnd    Route[]       @relation("EndCityRoutes")
@@ -43,7 +43,7 @@ model City {
 // Model for Transportation Providers
 model TransportationProvider {
   id      Int     @id @default(autoincrement())
-  name    String
+  name    String  @unique
   logo    String?
   details String?
   routes  Route[]
@@ -54,7 +54,7 @@ model TransportationProvider {
 // Model for Bus Terminals
 model BusTerminal {
   id      Int    @id @default(autoincrement())
-  citiId  Int    @map("city_id")
+  citiId  String @map("city_id")
   name    String
   address String
   city    City   @relation(fields: [citiId], references: [id])
@@ -64,41 +64,17 @@ model BusTerminal {
 
 // Model for Routes
 model Route {
-  id                       Int                    @unique @default(autoincrement())
-  startCityId              Int                    @map("start_city_id")
-  endCityId                Int                    @map("end_city_id")
+  startCityId              String                 @map("start_city_id")
+  endCityId                String                 @map("end_city_id")
   distance                 Int
   price                    Float
   estimatedTravelTime      Int                    @map("estimated_travel_time")
   transportationProviderId Int                    @map("transportation_provider_id")
   startCity                City                   @relation("StartCityRoutes", fields: [startCityId], references: [id])
   endCity                  City                   @relation("EndCityRoutes", fields: [endCityId], references: [id])
-  schedules                Schedule[]
+  schedules                String[]
   transportationProvider   TransportationProvider @relation(fields: [transportationProviderId], references: [id])
 
   @@id([startCityId, endCityId, transportationProviderId])
   @@map("tbl_route")
-}
-
-// Model for Schedules
-model Schedule {
-  id            Int           @id @default(autoincrement())
-  routeId       Int           @map("route_id")
-  departureTime String        @map("departure_time")
-  route         Route         @relation(fields: [routeId], references: [id])
-  reservations  Reservation[]
-
-  @@map("tbl_schedule")
-}
-
-// Model for Reservations
-model Reservation {
-  id           Int      @id @default(autoincrement())
-  scheduleId   Int      @map("schedule_id")
-  customerName String   @map("customer_name")
-  contactInfo  String?  @map("contact_info")
-  seatNumber   String   @map("seat_number")
-  schedule     Schedule @relation(fields: [scheduleId], references: [id])
-
-  @@map("tbl_reservation")
 }

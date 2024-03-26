@@ -1,12 +1,12 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import prisma from '../../libs/prisma';
-import { cities, provinces, regions, routes, schedules, transportationProviders } from '../../data/seed';
+import { cities, provinces, regions, routes, transportationProviders } from '../../data/seed';
 
 type ResponseData = { message: string };
 
 export default function handler(req: NextApiRequest, res: NextApiResponse<ResponseData>) {
 	switch (req.method) {
-		case 'POST':
+		case 'GET':
 			return createSeed(res);
 		default:
 			return res.status(400).json({ message: 'Bad request' });
@@ -15,7 +15,6 @@ export default function handler(req: NextApiRequest, res: NextApiResponse<Respon
 
 const createSeed = async (res: NextApiResponse<ResponseData>): Promise<void> => {
 	try {
-		await prisma.schedule.deleteMany();
 		await prisma.route.deleteMany();
 		await prisma.transportationProvider.deleteMany();
 
@@ -28,7 +27,6 @@ const createSeed = async (res: NextApiResponse<ResponseData>): Promise<void> => 
 		await prisma.city.createMany({ data: cities });
 		await prisma.transportationProvider.createMany({ data: transportationProviders });
 		await prisma.route.createMany({ data: routes });
-		await prisma.schedule.createMany({ data: schedules });
 
 		return res.status(200).json({ message: 'Data created!' });
 	} catch (error) {

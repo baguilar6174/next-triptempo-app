@@ -21,8 +21,8 @@ const getAll = async (req: NextApiRequest, res: NextApiResponse<Data>): Promise<
 			where: {
 				routes: {
 					some: {
-						startCityId: Number(startCityId),
-						endCityId: Number(endCityId)
+						startCityId: startCityId as string,
+						endCityId: endCityId as string
 					}
 				}
 			},
@@ -33,18 +33,11 @@ const getAll = async (req: NextApiRequest, res: NextApiResponse<Data>): Promise<
 				details: true,
 				routes: {
 					where: {
-						startCityId: Number(startCityId),
-						endCityId: Number(endCityId)
+						startCityId: startCityId as string,
+						endCityId: endCityId as string
 					},
 					select: {
-						schedules: {
-							select: {
-								departureTime: true
-							},
-							orderBy: {
-								departureTime: 'asc'
-							}
-						},
+						schedules: true,
 						estimatedTravelTime: true,
 						distance: true,
 						price: true
@@ -62,7 +55,7 @@ const getAll = async (req: NextApiRequest, res: NextApiResponse<Data>): Promise<
 				estimatedTravelTime,
 				distance,
 				price,
-				schedules: schedules.map((item): string => item.departureTime)
+				schedules
 			};
 		});
 		res.status(200).json(format);
