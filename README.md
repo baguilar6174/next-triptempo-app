@@ -22,6 +22,7 @@ yarn
 
 - Rename `.env.template` to `.env` and add your environment variables
 - Connect to Postgres database
+- Run `npx prisma generate`
 - Run `npx prisma db push` to create tables and relationships
 - Run `yarn dev`
 - If your want to create build production, run `yarn build`
