@@ -4,7 +4,7 @@ import Select, { FormatOptionLabelMeta } from 'react-select';
 
 export type SelectValueBase = {
 	label: string;
-	value: number;
+	value: number | string;
 };
 
 interface CustomSelectProps {
