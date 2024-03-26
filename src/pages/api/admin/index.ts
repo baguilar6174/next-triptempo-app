@@ -36,9 +36,9 @@ const createRoute = async (req: HelloApiRequest, res: NextApiResponse<Data>): Pr
 				distance,
 				estimatedTravelTime,
 				price,
-				transportationProviderId: transportationProvider.value,
-				endCityId: endCity.value,
-				startCityId: startCity.value
+				transportationProviderId: +transportationProvider.value,
+				endCityId: String(endCity.value),
+				startCityId: String(startCity.value)
 			}
 		});
 		res.status(200).json(route);
