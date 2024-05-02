@@ -94,6 +94,6 @@ export const SearchClient: React.FC<SearchProps> = (props: SearchProps) => {
 			setShowAlert(true);
 			return;
 		}
-		fetchSchedules(String(startCity.value), String(endCity.value));
+		await fetchSchedules(String(startCity.value), String(endCity.value));
 	}
 };
