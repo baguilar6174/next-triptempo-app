@@ -8,11 +8,12 @@ import { Modal } from './Modal';
 import { Heading } from '../Heading';
 import { Input } from '../Inputs/Input';
 import { Button } from '../Button';
-import { useLoginModalStore, useRegisterModalStore } from '../../store';
+import { useLoginModalStore, useRegisterModalStore } from '../../stores';
 
 export const LoginModal = () => {
-	const registerModalStore = useRegisterModalStore();
-	const loginModalStore = useLoginModalStore();
+	const onClose = useLoginModalStore((state) => state.onClose);
+	const isOpen = useLoginModalStore((state) => state.isOpen);
+	const modalRegisterOnOpen = useRegisterModalStore((state) => state.onOpen);
 
 	const {
 		register,
@@ -30,14 +31,14 @@ export const LoginModal = () => {
 	const onSubmit: SubmitHandler<FieldValues> = (data) => {
 		setIsLoading(true);
 		console.log(data);
-		loginModalStore.onClose();
+		onClose();
 		setIsLoading(false);
 	};
 
 	const onToggle = React.useCallback(() => {
-		loginModalStore.onClose();
-		registerModalStore.onOpen();
-	}, [loginModalStore, registerModalStore]);
+		onClose();
+		modalRegisterOnOpen();
+	}, [onClose, modalRegisterOnOpen]);
 
 	const bodyContent = (
 		<div className="flex flex-col gap-4">
@@ -74,10 +75,10 @@ export const LoginModal = () => {
 	return (
 		<Modal
 			disabled={isLoading}
-			isOpen={loginModalStore.isOpen}
+			isOpen={isOpen}
 			title="Login"
 			actionLabel="Continue"
-			onClose={loginModalStore.onClose}
+			onClose={onClose}
 			onSubmit={handleSubmit(onSubmit)}
 			body={bodyContent}
 			footer={footerContent}

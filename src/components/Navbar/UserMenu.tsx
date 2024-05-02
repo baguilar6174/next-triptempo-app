@@ -4,7 +4,7 @@ import React from 'react';
 
 import { AiOutlineMenu } from 'react-icons/ai';
 import { MenuItem } from './MenuItem';
-import { useLoginModalStore, useRegisterModalStore } from '../../store';
+import { useLoginModalStore, useRegisterModalStore } from '../../stores';
 import { Avatar } from '../Avatar';
 
 export const UserMenu = () => {

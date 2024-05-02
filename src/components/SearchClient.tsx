@@ -5,7 +5,7 @@ import { Container } from './Container';
 import { Heading } from './Heading';
 import { Button } from './Button';
 import { CustomSelect } from './Inputs/Select';
-import { useSchedulesStore } from '../store';
+import { useSchedulesStore } from '../stores';
 import { ResultCard } from './ResultCard';
 import { Loader } from './Loader';
 import { CitiesSelectValue } from '../types';
@@ -18,7 +18,9 @@ interface SearchProps {
 export const SearchClient: React.FC<SearchProps> = (props: SearchProps) => {
 	const { cities } = props;
 
-	const { isLoading, fetchSchedules, schedules } = useSchedulesStore();
+	const isLoading = useSchedulesStore((state) => state.isLoading);
+	const schedules = useSchedulesStore((state) => state.schedules);
+	const fetchSchedules = useSchedulesStore((state) => state.fetchSchedules);
 
 	const [startCity, setStartCity] = React.useState<CitiesSelectValue>();
 	const [endCity, setEndCity] = React.useState<CitiesSelectValue>();

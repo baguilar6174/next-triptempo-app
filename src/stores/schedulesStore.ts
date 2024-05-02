@@ -4,17 +4,23 @@ import axios from 'axios';
 import { Schedule } from '../interfaces/schedule';
 import { APIError } from '../types';
 
-const URL = '/api/schedules';
+const URL = 'https://triptempo-server.up.railway.app/api/v1/providers';
+// const URL = 'http://localhost:3001/api/v1/providers';
 
-interface SchedulesStore {
+interface State {
 	schedules: Schedule[];
 	isLoading: boolean;
 	error?: APIError;
+}
+
+interface Actions {
 	// eslint-disable-next-line no-unused-vars
 	fetchSchedules: (startCityId: string, endCityId: string) => void;
 }
 
-export const useSchedulesStore = create<SchedulesStore>((set, get) => ({
+type Store = State & Actions;
+
+export const useSchedulesStore = create<Store>((set, get) => ({
 	schedules: [],
 	isLoading: false,
 	fetchSchedules: async (startCityId: string, endCityId: string) => {
@@ -30,7 +36,7 @@ export const useSchedulesStore = create<SchedulesStore>((set, get) => ({
 					endCityId
 				}
 			});
-			set({ isLoading: false, schedules: response.data });
+			set({ isLoading: false, schedules: response.data.data.result });
 		} catch (error) {
 			if (axios.isAxiosError(error)) {
 				const { message, response, code } = error;
