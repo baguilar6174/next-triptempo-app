@@ -1,11 +1,7 @@
-import { create } from 'zustand';
-import axios from 'axios';
-
-import { type Schedule } from '../interfaces/schedule';
-import { type APIError } from '../types';
-
-const URL = 'https://triptempo-server.up.railway.app/api/v1/providers';
-// const URL = 'http://localhost:3001/api/v1/providers';
+import { type StateCreator, create } from 'zustand';
+import { type APIError, type Schedule } from '../types';
+import { devtools } from 'zustand/middleware';
+import { SchedulesService } from '../services/schedules.service';
 
 interface State {
 	schedules: Schedule[];
@@ -15,44 +11,26 @@ interface State {
 
 interface Actions {
 	// eslint-disable-next-line no-unused-vars
-	fetchSchedules: (startCityId: string, endCityId: string) => void;
+	fetchSchedules: (startCityId: string, endCityId: string) => Promise<void>;
 }
 
 type Store = State & Actions;
 
-export const useSchedulesStore = create<Store>((set, get) => ({
+const schedulesAPI: StateCreator<Store> = (set, get) => ({
 	schedules: [],
 	isLoading: false,
 	// eslint-disable-next-line @typescript-eslint/no-misused-promises
 	fetchSchedules: async (startCityId: string, endCityId: string) => {
 		const state = get();
-		set({
-			...state,
-			isLoading: true
-		});
+		set({ ...state, isLoading: true });
 		try {
-			const response = await axios.get(URL, {
-				params: {
-					startCityId,
-					endCityId
-				}
-			});
-			set({ isLoading: false, schedules: response.data.data.result });
+			const { data } = await SchedulesService.fetchSchedules(startCityId, endCityId);
+			set({ isLoading: false, schedules: data });
 		} catch (error) {
-			if (axios.isAxiosError(error)) {
-				const { message, response, code } = error;
-				set({
-					...state,
-					isLoading: false,
-					error: {
-						code,
-						data: response?.data,
-						message
-					}
-				});
-			} else {
-				console.error(error);
-			}
+			// TODO: errors control
+			set({ isLoading: false, schedules: [], error: { code: 'dfdfd', data: { error: 'F' }, message: 'Errr' } });
 		}
 	}
-}));
+});
+
+export const useSchedulesStore = create<Store>()(devtools(schedulesAPI));
