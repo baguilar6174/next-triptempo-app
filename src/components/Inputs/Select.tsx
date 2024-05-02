@@ -13,8 +13,8 @@ interface CustomSelectProps {
 	options: SelectValueBase[];
 	// eslint-disable-next-line no-unused-vars
 	onChange: (value: SelectValueBase) => void;
-	// eslint-disable-next-line no-unused-vars
-	formatOptionLabel?: (data: unknown, formatOptionLabelMeta: FormatOptionLabelMeta<SelectValueBase>) => React.ReactNode;
+	// eslint-disable-next-line no-unused-vars, @typescript-eslint/no-explicit-any
+	formatOptionLabel?: (data: any, formatOptionLabelMeta: FormatOptionLabelMeta<SelectValueBase>) => React.ReactNode;
 }
 
 export const CustomSelect: React.FC<CustomSelectProps> = (props: CustomSelectProps) => {
