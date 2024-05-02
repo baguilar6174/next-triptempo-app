@@ -1,6 +1,6 @@
 import { Loader } from '../components/Loader';
 
-const Loading = () => {
+const Loading = (): JSX.Element => {
 	return <Loader />;
 };
 

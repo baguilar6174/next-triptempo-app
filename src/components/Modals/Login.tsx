@@ -1,16 +1,14 @@
+/* eslint-disable @typescript-eslint/no-misused-promises */
 'use client';
 
 import React from 'react';
-import { AiFillGithub } from 'react-icons/ai';
-import { FcGoogle } from 'react-icons/fc';
-import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
+import { type FieldValues, type SubmitHandler, useForm } from 'react-hook-form';
 import { Modal } from './Modal';
 import { Heading } from '../Heading';
 import { Input } from '../Inputs/Input';
-import { Button } from '../Button';
 import { useLoginModalStore, useRegisterModalStore } from '../../stores';
 
-export const LoginModal = () => {
+export const LoginModal = (): JSX.Element => {
 	const onClose = useLoginModalStore((state) => state.onClose);
 	const isOpen = useLoginModalStore((state) => state.isOpen);
 	const modalRegisterOnOpen = useRegisterModalStore((state) => state.onOpen);
@@ -59,8 +57,6 @@ export const LoginModal = () => {
 	const footerContent = (
 		<div className="flex flex-col gap-4 mt-3">
 			<hr />
-			<Button label="Continue with Google" icon={FcGoogle} onClick={() => {}} />
-			<Button label="Continue with Github" icon={AiFillGithub} onClick={() => {}} />
 			<div className="text-neutral-500 text-center mt-4 font-light">
 				<div className="justify-center flex flex-row items-center gap-2">
 					<div className="text-light">First time using Airbnb?</div>

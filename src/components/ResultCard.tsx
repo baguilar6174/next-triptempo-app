@@ -1,5 +1,5 @@
 import React from 'react';
-import { Schedule } from '../interfaces/schedule';
+import { type Schedule } from '../interfaces/schedule';
 
 interface ResultCardProps {
 	schedule: Schedule;

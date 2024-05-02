@@ -4,7 +4,7 @@ import { Container } from '../Container';
 import { Logo } from './Logo';
 import { UserMenu } from './UserMenu';
 
-export const Navbar = () => {
+export const Navbar = (): JSX.Element => {
 	return (
 		<div className="fixed w-full bg-dark z-10 shadow-sm">
 			<div className="border-b-[1px] border-dashed">

@@ -1,8 +1,8 @@
 'use client';
 
 import React from 'react';
-import { IoMdClose } from 'react-icons/io';
 import { Button } from '../Button';
+import { THREE_HUNDRED } from '../../constants';
 
 interface ModalProps {
 	onClose: () => void;
@@ -38,7 +38,7 @@ export const Modal: React.FC<ModalProps> = (props: ModalProps) => {
 		setShowModal(false);
 		setTimeout(() => {
 			onClose();
-		}, 300);
+		}, THREE_HUNDRED);
 	}, [disabled, onClose]);
 
 	const handleSubmit = React.useCallback(() => {
@@ -47,7 +47,7 @@ export const Modal: React.FC<ModalProps> = (props: ModalProps) => {
 	}, [disabled, onSubmit]);
 
 	const handleSecondaryAction = React.useCallback(() => {
-		if (disabled || !secondaryAction) return;
+		if (disabled ?? !secondaryAction) return;
 		secondaryAction();
 	}, [disabled, secondaryAction]);
 
@@ -71,7 +71,7 @@ export const Modal: React.FC<ModalProps> = (props: ModalProps) => {
 							{/* Header */}
 							<div className="flex items-center p-6 rounded-t justify-center relative border-b-[1px]">
 								<button onClick={handleClose} className="p-1 border-0 hover:opacity-70 transition absolute left-9">
-									<IoMdClose size={18} className="text-light" />
+									X
 								</button>
 								<div className="text-lg font-semibold text-light">{title}</div>
 							</div>

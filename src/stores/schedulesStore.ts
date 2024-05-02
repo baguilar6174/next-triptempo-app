@@ -1,8 +1,8 @@
 import { create } from 'zustand';
 import axios from 'axios';
 
-import { Schedule } from '../interfaces/schedule';
-import { APIError } from '../types';
+import { type Schedule } from '../interfaces/schedule';
+import { type APIError } from '../types';
 
 const URL = 'https://triptempo-server.up.railway.app/api/v1/providers';
 // const URL = 'http://localhost:3001/api/v1/providers';
@@ -23,6 +23,7 @@ type Store = State & Actions;
 export const useSchedulesStore = create<Store>((set, get) => ({
 	schedules: [],
 	isLoading: false,
+	// eslint-disable-next-line @typescript-eslint/no-misused-promises
 	fetchSchedules: async (startCityId: string, endCityId: string) => {
 		const state = get();
 		set({

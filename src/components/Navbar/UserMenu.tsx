@@ -2,12 +2,11 @@
 
 import React from 'react';
 
-import { AiOutlineMenu } from 'react-icons/ai';
 import { MenuItem } from './MenuItem';
 import { useLoginModalStore, useRegisterModalStore } from '../../stores';
 import { Avatar } from '../Avatar';
 
-export const UserMenu = () => {
+export const UserMenu = (): JSX.Element => {
 	const registerModalStore = useRegisterModalStore();
 	const loginModalStore = useLoginModalStore();
 	const currentUser = false;
@@ -28,7 +27,7 @@ export const UserMenu = () => {
 					onClick={toggleOpen}
 					className="p-4 md:py-1 md:px-2 boder-[1px] border-neutral-200 flex flex-row items-center gap-3 rounded-full cursor-pointer hover:shadow-md transition"
 				>
-					<AiOutlineMenu className="text-light" />
+					Menu
 					<div className="hidden md:block">
 						<Avatar />
 					</div>

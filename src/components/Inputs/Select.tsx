@@ -1,11 +1,11 @@
 'use client';
 
-import Select, { FormatOptionLabelMeta } from 'react-select';
+import Select, { type FormatOptionLabelMeta } from 'react-select';
 
-export type SelectValueBase = {
+export interface SelectValueBase {
 	label: string;
 	value: number | string;
-};
+}
 
 interface CustomSelectProps {
 	placeholder?: string;
@@ -14,11 +14,11 @@ interface CustomSelectProps {
 	// eslint-disable-next-line no-unused-vars
 	onChange: (value: SelectValueBase) => void;
 	// eslint-disable-next-line no-unused-vars
-	formatOptionLabel?: (data: any, formatOptionLabelMeta: FormatOptionLabelMeta<SelectValueBase>) => React.ReactNode;
+	formatOptionLabel?: (data: unknown, formatOptionLabelMeta: FormatOptionLabelMeta<SelectValueBase>) => React.ReactNode;
 }
 
 export const CustomSelect: React.FC<CustomSelectProps> = (props: CustomSelectProps) => {
-	const defaultFormatOptionLabel = (option: SelectValueBase) => (
+	const defaultFormatOptionLabel = (option: SelectValueBase): JSX.Element => (
 		<div className="flex flex-row items-center gap-3 text-light">
 			<div>{option.label}</div>
 		</div>
@@ -35,7 +35,10 @@ export const CustomSelect: React.FC<CustomSelectProps> = (props: CustomSelectPro
 				instanceId="selectbox"
 				options={options}
 				value={value}
-				onChange={(value) => onChange(value as SelectValueBase)}
+				onChange={(value) => {
+					// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+					onChange(value!);
+				}}
 				formatOptionLabel={formatOptionLabel}
 				classNames={{
 					control: () => 'p-3',
