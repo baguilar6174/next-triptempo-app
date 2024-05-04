@@ -56,13 +56,13 @@ export const CustomSelect: React.FC<CustomSelectProps> = (props: CustomSelectPro
 					control: (baseStyles, state) => ({
 						...baseStyles,
 						backgroundColor: 'transparent',
-						borderColor: state.isFocused ? '#38D6FE' : 'white',
+						// borderColor: state.isFocused ? '#38D6FE' : 'white',
 						borderRadius: '2',
 						borderStyle: 'dashed'
 					}),
 					option: (baseStyles, { isFocused }) => ({
-						...baseStyles,
-						backgroundColor: isFocused ? 'gray' : '#272325'
+						...baseStyles
+						// backgroundColor: isFocused ? 'gray' : '#272325'
 					})
 				}}
 			/>

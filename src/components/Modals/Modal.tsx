@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { Button } from '../Button';
+import { Button } from '../ui/button';
 import { THREE_HUNDRED } from '../../constants';
 
 interface ModalProps {
@@ -67,7 +67,7 @@ export const Modal: React.FC<ModalProps> = (props: ModalProps) => {
 							showModal ? 'opacity-100' : 'opacity-0'
 						}`}
 					>
-						<div className="translate h-full lg:h-auto md:h-auto border rounded-lg shadow-lg relative flex flex-col w-full bg-dark outline-none focus:outline-none">
+						<div className="translate h-full lg:h-auto md:h-auto border rounded-lg shadow-lg relative flex flex-col w-full outline-none focus:outline-none">
 							{/* Header */}
 							<div className="flex items-center p-6 rounded-t justify-center relative border-b-[1px]">
 								<button onClick={handleClose} className="p-1 border-0 hover:opacity-70 transition absolute left-9">
@@ -81,9 +81,13 @@ export const Modal: React.FC<ModalProps> = (props: ModalProps) => {
 							<div className="flex flex-col gap-2 p-6">
 								<div className="flex flex-row items-center gap-4 w-full">
 									{secondaryAction && secondaryActionLabel && (
-										<Button disabled={disabled} label={secondaryActionLabel} onClick={handleSecondaryAction} />
+										<Button disabled={disabled} onClick={handleSecondaryAction}>
+											{secondaryActionLabel}
+										</Button>
 									)}
-									<Button disabled={disabled} label={actionLabel} onClick={handleSubmit} />
+									<Button disabled={disabled} onClick={handleSubmit}>
+										{actionLabel}
+									</Button>
 								</div>
 								{footer}
 							</div>

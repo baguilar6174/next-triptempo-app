@@ -4,13 +4,13 @@
 import React from 'react';
 import { Container } from './Container';
 import { Heading } from './Heading';
-import { Button } from './Button';
+import { Button } from './ui/button';
 import { CustomSelect } from './Inputs/Select';
 import { useSchedulesStore } from '../stores';
 import { ResultCard } from './ResultCard';
 import { Loader } from './Loader';
 import { type CitiesSelectValue } from '../types';
-import { Alert } from './Alert';
+import { Alert, AlertDescription } from './ui/alert';
 import { ZERO } from '../constants';
 
 interface SearchProps {
@@ -58,7 +58,9 @@ export const SearchClient: React.FC<SearchProps> = (props: SearchProps) => {
 					}}
 					formatOptionLabel={formatOptionLabel}
 				/>
-				<Button label="Search Schedules" onClick={onSubmit} />
+				<Button onClick={onSubmit} variant="outline" size="lg">
+					Search Schedules
+				</Button>
 			</div>
 			{isLoading && <Loader />}
 			{schedules.length === ZERO && (
@@ -68,17 +70,20 @@ export const SearchClient: React.FC<SearchProps> = (props: SearchProps) => {
 			)}
 			{showAlert && (
 				<Alert
-					title="You must indicate the city of origin and destination"
-					handleClose={() => {
+					variant="destructive"
+					onClick={() => {
+						// TODO: add in close button
 						setShowAlert(false);
 					}}
-				/>
+				>
+					<AlertDescription>You must indicate the city of origin and destination</AlertDescription>
+				</Alert>
 			)}
 			{schedules.length !== ZERO && (
 				<React.Fragment>
 					<div className="pt-10">
 						<p className="text-light">
-							We&apos;ve found <span className="text-darkNavy">{schedules.length}</span> results
+							We&apos;ve found <span className="">{schedules.length}</span> results
 						</p>
 					</div>
 					{schedules.map((schedule) => (

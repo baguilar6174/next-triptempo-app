@@ -1,12 +1,8 @@
 import './globals.css';
 import type { Metadata } from 'next';
-// eslint-disable-next-line camelcase
-import { IBM_Plex_Mono } from 'next/font/google';
 import { RegisterModal } from '../components/Modals/Register';
 import { LoginModal } from '../components/Modals/Login';
 import { Navbar } from '../components/Navbar';
-
-const font = IBM_Plex_Mono({ subsets: ['latin'], weight: '400' });
 
 export const metadata: Metadata = {
 	title: 'Trip Tempo',
@@ -16,7 +12,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }): JSX.Element {
 	return (
 		<html lang="en">
-			<body className={`${font.className} bg-dark w-full`}>
+			<body className="w-full">
 				{/* Modals */}
 				<RegisterModal />
 				<LoginModal />

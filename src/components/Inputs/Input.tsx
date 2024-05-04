@@ -25,7 +25,7 @@ export const Input: React.FC<InputProps> = (props: InputProps) => {
 				{...register(id, { required })}
 				placeholder=" "
 				type={type}
-				className={`peer w-full p-4 pt-6 font-light bg-dark border-2 rounded-md outline-none transition disabled:opacity-70 disabled:cursor-not-allowed
+				className={`peer w-full p-4 pt-6 font-light border-2 rounded-md outline-none transition disabled:opacity-70 disabled:cursor-not-allowed
           ${errors[id] ? 'border-rose-500' : 'border-neutral-300'}
           ${errors[id] ? 'focus:border-rose-500' : 'focus:border-black'}
         `}
