@@ -1,5 +1,5 @@
 import { AxiosError } from 'axios';
-import { API } from '../api/tripTempo.api';
+import { API } from '../lib/api';
 import { type City, type PaginationResponse } from '../types';
 
 export class CitiesService {

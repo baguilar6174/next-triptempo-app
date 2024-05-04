@@ -1,8 +1,7 @@
 import './globals.css';
 import type { Metadata } from 'next';
-import { RegisterModal } from '../components/Modals/Register';
-import { LoginModal } from '../components/Modals/Login';
 import { Navbar } from '../components/Navbar';
+import { ThemeProvider } from '../components/ThemeProvider';
 
 export const metadata: Metadata = {
 	title: 'Trip Tempo',
@@ -13,12 +12,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }):
 	return (
 		<html lang="en">
 			<body className="w-full">
-				{/* Modals */}
-				<RegisterModal />
-				<LoginModal />
-				{/* Navbar */}
-				<Navbar />
-				<div className="py-32">{children}</div>
+				<ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+					<Navbar />
+					<div className="py-32">{children}</div>
+				</ThemeProvider>
 			</body>
 		</html>
 	);

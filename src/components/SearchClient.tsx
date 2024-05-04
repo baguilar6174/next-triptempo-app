@@ -3,7 +3,6 @@
 
 import React from 'react';
 import { Container } from './Container';
-import { Heading } from './Heading';
 import { Button } from './ui/button';
 import { CustomSelect } from './Inputs/Select';
 import { useSchedulesStore } from '../stores';
@@ -38,7 +37,8 @@ export const SearchClient: React.FC<SearchProps> = (props: SearchProps) => {
 
 	return (
 		<Container>
-			<Heading title="Where do you wanna go?" subtitle="Find the perfect schedule for your trip!" />
+			<h1 className="scroll-m-20 text-2xl font-extrabold tracking-tight">Where do you wanna go?</h1>
+			<h3 className="scroll-m-20 text-md font-semibold tracking-tight">Find the perfect schedule for your trip!</h3>
 			<div className="mt-5 grid grid-cols-1 lg:grid-cols-3 gap-8">
 				<CustomSelect
 					options={cities.filter((city): boolean => city.value !== endCity?.value)}
@@ -58,14 +58,15 @@ export const SearchClient: React.FC<SearchProps> = (props: SearchProps) => {
 					}}
 					formatOptionLabel={formatOptionLabel}
 				/>
-				<Button onClick={onSubmit} variant="outline" size="lg">
+				<Button onClick={onSubmit} variant="outline" size="lg" className="hover:bg-accent hover:text-accent-foreground">
 					Search Schedules
 				</Button>
 			</div>
 			{isLoading && <Loader />}
 			{schedules.length === ZERO && (
 				<div className="py-20 flex flex-col gap-2 justify-center items-center">
-					<Heading center title={'No results to show'} subtitle={'Try changing your search.'} />
+					<h4 className="scroll-m-20 text-xl font-semibold tracking-tight">No results to show</h4>
+					<p className="leading-7 [&:not(:first-child)]:mt-6">Try changing your search.</p>
 				</div>
 			)}
 			{showAlert && (

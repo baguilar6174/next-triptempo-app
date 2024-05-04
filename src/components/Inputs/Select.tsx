@@ -1,5 +1,6 @@
 'use client';
 
+import { useTheme } from 'next-themes';
 import Select, { type FormatOptionLabelMeta } from 'react-select';
 
 export interface SelectValueBase {
@@ -18,10 +19,10 @@ interface CustomSelectProps {
 }
 
 export const CustomSelect: React.FC<CustomSelectProps> = (props: CustomSelectProps) => {
+	const { theme } = useTheme();
+
 	const defaultFormatOptionLabel = (option: SelectValueBase): JSX.Element => (
-		<div className="flex flex-row items-center gap-3 text-light">
-			<div>{option.label}</div>
-		</div>
+		<div className="flex flex-row items-center gap-3 text-light">{option.label}</div>
 	);
 
 	const { value, onChange, options, formatOptionLabel = defaultFormatOptionLabel, placeholder = '' } = props;
@@ -41,30 +42,57 @@ export const CustomSelect: React.FC<CustomSelectProps> = (props: CustomSelectPro
 				}}
 				formatOptionLabel={formatOptionLabel}
 				classNames={{
-					control: () => 'p-3',
+					control: () => '',
 					input: () => 'text-lg',
 					option: () => 'text-lg'
 				}}
-				theme={(theme) => ({
-					...theme,
-					borderRadius: 6,
-					colors: {
-						...theme.colors
-					}
-				})}
 				styles={{
-					control: (baseStyles, state) => ({
-						...baseStyles,
-						backgroundColor: 'transparent',
-						// borderColor: state.isFocused ? '#38D6FE' : 'white',
-						borderRadius: '2',
-						borderStyle: 'dashed'
+					option: (defaultStyles, { isFocused, isSelected }) => {
+						return {
+							...defaultStyles,
+							backgroundColor: isSelected
+								? 'hsl(var(--background))'
+								: isFocused
+									? 'hsl(var(--accent))'
+									: 'hsl(var(--background))',
+							color: theme === 'light' ? 'black' : 'white',
+							':active': {
+								...defaultStyles[':active'],
+								backgroundColor: 'hsl(var(--accent))'
+							}
+						};
+					},
+					control: (defaultStyles) => ({
+						...defaultStyles,
+						// Notice how these are all CSS properties
+						backgroundColor: 'hsl(var(--background))',
+						padding: '',
+						border: '1px solid hsl(var(--input))',
+						boxShadow: 'none'
 					}),
-					option: (baseStyles, { isFocused }) => ({
-						...baseStyles
-						// backgroundColor: isFocused ? 'gray' : '#272325'
-					})
+					singleValue: (defaultStyles) => ({ ...defaultStyles, color: theme === 'light' ? 'black' : 'white' })
 				}}
+				// theme={(theme) => ({
+				// 	...theme,
+				// 	borderRadius: 0,
+				// 	colors: {
+				// 		...theme.colors,
+				// 		primary25: 'hotpink',
+				// 		primary: 'black'
+				// 	}
+				// })}
+				// styles={{
+				// 	control: (baseStyles, state) => ({
+				// 		...baseStyles,
+				// 		backgroundColor: 'transparent',
+				// 		borderColor: state.isFocused ? '#38D6FE' : 'white',
+				// 		borderRadius: '2'
+				// 	}),
+				// 	option: (baseStyles, { isFocused }) => ({
+				// 		...baseStyles,
+				// 		backgroundColor: isFocused ? 'black' : '#272325'
+				// 	})
+				// }}
 			/>
 		</div>
 	);
