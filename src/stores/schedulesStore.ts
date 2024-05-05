@@ -19,7 +19,6 @@ type Store = State & Actions;
 const schedulesAPI: StateCreator<Store> = (set, get) => ({
 	schedules: [],
 	isLoading: false,
-	// eslint-disable-next-line @typescript-eslint/no-misused-promises
 	fetchSchedules: async (startCityId: string, endCityId: string) => {
 		const state = get();
 		set({ ...state, isLoading: true });
