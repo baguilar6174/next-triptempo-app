@@ -10,7 +10,7 @@ import { ResultCard } from './ResultCard';
 import { Loader } from './Loader';
 import { type CitiesSelectValue } from '../types';
 import { Alert, AlertDescription } from './ui/alert';
-import { ZERO } from '../constants';
+import { ZERO } from '../lib/constants';
 
 interface SearchProps {
 	cities: CitiesSelectValue[];
