@@ -4,16 +4,16 @@
 import React from 'react';
 import { Container } from './Container';
 import { Button } from './ui/button';
-import { CustomSelect } from './Inputs/Select';
 import { useSchedulesStore } from '../stores';
 import { ResultCard } from './ResultCard';
 import { Loader } from './Loader';
-import { type CitiesSelectValue } from '../types';
 import { Alert, AlertDescription } from './ui/alert';
 import { ZERO } from '../lib/constants';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './ui/select';
+import { type City } from '../types';
 
 interface SearchProps {
-	cities: CitiesSelectValue[];
+	cities: City[];
 }
 
 export const SearchClient: React.FC<SearchProps> = (props: SearchProps) => {
@@ -23,42 +23,44 @@ export const SearchClient: React.FC<SearchProps> = (props: SearchProps) => {
 	const schedules = useSchedulesStore((state) => state.schedules);
 	const fetchSchedules = useSchedulesStore((state) => state.fetchSchedules);
 
-	const [startCity, setStartCity] = React.useState<CitiesSelectValue>();
-	const [endCity, setEndCity] = React.useState<CitiesSelectValue>();
+	const [startCity, setStartCity] = React.useState<string>();
+	const [endCity, setEndCity] = React.useState<string>();
 	const [showAlert, setShowAlert] = React.useState<boolean>(false);
-
-	const formatOptionLabel = (option: CitiesSelectValue): JSX.Element => (
-		<div className="flex flex-row items-center gap-3">
-			<div className="text-light">
-				{option.label}, <span>{option.province}</span>
-			</div>
-		</div>
-	);
 
 	return (
 		<Container>
 			<h1 className="scroll-m-20 text-2xl font-extrabold tracking-tight">Where do you wanna go?</h1>
 			<h3 className="scroll-m-20 text-md font-semibold tracking-tight">Find the perfect schedule for your trip!</h3>
 			<div className="mt-5 grid grid-cols-1 lg:grid-cols-3 gap-8">
-				<CustomSelect
-					options={cities.filter((city): boolean => city.value !== endCity?.value)}
-					placeholder="Where from?"
-					value={startCity}
-					onChange={(value): void => {
-						setStartCity(value as CitiesSelectValue);
-					}}
-					formatOptionLabel={formatOptionLabel}
-				/>
-				<CustomSelect
-					options={cities.filter((city): boolean => city.value !== startCity?.value)}
-					placeholder="Where to?"
-					value={endCity}
-					onChange={(value): void => {
-						setEndCity(value as CitiesSelectValue);
-					}}
-					formatOptionLabel={formatOptionLabel}
-				/>
-				<Button onClick={onSubmit} variant="outline" size="lg" className="hover:bg-accent hover:text-accent-foreground">
+				<Select onValueChange={setStartCity}>
+					<SelectTrigger>
+						<SelectValue placeholder="Where from?" />
+					</SelectTrigger>
+					<SelectContent>
+						{cities
+							.filter((city) => city.id !== endCity)
+							.map((city) => (
+								<SelectItem key={city.id} value={String(city.id)}>
+									{city.name}, {city.province}
+								</SelectItem>
+							))}
+					</SelectContent>
+				</Select>
+				<Select onValueChange={setEndCity}>
+					<SelectTrigger>
+						<SelectValue placeholder="Where to?" />
+					</SelectTrigger>
+					<SelectContent>
+						{cities
+							.filter((city): boolean => city.id !== startCity)
+							.map((city) => (
+								<SelectItem key={city.id} value={String(city.id)}>
+									{city.name}, <span>{city.province}</span>
+								</SelectItem>
+							))}
+					</SelectContent>
+				</Select>
+				<Button onClick={onSubmit} variant="outline" className="hover:bg-accent hover:text-accent-foreground">
 					Search Schedules
 				</Button>
 			</div>
@@ -100,6 +102,6 @@ export const SearchClient: React.FC<SearchProps> = (props: SearchProps) => {
 			setShowAlert(true);
 			return;
 		}
-		await fetchSchedules(String(startCity.value), String(endCity.value));
+		await fetchSchedules(startCity, endCity);
 	}
 };
