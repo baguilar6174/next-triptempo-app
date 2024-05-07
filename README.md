@@ -32,12 +32,9 @@ yarn
 - Eslint & Prettier
 - Zustand
 - Tailwind CSS
-- Prisma
 - Axios
 - React Hook Form
-- React Select
-- React Icons
-- Railway Postgres DB
+- shadcn/ui
 
 ## Development Features
 
@@ -56,7 +53,6 @@ yarn
 
 ## TODO:
 
-- Create seed to data
 - Internationalization
 - Define an schema to control errors and success data fron API
 
