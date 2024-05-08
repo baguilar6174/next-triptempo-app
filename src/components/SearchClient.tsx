@@ -7,10 +7,10 @@ import { Button } from './ui/button';
 import { useSchedulesStore } from '../stores';
 import { ResultCard } from './ResultCard';
 import { Loader } from './Loader';
-import { Alert, AlertDescription } from './ui/alert';
 import { ZERO } from '../lib/constants';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './ui/select';
 import { type City } from '../types';
+import { useToast } from './ui/use-toast';
 
 interface SearchProps {
 	cities: City[];
@@ -23,9 +23,10 @@ export const SearchClient: React.FC<SearchProps> = (props: SearchProps) => {
 	const schedules = useSchedulesStore((state) => state.schedules);
 	const fetchSchedules = useSchedulesStore((state) => state.fetchSchedules);
 
+	const { toast } = useToast();
+
 	const [startCity, setStartCity] = React.useState<string>();
 	const [endCity, setEndCity] = React.useState<string>();
-	const [showAlert, setShowAlert] = React.useState<boolean>(false);
 
 	return (
 		<Container>
@@ -60,29 +61,18 @@ export const SearchClient: React.FC<SearchProps> = (props: SearchProps) => {
 							))}
 					</SelectContent>
 				</Select>
-				<Button onClick={onSubmit} variant="outline" className="hover:bg-accent hover:text-accent-foreground">
+				<Button onClick={onSubmit} variant="outline">
 					Search Schedules
 				</Button>
 			</div>
 			{isLoading && <Loader />}
-			{schedules.length === ZERO && (
+			{schedules && schedules.length === ZERO && (
 				<div className="py-20 flex flex-col gap-2 justify-center items-center">
 					<h4 className="scroll-m-20 text-xl font-semibold tracking-tight">No results to show</h4>
 					<p className="leading-7 [&:not(:first-child)]:mt-6">Try changing your search.</p>
 				</div>
 			)}
-			{showAlert && (
-				<Alert
-					variant="destructive"
-					onClick={() => {
-						// TODO: add in close button
-						setShowAlert(false);
-					}}
-				>
-					<AlertDescription>You must indicate the city of origin and destination</AlertDescription>
-				</Alert>
-			)}
-			{schedules.length !== ZERO && (
+			{schedules && schedules.length !== ZERO && (
 				<React.Fragment>
 					<div className="pt-10">
 						<p className="text-light">
@@ -99,7 +89,10 @@ export const SearchClient: React.FC<SearchProps> = (props: SearchProps) => {
 
 	async function onSubmit(): Promise<void> {
 		if (!startCity || !endCity) {
-			setShowAlert(true);
+			toast({
+				description: 'You must indicate the city of origin and destination',
+				variant: 'destructive'
+			});
 			return;
 		}
 		await fetchSchedules(startCity, endCity);

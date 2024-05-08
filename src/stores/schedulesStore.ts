@@ -4,7 +4,7 @@ import { devtools } from 'zustand/middleware';
 import { SchedulesService } from '../services/schedules.service';
 
 interface State {
-	schedules: Schedule[];
+	schedules?: Schedule[];
 	isLoading: boolean;
 	error?: APIError;
 }
@@ -17,7 +17,7 @@ interface Actions {
 type Store = State & Actions;
 
 const schedulesAPI: StateCreator<Store> = (set, get) => ({
-	schedules: [],
+	schedules: undefined,
 	isLoading: false,
 	fetchSchedules: async (startCityId: string, endCityId: string) => {
 		const state = get();

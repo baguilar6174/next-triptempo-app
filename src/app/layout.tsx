@@ -3,6 +3,7 @@ import type { Metadata } from 'next';
 import { ThemeProvider } from 'next-themes';
 
 import { Navbar } from '@/components/Navbar';
+import { Toaster } from '@/components/ui/toaster';
 
 export const metadata: Metadata = {
 	title: 'Trip Tempo',
@@ -15,7 +16,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }):
 			<body className="w-full">
 				<ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
 					<Navbar />
-					<div className="py-32">{children}</div>
+					<main className="py-32">{children}</main>
+					<Toaster />
 				</ThemeProvider>
 			</body>
 		</html>

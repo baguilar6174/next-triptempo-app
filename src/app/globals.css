@@ -29,7 +29,13 @@
 		--destructive-foreground: 0 0% 98%;
 
 		--border: 0 0% 89.8%;
-		--input: 0 0% 89.8%;
+
+		/* * Original */
+		/* --input: 0 0% 89.8%; */
+
+		/* * Custom */
+		--input: 0 0% 59.8%;
+
 		--ring: 0 0% 3.9%;
 
 		--radius: 0.5rem;
@@ -61,7 +67,13 @@
 		--destructive-foreground: 0 0% 98%;
 
 		--border: 0 0% 14.9%;
-		--input: 0 0% 14.9%;
+
+		/* * Original */
+		/* --input: 0 0% 14.9%; */
+
+		/* * Custom */
+		--input: 0 0% 44.9%;
+
 		--ring: 0 0% 83.1%;
 	}
 }
