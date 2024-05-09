@@ -53,7 +53,6 @@ yarn
 
 ## TODO:
 
-- Internationalization
 - Define an schema to control errors and success data fron API
 
 ## Trip Tempo App

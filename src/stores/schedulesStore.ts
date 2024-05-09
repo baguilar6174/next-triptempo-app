@@ -10,7 +10,6 @@ interface State {
 }
 
 interface Actions {
-	// eslint-disable-next-line no-unused-vars
 	fetchSchedules: (startCityId: string, endCityId: string) => Promise<void>;
 }
 

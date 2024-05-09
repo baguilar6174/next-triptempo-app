@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-misused-promises */
 'use client';
 
 import React from 'react';
@@ -75,9 +74,7 @@ export const SearchClient: React.FC<SearchProps> = (props: SearchProps) => {
 			{schedules && schedules.length !== ZERO && (
 				<React.Fragment>
 					<div className="pt-10">
-						<p className="text-light">
-							We&apos;ve found <span className="">{schedules.length}</span> results
-						</p>
+						<p className="text-light">We&apos;ve found {schedules.length} results</p>
 					</div>
 					{schedules.map((schedule) => (
 						<ResultCard key={schedule.id} schedule={schedule} />
