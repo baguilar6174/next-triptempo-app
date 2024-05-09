@@ -1,7 +1,7 @@
 import Link from 'next/link';
 
 import { Container } from '../Container';
-import { ButtonTheme } from '../ButtonTheme';
+import { ButtonTheme } from './ButtonTheme';
 
 export const Navbar = (): JSX.Element => {
 	return (

@@ -10,6 +10,7 @@ import { ZERO } from '../lib/constants';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './ui/select';
 import { type City } from '../types';
 import { useToast } from './ui/use-toast';
+import { Text } from './Text';
 
 interface SearchProps {
 	cities: City[];
@@ -29,8 +30,10 @@ export const SearchClient: React.FC<SearchProps> = (props: SearchProps) => {
 
 	return (
 		<Container>
-			<h1 className="scroll-m-20 text-2xl font-extrabold tracking-tight">Where do you wanna go?</h1>
-			<h3 className="scroll-m-20 text-md font-semibold tracking-tight">Find the perfect schedule for your trip!</h3>
+			<Text tag="h1">Where do you wanna go?</Text>
+			<Text tag="h3" className="scroll-m-20 text-md font-semibold tracking-tight">
+				Find the perfect schedule for your trip!
+			</Text>
 			<div className="mt-5 grid grid-cols-1 lg:grid-cols-3 gap-8">
 				<Select onValueChange={setStartCity}>
 					<SelectTrigger>
@@ -67,14 +70,14 @@ export const SearchClient: React.FC<SearchProps> = (props: SearchProps) => {
 			{isLoading && <Loader />}
 			{schedules && schedules.length === ZERO && (
 				<div className="py-20 flex flex-col gap-2 justify-center items-center">
-					<h4 className="scroll-m-20 text-xl font-semibold tracking-tight">No results to show</h4>
-					<p className="leading-7 [&:not(:first-child)]:mt-6">Try changing your search.</p>
+					<Text tag="h4">No results to show</Text>
+					<Text tag="p">Try changing your search.</Text>
 				</div>
 			)}
 			{schedules && schedules.length !== ZERO && (
 				<React.Fragment>
 					<div className="pt-10">
-						<p className="text-light">We&apos;ve found {schedules.length} results</p>
+						<Text tag="p">We&apos;ve found {schedules.length} results</Text>
 					</div>
 					{schedules.map((schedule) => (
 						<ResultCard key={schedule.id} schedule={schedule} />
