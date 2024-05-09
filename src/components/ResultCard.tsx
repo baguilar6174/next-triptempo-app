@@ -2,6 +2,7 @@ import React from 'react';
 import { type Schedule } from '../types';
 import { Badge } from './ui/badge';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from './ui/card';
+import { Text } from './Text';
 
 interface ResultCardProps {
 	schedule: Schedule;
@@ -13,7 +14,7 @@ export const ResultCard: React.FC<ResultCardProps> = (props: ResultCardProps) =>
 	} = props;
 
 	return (
-		<div className="mt-10 grid grid-cols-1 gap-8">
+		<div className="mt-6 grid grid-cols-1 gap-8">
 			<Card>
 				<CardHeader>
 					<CardTitle>{name}</CardTitle>
@@ -23,24 +24,15 @@ export const ResultCard: React.FC<ResultCardProps> = (props: ResultCardProps) =>
 					{/* provider detail */}
 					<div className="w-full md:w-[40%]">
 						<div className="flex items-center justify-between">
-							{/* <Image
-							alt="Avatar"
-							className="rounded-full"
-							height="80"
-							width="80"
-							src={`/images/buses/${logo}`}
-						/> */}
 							Logo
 							<div className="text-right">
-								<h3 className="text-xl mb-2 font-semibold">$ {price}</h3>
-								<p>{distance} km aprox</p>
+								<Text tag="h3">$ {price}</Text>
+								<Text tag="p" className="!mt-0">
+									{distance} km aprox
+								</Text>
 							</div>
 						</div>
-						<div className="mt-4">
-							<h2 className="text-xl flex items-center gap-4 mb-2">
-								<Badge>{estimatedTravelTime} hours aprox</Badge>
-							</h2>
-						</div>
+						<Badge>{estimatedTravelTime} hours aprox</Badge>
 					</div>
 					{/* schedules */}
 					<div className="w-full md:w-[60%] flex flex-wrap justify-center items-center gap-2">

@@ -30,10 +30,11 @@ export const SearchClient: React.FC<SearchProps> = (props: SearchProps) => {
 
 	return (
 		<Container>
-			<Text tag="h1">Where do you wanna go?</Text>
-			<Text tag="h3" className="scroll-m-20 text-md font-semibold tracking-tight">
-				Find the perfect schedule for your trip!
+			<Text tag="h1" className="text-center">
+				Trip Tempo
 			</Text>
+			<Text tag="h3">Where do you wanna go?</Text>
+			<Text tag="p">Find the perfect schedule for your trip!</Text>
 			<div className="mt-5 grid grid-cols-1 lg:grid-cols-3 gap-8">
 				<Select onValueChange={setStartCity}>
 					<SelectTrigger>
@@ -76,9 +77,7 @@ export const SearchClient: React.FC<SearchProps> = (props: SearchProps) => {
 			)}
 			{schedules && schedules.length !== ZERO && (
 				<React.Fragment>
-					<div className="pt-10">
-						<Text tag="p">We&apos;ve found {schedules.length} results</Text>
-					</div>
+					<Text tag="p">We&apos;ve found {schedules.length} results</Text>
 					{schedules.map((schedule) => (
 						<ResultCard key={schedule.id} schedule={schedule} />
 					))}
