@@ -1,9 +1,9 @@
 import './globals.css';
 import type { Metadata } from 'next';
-import { ThemeProvider } from 'next-themes';
 
 import { Navbar } from '@/components/Navbar';
 import { Toaster } from '@/components/ui/toaster';
+import { ThemeProvider } from '@/components/themeProvider';
 
 export const metadata: Metadata = {
 	title: 'Trip Tempo',
