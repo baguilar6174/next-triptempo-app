@@ -22,8 +22,8 @@ const schedulesAPI: StateCreator<Store> = (set, get) => ({
 		const state = get();
 		set({ ...state, isLoading: true });
 		try {
-			const { data } = await SchedulesService.fetchSchedules(startCityId, endCityId);
-			set({ isLoading: false, schedules: data });
+			const { result } = await SchedulesService.fetchSchedules(startCityId, endCityId);
+			set({ isLoading: false, schedules: result.data });
 		} catch (error) {
 			// TODO: errors control
 			set({ isLoading: false, schedules: [], error: { code: 'dfdfd', data: { error: 'F' }, message: 'Errr' } });

@@ -1,11 +1,15 @@
 import { AxiosError } from 'axios';
+
 import { API } from '../lib/api';
-import { type Schedule, type PaginationResponse } from '../types';
+import { type Schedule, type PaginationResponse, type SuccessResponse } from '../types';
 
 export class SchedulesService {
-	static fetchSchedules = async (startCityId: string, endCityId: string): Promise<PaginationResponse<Schedule[]>> => {
+	static fetchSchedules = async (
+		startCityId: string,
+		endCityId: string
+	): Promise<SuccessResponse<PaginationResponse<Schedule[]>>> => {
 		try {
-			const { data } = await API.get<PaginationResponse<Schedule[]>>('/providers', {
+			const { data } = await API.get<SuccessResponse<PaginationResponse<Schedule[]>>>('/providers', {
 				params: { startCityId, endCityId }
 			});
 			return data;

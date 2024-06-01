@@ -5,6 +5,10 @@ export interface APIError<Data = Record<string, string>> {
 	data: Data;
 }
 
+export interface SuccessResponse<T> {
+	result: T;
+}
+
 export interface City {
 	id: string;
 	name: string;
