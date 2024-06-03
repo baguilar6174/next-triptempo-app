@@ -8,19 +8,19 @@ import { ResultCard } from './ResultCard';
 import { Loader } from './Loader';
 import { ZERO } from '../lib/constants';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './ui/select';
-import { type City } from '../types';
 import { useToast } from './ui/use-toast';
 import { Text } from './Text';
+import { type CityEntity } from '../types/city.entity';
 
 interface SearchProps {
-	cities: City[];
+	cities: CityEntity[];
 }
 
 export const SearchClient: React.FC<SearchProps> = (props: SearchProps) => {
 	const { cities } = props;
 
 	const isLoading = useSchedulesStore((state) => state.isLoading);
-	const schedules = useSchedulesStore((state) => state.schedules);
+	const providers = useSchedulesStore((state) => state.providers);
 	const fetchSchedules = useSchedulesStore((state) => state.fetchSchedules);
 
 	const { toast } = useToast();
@@ -69,17 +69,17 @@ export const SearchClient: React.FC<SearchProps> = (props: SearchProps) => {
 				</Button>
 			</div>
 			{isLoading && <Loader />}
-			{schedules && schedules.length === ZERO && (
+			{providers && providers.length === ZERO && (
 				<div className="py-20 flex flex-col gap-2 justify-center items-center">
 					<Text tag="h4">No results to show</Text>
 					<Text tag="p">Try changing your search.</Text>
 				</div>
 			)}
-			{schedules && schedules.length !== ZERO && (
+			{providers && providers.length !== ZERO && (
 				<React.Fragment>
-					<Text tag="p">We&apos;ve found {schedules.length} results</Text>
-					{schedules.map((schedule) => (
-						<ResultCard key={schedule.id} schedule={schedule} />
+					<Text tag="p">We&apos;ve found {providers.length} results</Text>
+					{providers.map((provider) => (
+						<ResultCard key={provider.id} provider={provider} />
 					))}
 				</React.Fragment>
 			)}

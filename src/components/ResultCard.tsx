@@ -1,16 +1,17 @@
 import React from 'react';
-import { type Schedule } from '../types';
+
 import { Badge } from './ui/badge';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from './ui/card';
 import { Text } from './Text';
+import { type ProviderEntity } from '../types/provider.entity';
 
 interface ResultCardProps {
-	schedule: Schedule;
+	provider: ProviderEntity;
 }
 
 export const ResultCard: React.FC<ResultCardProps> = (props: ResultCardProps) => {
 	const {
-		schedule: { name, schedules, price, details, distance, estimatedTravelTime }
+		provider: { name, schedules, price, details, distance, estimatedTravelTime }
 	} = props;
 
 	return (
@@ -37,7 +38,7 @@ export const ResultCard: React.FC<ResultCardProps> = (props: ResultCardProps) =>
 					{/* schedules */}
 					<div className="w-full md:w-[60%] flex flex-wrap justify-center items-center gap-2">
 						{schedules.map((schedule) => (
-							<Badge key={schedule}>{schedule}</Badge>
+							<Badge key={schedule.id}>{schedule.departureTime}</Badge>
 						))}
 					</div>
 				</CardContent>

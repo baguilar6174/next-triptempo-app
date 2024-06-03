@@ -1,10 +1,11 @@
 import { type StateCreator, create } from 'zustand';
-import { type APIError, type Schedule } from '../types';
+import { type APIError } from '../types';
 import { devtools } from 'zustand/middleware';
 import { SchedulesService } from '../services/schedules.service';
+import { type ProviderEntity } from '../types/provider.entity';
 
 interface State {
-	schedules?: Schedule[];
+	providers?: ProviderEntity[];
 	isLoading: boolean;
 	error?: APIError;
 }
@@ -23,10 +24,10 @@ const schedulesAPI: StateCreator<Store> = (set, get) => ({
 		set({ ...state, isLoading: true });
 		try {
 			const { result } = await SchedulesService.fetchSchedules(startCityId, endCityId);
-			set({ isLoading: false, schedules: result.data });
+			set({ isLoading: false, providers: result.data });
 		} catch (error) {
 			// TODO: errors control
-			set({ isLoading: false, schedules: [], error: { code: 'dfdfd', data: { error: 'F' }, message: 'Errr' } });
+			set({ isLoading: false, providers: [], error: { code: 'dfdfd', data: { error: 'F' }, message: 'Errr' } });
 		}
 	}
 });
