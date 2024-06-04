@@ -3,10 +3,10 @@
 import React from 'react';
 import { Container } from './Container';
 import { Button } from './ui/button';
-import { useSchedulesStore } from '../stores';
+import { useProvidersStore } from '../stores/providers.store';
 import { ResultCard } from './ResultCard';
 import { Loader } from './Loader';
-import { ZERO } from '../lib/constants';
+import { ZERO } from '../core/contants';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './ui/select';
 import { useToast } from './ui/use-toast';
 import { Text } from './Text';
@@ -19,9 +19,9 @@ interface SearchProps {
 export const SearchClient: React.FC<SearchProps> = (props: SearchProps) => {
 	const { cities } = props;
 
-	const isLoading = useSchedulesStore((state) => state.isLoading);
-	const providers = useSchedulesStore((state) => state.providers);
-	const fetchSchedules = useSchedulesStore((state) => state.fetchSchedules);
+	const isLoading = useProvidersStore((state) => state.isLoading);
+	const providers = useProvidersStore((state) => state.providers);
+	const fetchProviders = useProvidersStore((state) => state.fetchProviders);
 
 	const { toast } = useToast();
 
@@ -94,6 +94,6 @@ export const SearchClient: React.FC<SearchProps> = (props: SearchProps) => {
 			});
 			return;
 		}
-		await fetchSchedules(startCity, endCity);
+		await fetchProviders(startCity, endCity);
 	}
 };
