@@ -3,15 +3,15 @@ import React from 'react';
 import { Badge } from './ui/badge';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from './ui/card';
 import { Text } from './Text';
-import { type ProviderEntity } from '../types/provider.entity';
+import { type TripItineraryEntity } from '../core/entities/tripItineraries.entity';
 
 interface ResultCardProps {
-	provider: ProviderEntity;
+	tripItinerary: TripItineraryEntity;
 }
 
 export const ResultCard: React.FC<ResultCardProps> = (props: ResultCardProps) => {
 	const {
-		provider: { name, schedules, price, details, distance, estimatedTravelTime }
+		tripItinerary: { name, schedules, price, details, distance, estimatedTravelTime }
 	} = props;
 
 	return (
@@ -22,7 +22,7 @@ export const ResultCard: React.FC<ResultCardProps> = (props: ResultCardProps) =>
 					<CardDescription>{details}</CardDescription>
 				</CardHeader>
 				<CardContent className="p-8 flex flex-col md:flex-row gap-8 w-full">
-					{/* provider detail */}
+					{/* tripItineraries detail */}
 					<div className="w-full md:w-[40%]">
 						<div className="flex items-center justify-between">
 							Logo

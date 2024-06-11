@@ -1,6 +1,6 @@
 import { type ScheduleEntity } from './schedule.entity';
 
-export class ProviderEntity {
+export class TripItineraryEntity {
 	constructor(
 		public id: string,
 		public name: string,

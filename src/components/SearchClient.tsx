@@ -3,14 +3,14 @@
 import React from 'react';
 import { Container } from './Container';
 import { Button } from './ui/button';
-import { useProvidersStore } from '../stores/providers.store';
+import { useTripItinerariesStore } from '../stores/tripItinerary.store';
 import { ResultCard } from './ResultCard';
 import { Loader } from './Loader';
 import { ZERO } from '../core/contants';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './ui/select';
 import { useToast } from './ui/use-toast';
 import { Text } from './Text';
-import { type CityEntity } from '../types/city.entity';
+import { type CityEntity } from '../core/entities/city.entity';
 
 interface SearchProps {
 	cities: CityEntity[];
@@ -19,9 +19,10 @@ interface SearchProps {
 export const SearchClient: React.FC<SearchProps> = (props: SearchProps) => {
 	const { cities } = props;
 
-	const isLoading = useProvidersStore((state) => state.isLoading);
-	const providers = useProvidersStore((state) => state.providers);
-	const fetchProviders = useProvidersStore((state) => state.fetchProviders);
+	const isLoading = useTripItinerariesStore((state) => state.isLoading);
+	const tripItineraries = useTripItinerariesStore((state) => state.tripItineraries);
+	const error = useTripItinerariesStore((state) => state.error);
+	const getTripItineraries = useTripItinerariesStore((state) => state.getTripItineraries);
 
 	const { toast } = useToast();
 
@@ -69,20 +70,21 @@ export const SearchClient: React.FC<SearchProps> = (props: SearchProps) => {
 				</Button>
 			</div>
 			{isLoading && <Loader />}
-			{providers && providers.length === ZERO && (
+			{tripItineraries && tripItineraries.length === ZERO && (
 				<div className="py-20 flex flex-col gap-2 justify-center items-center">
 					<Text tag="h4">No results to show</Text>
 					<Text tag="p">Try changing your search.</Text>
 				</div>
 			)}
-			{providers && providers.length !== ZERO && (
+			{tripItineraries && tripItineraries.length !== ZERO && (
 				<React.Fragment>
-					<Text tag="p">We&apos;ve found {providers.length} results</Text>
-					{providers.map((provider) => (
-						<ResultCard key={provider.id} provider={provider} />
+					<Text tag="p">We&apos;ve found {tripItineraries.length} results</Text>
+					{tripItineraries.map((tripItinerary) => (
+						<ResultCard key={tripItinerary.id} tripItinerary={tripItinerary} />
 					))}
 				</React.Fragment>
 			)}
+			{error && <Text tag="p">{error.message}</Text>}
 		</Container>
 	);
 
@@ -94,6 +96,6 @@ export const SearchClient: React.FC<SearchProps> = (props: SearchProps) => {
 			});
 			return;
 		}
-		await fetchProviders(startCity, endCity);
+		await getTripItineraries('', endCity);
 	}
 };

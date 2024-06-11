@@ -1,10 +1,6 @@
 import { AxiosError } from 'axios';
 
-import { API } from '../core/config/axios.adapter';
-import { type SuccessResponse } from '../types';
-import { type CityEntity } from '../types/city.entity';
-import { type PaginationResponseEntity } from '../types/paginationResponse.entity';
-import { AppError } from '../core/errors';
+import { API, AppError, type PaginationResponseEntity, type CityEntity, type SuccessResponse } from '../core';
 
 export class CitiesService {
 	static getCitites = async (): Promise<SuccessResponse<PaginationResponseEntity<CityEntity[]>>> => {

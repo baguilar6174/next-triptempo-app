@@ -1,4 +1,4 @@
-import { type ValidationType } from '../../types';
+import { type ValidationType } from '../types';
 import { HttpCode } from '../contants';
 
 interface AppErrorArgs {

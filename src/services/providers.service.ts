@@ -1,25 +1,27 @@
 import { AxiosError } from 'axios';
 
-import { API } from '../core/config/axios.adapter';
-import { type SuccessResponse } from '../types';
-import { type ProviderEntity } from '../types/provider.entity';
-import { type PaginationResponseEntity } from '../types/paginationResponse.entity';
+import { API, type SuccessResponse, type TripItineraryEntity, type PaginationResponseEntity, AppError } from '../core';
 
-export class ProvidersService {
-	static fetchProviders = async (
+export class TripItinerariesService {
+	static getTripItineraries = async (
 		startCityId: string,
 		endCityId: string
-	): Promise<SuccessResponse<PaginationResponseEntity<ProviderEntity[]>>> => {
+	): Promise<SuccessResponse<PaginationResponseEntity<TripItineraryEntity[]>>> => {
 		try {
-			const { data } = await API.get<SuccessResponse<PaginationResponseEntity<ProviderEntity[]>>>('/providers', {
-				params: { startCityId, endCityId }
-			});
+			const { data } = await API.get<SuccessResponse<PaginationResponseEntity<TripItineraryEntity[]>>>(
+				'/providers/tripItineraries',
+				{
+					params: { startCityId, endCityId }
+				}
+			);
 			return data;
 		} catch (error) {
 			if (error instanceof AxiosError) {
-				console.log(error.response?.data);
+				// TODO: improve error control
+				// eslint-disable-next-line no-unsafe-optional-chaining
+				const { name, message, statusCode, validationErrors } = error.response?.data;
+				throw new AppError({ name, message, statusCode, validationErrors });
 			}
-			console.log(error);
 			throw new Error('Service error get');
 		}
 	};
