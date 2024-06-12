@@ -19,8 +19,8 @@ export class TripItinerariesService {
 			if (error instanceof AxiosError) {
 				// TODO: improve error control
 				// eslint-disable-next-line no-unsafe-optional-chaining
-				const { name, message, statusCode, validationErrors } = error.response?.data;
-				throw new AppError({ name, message, statusCode, validationErrors });
+				const { name, message, validationErrors } = error.response?.data;
+				throw new AppError({ name, message, validationErrors });
 			}
 			throw new Error('Service error get');
 		}

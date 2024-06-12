@@ -96,6 +96,6 @@ export const SearchClient: React.FC<SearchProps> = (props: SearchProps) => {
 			});
 			return;
 		}
-		await getTripItineraries('', endCity);
+		await getTripItineraries(startCity, endCity);
 	}
 };

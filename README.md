@@ -9,7 +9,7 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 Clone this repository
 
 ```bash
-git clone https://github.com/baguilar6174/next-TripTempo-app.git
+git clone https://github.com/baguilar6174/next-triptempo-app.git
 ```
 
 Install dependencies

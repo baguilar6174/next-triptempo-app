@@ -1,7 +1,7 @@
 import { type StateCreator, create } from 'zustand';
 import { devtools } from 'zustand/middleware';
 
-import { TripItinerariesService } from '../services/providers.service';
+import { TripItinerariesService } from '../services/tripItinenaries.service';
 
 import { type ErrorResponse, type TripItineraryEntity } from '../core';
 
