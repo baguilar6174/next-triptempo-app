@@ -16,4 +16,8 @@ export class AppError extends Error {
 		this.name = name ?? 'Aplication Error';
 		this.validationErrors = validationErrors;
 	}
+
+	static internalServer(message: string): AppError {
+		return new AppError({ name: 'InternalServerError', message });
+	}
 }

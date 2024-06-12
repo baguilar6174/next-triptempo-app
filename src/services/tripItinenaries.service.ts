@@ -22,7 +22,7 @@ export class TripItinerariesService {
 				const { name, message, validationErrors } = error.response?.data;
 				throw new AppError({ name, message, validationErrors });
 			}
-			throw new Error('Service error get');
+			throw AppError.internalServer('Server error in get trip itinenaries');
 		}
 	};
 }
