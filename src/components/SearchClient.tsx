@@ -1,6 +1,10 @@
 'use client';
 
 import React from 'react';
+import { z } from 'zod';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+
 import { Container } from './Container';
 import { Button } from './ui/button';
 import { useTripItinerariesStore } from '../stores/tripItinerary.store';
@@ -8,13 +12,18 @@ import { ResultCard } from './ResultCard';
 import { Loader } from './Loader';
 import { ZERO } from '../core/contants';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './ui/select';
-import { useToast } from './ui/use-toast';
 import { Text } from './Text';
 import { type CityEntity } from '../core/entities/city.entity';
+import { Form, FormControl, FormField, FormItem, FormMessage } from './ui/form';
 
 interface SearchProps {
 	cities: CityEntity[];
 }
+
+const FormSchema = z.object({
+	startCity: z.string({ required_error: 'Please select a origin city.' }),
+	endCity: z.string({ required_error: 'Please select a destination city.' })
+});
 
 export const SearchClient: React.FC<SearchProps> = (props: SearchProps) => {
 	const { cities } = props;
@@ -24,10 +33,9 @@ export const SearchClient: React.FC<SearchProps> = (props: SearchProps) => {
 	const error = useTripItinerariesStore((state) => state.error);
 	const getTripItineraries = useTripItinerariesStore((state) => state.getTripItineraries);
 
-	const { toast } = useToast();
+	const form = useForm<z.infer<typeof FormSchema>>({ resolver: zodResolver(FormSchema) });
 
-	const [startCity, setStartCity] = React.useState<string>();
-	const [endCity, setEndCity] = React.useState<string>();
+	const { getValues } = form;
 
 	return (
 		<Container>
@@ -36,39 +44,47 @@ export const SearchClient: React.FC<SearchProps> = (props: SearchProps) => {
 			</Text>
 			<Text tag="h3">Where do you wanna go?</Text>
 			<Text tag="p">Find the perfect schedule for your trip!</Text>
-			<div className="mt-5 grid grid-cols-1 lg:grid-cols-3 gap-8">
-				<Select onValueChange={setStartCity}>
-					<SelectTrigger>
-						<SelectValue placeholder="Where from?" />
-					</SelectTrigger>
-					<SelectContent>
-						{cities
-							.filter((city) => city.id !== endCity)
-							.map((city) => (
-								<SelectItem key={city.id} value={String(city.id)}>
-									{city.name}, {city.province}
-								</SelectItem>
-							))}
-					</SelectContent>
-				</Select>
-				<Select onValueChange={setEndCity}>
-					<SelectTrigger>
-						<SelectValue placeholder="Where to?" />
-					</SelectTrigger>
-					<SelectContent>
-						{cities
-							.filter((city): boolean => city.id !== startCity)
-							.map((city) => (
-								<SelectItem key={city.id} value={String(city.id)}>
-									{city.name}, <span>{city.province}</span>
-								</SelectItem>
-							))}
-					</SelectContent>
-				</Select>
-				<Button onClick={onSubmit} variant="outline">
-					Search Schedules
-				</Button>
-			</div>
+			<Form {...form}>
+				<form onSubmit={form.handleSubmit(onSubmit)} className="mt-5 grid grid-cols-1 lg:grid-cols-3 gap-8">
+					<FormField
+						control={form.control}
+						name="startCity"
+						render={({ field }) => (
+							<FormItem>
+								<Select onValueChange={field.onChange} defaultValue={field.value}>
+									<FormControl>
+										<SelectTrigger>
+											<SelectValue placeholder="Where from?" />
+										</SelectTrigger>
+									</FormControl>
+									<SelectContent>{getCities(getValues('endCity'))}</SelectContent>
+								</Select>
+								<FormMessage />
+							</FormItem>
+						)}
+					/>
+					<FormField
+						control={form.control}
+						name="endCity"
+						render={({ field }) => (
+							<FormItem>
+								<Select onValueChange={field.onChange} defaultValue={field.value}>
+									<FormControl>
+										<SelectTrigger>
+											<SelectValue placeholder="Where to?" />
+										</SelectTrigger>
+									</FormControl>
+									<SelectContent>{getCities(getValues('startCity'))}</SelectContent>
+								</Select>
+								<FormMessage />
+							</FormItem>
+						)}
+					/>
+					<Button type="submit" variant="outline">
+						Submit
+					</Button>
+				</form>
+			</Form>
 			{isLoading && <Loader />}
 			{tripItineraries && tripItineraries.length === ZERO && (
 				<div className="py-20 flex flex-col gap-2 justify-center items-center">
@@ -88,14 +104,18 @@ export const SearchClient: React.FC<SearchProps> = (props: SearchProps) => {
 		</Container>
 	);
 
-	async function onSubmit(): Promise<void> {
-		if (!startCity || !endCity) {
-			toast({
-				description: 'You must indicate the city of origin and destination',
-				variant: 'destructive'
-			});
-			return;
-		}
+	async function onSubmit(data: z.infer<typeof FormSchema>): Promise<void> {
+		const { startCity, endCity } = data;
 		await getTripItineraries(startCity, endCity);
+	}
+
+	function getCities(filter: string): React.JSX.Element[] {
+		return cities
+			.filter((city): boolean => city.id !== filter)
+			.map((city) => (
+				<SelectItem key={city.id} value={String(city.id)}>
+					{city.name}, <span>{city.province}</span>
+				</SelectItem>
+			));
 	}
 };
