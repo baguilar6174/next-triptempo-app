@@ -16,7 +16,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }):
 			<body className="w-full">
 				<ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
 					<Navbar />
-					<main className="py-32">{children}</main>
+					<main className="pt-[60.8px]">{children}</main>
 					<Toaster />
 				</ThemeProvider>
 			</body>
