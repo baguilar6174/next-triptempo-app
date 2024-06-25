@@ -2,7 +2,6 @@ import Link from 'next/link';
 
 import { Container } from '../Container';
 import { ButtonTheme } from './ButtonTheme';
-import { Button } from '@/components/ui/button';
 
 export const Navbar = (): JSX.Element => {
 	return (
@@ -15,9 +14,6 @@ export const Navbar = (): JSX.Element => {
 						</Link>
 						<div className="flex">
 							<ButtonTheme />
-							<Button asChild variant="link">
-								<Link href="/auth/login">Sign In</Link>
-							</Button>
 						</div>
 					</div>
 				</Container>

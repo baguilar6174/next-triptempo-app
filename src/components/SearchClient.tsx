@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { z } from 'zod';
+import { type z } from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 
@@ -15,15 +15,11 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '.
 import { Text } from './Text';
 import { type CityEntity } from '../core/entities/city.entity';
 import { Form, FormControl, FormField, FormItem, FormMessage } from './ui/form';
+import { searchSchema } from '../schemas';
 
 interface SearchProps {
 	cities: CityEntity[];
 }
-
-const FormSchema = z.object({
-	startCity: z.string({ required_error: 'Please select a origin city.' }),
-	endCity: z.string({ required_error: 'Please select a destination city.' })
-});
 
 export const SearchClient: React.FC<SearchProps> = (props: SearchProps) => {
 	const { cities } = props;
@@ -33,7 +29,7 @@ export const SearchClient: React.FC<SearchProps> = (props: SearchProps) => {
 	const error = useTripItinerariesStore((state) => state.error);
 	const getTripItineraries = useTripItinerariesStore((state) => state.getTripItineraries);
 
-	const form = useForm<z.infer<typeof FormSchema>>({ resolver: zodResolver(FormSchema) });
+	const form = useForm<z.infer<typeof searchSchema>>({ resolver: zodResolver(searchSchema) });
 
 	const { getValues } = form;
 
@@ -104,7 +100,7 @@ export const SearchClient: React.FC<SearchProps> = (props: SearchProps) => {
 		</Container>
 	);
 
-	async function onSubmit(data: z.infer<typeof FormSchema>): Promise<void> {
+	async function onSubmit(data: z.infer<typeof searchSchema>): Promise<void> {
 		const { startCity, endCity } = data;
 		await getTripItineraries(startCity, endCity);
 	}
