@@ -5,11 +5,13 @@ import { cn } from '@/utils';
 import { type z } from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { AlertCircle } from 'lucide-react';
 
 import { loginSchema } from '@/schemas';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
+import { Alert, AlertDescription } from '@/components/ui/alert';
 
 interface LoginFormProps extends React.HTMLAttributes<HTMLDivElement> {}
 
@@ -55,6 +57,10 @@ export const LoginForm = ({ className, ...props }: LoginFormProps): JSX.Element 
 							</FormItem>
 						)}
 					/>
+					<Alert variant="destructive" className="my-2">
+						<AlertCircle className="h-4 w-4" />
+						<AlertDescription>Your session has expired. Please log in again.</AlertDescription>
+					</Alert>
 					<Button type="submit">Sign In</Button>
 				</form>
 			</Form>
@@ -62,7 +68,10 @@ export const LoginForm = ({ className, ...props }: LoginFormProps): JSX.Element 
 	);
 
 	function onSubmit(data: z.infer<typeof loginSchema>): void {
-		// eslint-disable-next-line no-console
-		console.log(data);
+		const validateFields = loginSchema.safeParse(data);
+		if (validateFields.success) {
+			// eslint-disable-next-line no-console
+			console.log(validateFields.data);
+		}
 	}
 };
