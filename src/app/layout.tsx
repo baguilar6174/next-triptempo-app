@@ -3,7 +3,7 @@ import type { Metadata } from 'next';
 
 import { Navbar } from '@/components/Navbar';
 import { Toaster } from '@/components/ui/toaster';
-import { ThemeProvider } from '@/components/themeProvider';
+import { ThemeProvider } from '@/components/ThemeProvider';
 
 export const metadata: Metadata = {
 	title: 'Trip Tempo',

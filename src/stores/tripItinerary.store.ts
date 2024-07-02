@@ -22,7 +22,7 @@ const tripItinerariesAPI: StateCreator<Store> = (set, get) => ({
 	isLoading: false,
 	getTripItineraries: async (startCityId: string, endCityId: string) => {
 		const state = get();
-		set({ ...state, isLoading: true });
+		set({ ...state, isLoading: true, error: undefined });
 		try {
 			const { result } = await TripItinerariesService.getTripItineraries(startCityId, endCityId);
 			set({ isLoading: false, tripItineraries: result.data });

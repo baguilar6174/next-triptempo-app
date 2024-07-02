@@ -6,20 +6,39 @@ import { type z } from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { AlertCircle } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 
 import { loginSchema } from '@/schemas';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Alert, AlertDescription } from '@/components/ui/alert';
+import { useAuthStore } from '@/stores/auth.store';
 
 interface LoginFormProps extends React.HTMLAttributes<HTMLDivElement> {}
 
 export const LoginForm = ({ className, ...props }: LoginFormProps): JSX.Element => {
-	const form = useForm<z.infer<typeof loginSchema>>({
-		resolver: zodResolver(loginSchema),
-		defaultValues: { email: '', password: '' }
-	});
+	const isLoading = useAuthStore((state) => state.isLoading);
+	const login = useAuthStore((state) => state.login);
+	const error = useAuthStore((state) => state.error);
+	const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
+	const clearError = useAuthStore((state) => state.clearError);
+
+	const router = useRouter();
+
+	React.useEffect(() => {
+		if (isAuthenticated) router.push('/dashboard');
+	}, [isAuthenticated, router]);
+
+	React.useEffect(() => {
+		// TODO
+		// Clear error when component unmounts or when username/password changes
+		return () => {
+			clearError();
+		};
+	}, [clearError]);
+
+	const form = useForm<z.infer<typeof loginSchema>>({ resolver: zodResolver(loginSchema) });
 
 	return (
 		<div className={cn('grid gap-6', className)} {...props}>
@@ -33,6 +52,7 @@ export const LoginForm = ({ className, ...props }: LoginFormProps): JSX.Element 
 								<FormLabel className="sr-only">Email</FormLabel>
 								<FormControl>
 									<Input
+										disabled={isLoading}
 										placeholder="Your email"
 										autoCapitalize="none"
 										autoComplete="email"
@@ -51,27 +71,31 @@ export const LoginForm = ({ className, ...props }: LoginFormProps): JSX.Element 
 							<FormItem className="grid gap-1">
 								<FormLabel className="sr-only">Password</FormLabel>
 								<FormControl>
-									<Input placeholder="Your password" type="password" {...field} />
+									<Input disabled={isLoading} placeholder="Your password" type="password" {...field} />
 								</FormControl>
 								<FormMessage />
 							</FormItem>
 						)}
 					/>
-					<Alert variant="destructive" className="my-2">
-						<AlertCircle className="h-4 w-4" />
-						<AlertDescription>Your session has expired. Please log in again.</AlertDescription>
-					</Alert>
-					<Button type="submit">Sign In</Button>
+					{error && (
+						<Alert variant="destructive" className="my-2">
+							<AlertCircle className="h-4 w-4" />
+							<AlertDescription>{error.message}</AlertDescription>
+						</Alert>
+					)}
+					<Button type="submit" disabled={isLoading}>
+						Sign In
+					</Button>
 				</form>
 			</Form>
 		</div>
 	);
 
-	function onSubmit(data: z.infer<typeof loginSchema>): void {
+	async function onSubmit(data: z.infer<typeof loginSchema>): Promise<void> {
 		const validateFields = loginSchema.safeParse(data);
 		if (validateFields.success) {
-			// eslint-disable-next-line no-console
-			console.log(validateFields.data);
+			const { email, password } = validateFields.data;
+			await login(email, password);
 		}
 	}
 };
