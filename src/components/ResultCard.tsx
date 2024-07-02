@@ -3,10 +3,10 @@ import React from 'react';
 import { Badge } from './ui/badge';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from './ui/card';
 import { Text } from './Text';
-import { type TripItineraryEntity } from '../core/entities/tripItineraries.entity';
+import { type TripItinerary } from '@/core/entities';
 
 interface ResultCardProps {
-	tripItinerary: TripItineraryEntity;
+	tripItinerary: TripItinerary;
 }
 
 export const ResultCard: React.FC<ResultCardProps> = (props: ResultCardProps) => {

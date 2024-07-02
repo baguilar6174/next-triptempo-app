@@ -1,14 +1,14 @@
 import { AxiosError } from 'axios';
 
-import { API, type SuccessResponse, type TripItineraryEntity, type PaginationResponseEntity, AppError } from '../core';
+import { API, type SuccessResponse, type TripItinerary, type PaginationResponse, AppError } from '../core';
 
 export class TripItinerariesService {
 	static getTripItineraries = async (
 		startCityId: string,
 		endCityId: string
-	): Promise<SuccessResponse<PaginationResponseEntity<TripItineraryEntity[]>>> => {
+	): Promise<SuccessResponse<PaginationResponse<TripItinerary[]>>> => {
 		try {
-			const { data } = await API.get<SuccessResponse<PaginationResponseEntity<TripItineraryEntity[]>>>(
+			const { data } = await API.get<SuccessResponse<PaginationResponse<TripItinerary[]>>>(
 				'/providers/tripItineraries',
 				{
 					params: { startCityId, endCityId }

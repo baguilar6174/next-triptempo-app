@@ -13,12 +13,12 @@ import { Loader } from './Loader';
 import { ZERO } from '../core/contants';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './ui/select';
 import { Text } from './Text';
-import { type CityEntity } from '../core/entities/city.entity';
+import { type City } from '@/core/entities';
 import { Form, FormControl, FormField, FormItem, FormMessage } from './ui/form';
 import { searchSchema } from '../schemas';
 
 interface SearchProps {
-	cities: CityEntity[];
+	cities: City[];
 }
 
 export const SearchClient: React.FC<SearchProps> = (props: SearchProps) => {

@@ -1,11 +1,11 @@
 import { AxiosError } from 'axios';
 
-import { API, AppError, type AuthEntity, type SuccessResponse } from '../core';
+import { API, AppError, type Auth, type SuccessResponse } from '../core';
 
 export class AuthService {
-	static login = async (email: string, password: string): Promise<SuccessResponse<AuthEntity>> => {
+	static login = async (email: string, password: string): Promise<SuccessResponse<Auth>> => {
 		try {
-			const { data } = await API.post<SuccessResponse<AuthEntity>>('/auth/login', {
+			const { data } = await API.post<SuccessResponse<Auth>>('/auth/login', {
 				email,
 				password
 			});

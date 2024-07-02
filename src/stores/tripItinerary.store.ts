@@ -3,10 +3,10 @@ import { devtools } from 'zustand/middleware';
 
 import { TripItinerariesService } from '../services/tripItinenaries.service';
 
-import { type ErrorResponse, type TripItineraryEntity } from '../core';
+import { type ErrorResponse, type TripItinerary } from '../core';
 
 interface State {
-	tripItineraries?: TripItineraryEntity[];
+	tripItineraries?: TripItinerary[];
 	isLoading: boolean;
 	error?: ErrorResponse;
 }

@@ -1,11 +1,11 @@
 import { AxiosError } from 'axios';
 
-import { API, AppError, type PaginationResponseEntity, type CityEntity, type SuccessResponse } from '../core';
+import { API, AppError, type PaginationResponse, type City, type SuccessResponse } from '../core';
 
 export class CitiesService {
-	static getCitites = async (): Promise<SuccessResponse<PaginationResponseEntity<CityEntity[]>>> => {
+	static getCitites = async (): Promise<SuccessResponse<PaginationResponse<City[]>>> => {
 		try {
-			const { data } = await API.get<SuccessResponse<PaginationResponseEntity<CityEntity[]>>>('/cities');
+			const { data } = await API.get<SuccessResponse<PaginationResponse<City[]>>>('/cities');
 			return data;
 		} catch (error) {
 			if (error instanceof AxiosError) {
