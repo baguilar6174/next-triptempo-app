@@ -7,7 +7,9 @@ import { API } from '@/core';
 import { useAuthStore } from '@/stores/auth.store';
 
 export function AuthProvider({ children }: { children: React.ReactNode }): React.JSX.Element {
-	const { isAuthenticated, token } = useAuthStore();
+	const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
+	const token = useAuthStore((state) => state.token);
+
 	const router = useRouter();
 
 	React.useEffect(() => {
