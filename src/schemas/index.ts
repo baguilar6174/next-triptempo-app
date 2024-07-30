@@ -7,6 +7,6 @@ export const searchSchema = z.object({
 });
 
 export const loginSchema = z.object({
-	email: z.string().email(),
-	password: z.string().min(SIX)
+	email: z.string({ required_error: 'Please enter your email.' }).email(),
+	password: z.string({ required_error: 'Please enter your password.' }).min(SIX)
 });

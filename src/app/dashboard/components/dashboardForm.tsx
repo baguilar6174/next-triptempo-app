@@ -11,7 +11,7 @@ export const DashboardForm = (): JSX.Element => {
 	return (
 		<div>
 			<Button variant="outline" onClick={logout}>
-				<span className="sr-only">Toggle theme</span>
+				<span className="sr-only">Logout</span>
 			</Button>
 		</div>
 	);
