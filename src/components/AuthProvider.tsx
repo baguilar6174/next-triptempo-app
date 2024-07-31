@@ -13,7 +13,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }): React
 	const router = useRouter();
 
 	React.useEffect(() => {
-		if (!isAuthenticated && !window.location.pathname.startsWith('/auth/login')) router.push('/auth/login');
+		if (!isAuthenticated && !window.location.pathname.startsWith('/login')) router.push('/login');
 		const interceptor = API.interceptors.request.use((config) => {
 			if (token) config.headers.Authorization = `Bearer ${token}`;
 			return config;

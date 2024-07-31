@@ -76,9 +76,7 @@ export const SearchClient: React.FC<SearchProps> = (props: SearchProps) => {
 							</FormItem>
 						)}
 					/>
-					<Button type="submit" variant="outline">
-						Submit
-					</Button>
+					<Button type="submit">Submit</Button>
 				</form>
 			</Form>
 			{isLoading && <Loader />}
