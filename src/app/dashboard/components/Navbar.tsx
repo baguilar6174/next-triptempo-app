@@ -1,11 +1,12 @@
 'use client';
 
-import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
+import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
 import { Menu, Search } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { ONE } from '@/core';
 import { Button } from '@/components/ui/button';
 import { useAuthStore } from '@/stores/auth.store';
+import { SidebarRoutes } from './SidebarRoutes';
 
 export const DashboardNavbar = (): JSX.Element => {
 	const logout = useAuthStore((state) => state.logout);
@@ -18,7 +19,11 @@ export const DashboardNavbar = (): JSX.Element => {
 						<Menu />
 					</SheetTrigger>
 					<SheetContent side={'left'}>
-						<p>Sidebar routes</p>
+						<SheetHeader>
+							<SheetTitle>Dashboard</SheetTitle>
+							<SheetDescription>Control Trip Tempo App</SheetDescription>
+						</SheetHeader>
+						<SidebarRoutes />
 					</SheetContent>
 				</Sheet>
 			</div>
