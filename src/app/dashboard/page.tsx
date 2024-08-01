@@ -4,6 +4,9 @@ import { Text } from '@/components/Text';
 
 import { UsersRound } from 'lucide-react';
 import { CardSummary } from './components/CardSummary';
+import { LastRoutes } from './components/LastRoutes';
+import { TotalRoutes } from './components/TotalRoutes';
+import { TotalRoutes1 } from './components/TotalRoutes1';
 
 export default function DashboardPage(): JSX.Element {
 	return (
@@ -35,8 +38,12 @@ export default function DashboardPage(): JSX.Element {
 				/>
 			</div>
 			<div className="grid grid-cols-1 xl:grid-cols-2 md:gap-x-10 mt-12">
-				<p>Last routes</p>
+				<LastRoutes />
 				<p>Schedules</p>
+			</div>
+			<div className="flex-col md:gap-x-10 xl:flex xl:flex-row gap-y-4 md:gap-y-0 mt-12 md:mb-10 justify-center">
+				<TotalRoutes />
+				<TotalRoutes1 />
 			</div>
 		</div>
 	);
