@@ -1,8 +1,6 @@
 import React from 'react';
-
-import { Text } from '@/components/Text';
-
 import { UsersRound } from 'lucide-react';
+
 import { CardSummary } from './components/CardSummary';
 import { LastRoutes } from './components/LastRoutes';
 import { TotalRoutes } from './components/TotalRoutes';
@@ -11,9 +9,6 @@ import { TotalRoutes1 } from './components/TotalRoutes1';
 export default function DashboardPage(): JSX.Element {
 	return (
 		<div>
-			<Text tag="h2" className="mb-4">
-				Dashboard
-			</Text>
 			<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 lg:gap-x-20">
 				<CardSummary
 					icon={UsersRound}

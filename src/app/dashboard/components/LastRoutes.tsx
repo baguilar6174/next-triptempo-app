@@ -1,7 +1,7 @@
 import { Route } from 'lucide-react';
 
 import { CustomIcon } from '@/components/CustomIcon';
-import { RoutesTable } from './RoutesTable';
+import { RoutesTable } from './Table';
 
 export const LastRoutes = (): JSX.Element => {
 	return (
