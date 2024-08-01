@@ -34,6 +34,10 @@ export default function DashboardPage(): JSX.Element {
 					tooltipText="See all available cities"
 				/>
 			</div>
+			<div className="grid grid-cols-1 xl:grid-cols-2 md:gap-x-10 mt-12">
+				<p>Last routes</p>
+				<p>Schedules</p>
+			</div>
 		</div>
 	);
 }

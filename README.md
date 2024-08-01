@@ -60,6 +60,7 @@ yarn
 <table>
   <tr>
     <td align="center" valign="center"><img src="./media/1.png" width="100%"></td>
+    <td align="center" valign="center"><img src="./media/2.png" width="100%"></td>
   </tr>
 </table>
 
