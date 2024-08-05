@@ -8,6 +8,8 @@ export const TWENTY = 20 as const;
 export const SEVENTY = 70 as const;
 export const MINUS_ONE = -1 as const;
 
+export const EMPTY_STRING = '';
+
 export enum HttpCode {
 	OK = 200,
 	CREATED = 201,

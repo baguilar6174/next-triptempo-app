@@ -1,13 +1,13 @@
 import React from 'react';
 
-import { Text } from '@/components/Text';
+import { PageHeader } from './components/PageHeader';
+import { List } from './components/List';
 
 export default function CitiesPage(): JSX.Element {
 	return (
 		<div>
-			<Text tag="h1" className="mb-4">
-				Cities
-			</Text>
+			<PageHeader />
+			<List />
 		</div>
 	);
 }
