@@ -16,7 +16,7 @@ import {
 import { Input } from '@/components/ui/input';
 import { EMPTY_STRING } from '@/core';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { Button } from '../../../../components/ui/button';
+import { Button } from './ui/button';
 
 interface DataTableProps<TData, TValue> {
 	columns: Array<ColumnDef<TData, TValue>>;

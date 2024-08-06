@@ -8,27 +8,29 @@ import { z } from 'zod';
 import { Button } from '@/components/ui/button';
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import { FOUR } from '@/core';
+import { EMPTY_STRING, FOUR, type Province } from '@/core';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 
 interface FormCreateProps {
 	setOpenModal: Dispatch<SetStateAction<boolean>>;
+	provinces: Province[];
 }
 
 const formSchema = z.object({
-	username: z.string().min(FOUR, {
-		message: 'Username must be at least 2 characters.'
-	})
+	id: z.string({ required_error: 'Please enter a id.' }),
+	province: z.string({ required_error: 'Please select a province.' }),
+	name: z
+		.string({ required_error: 'Please enter a name.' })
+		.min(FOUR, { message: `Name must be at least ${FOUR} characters.` })
 });
 
 export const FormCreate = (props: FormCreateProps): JSX.Element => {
-	const { setOpenModal } = props;
+	const { setOpenModal, provinces } = props;
 
 	// 1. Define your form.
 	const form = useForm<z.infer<typeof formSchema>>({
 		resolver: zodResolver(formSchema),
-		defaultValues: {
-			username: ''
-		}
+		defaultValues: { id: EMPTY_STRING, name: EMPTY_STRING }
 	});
 
 	// 2. Define a submit handler.
@@ -44,14 +46,51 @@ export const FormCreate = (props: FormCreateProps): JSX.Element => {
 				<div className="grid grid-cols-2 gap-3">
 					<FormField
 						control={form.control}
-						name="username"
+						name="province"
 						render={({ field }) => (
 							<FormItem>
-								<FormLabel>Username</FormLabel>
+								<Select onValueChange={field.onChange} defaultValue={field.value}>
+									<FormLabel>Province</FormLabel>
+									<FormControl>
+										<SelectTrigger>
+											<SelectValue placeholder="Select a province" />
+										</SelectTrigger>
+									</FormControl>
+									<SelectContent>
+										{provinces.map((province) => (
+											<SelectItem key={province.id} value={String(province.id)}>
+												{province.name}
+											</SelectItem>
+										))}
+									</SelectContent>
+								</Select>
+								<FormMessage />
+							</FormItem>
+						)}
+					/>
+					<FormField
+						control={form.control}
+						name="id"
+						render={({ field }) => (
+							<FormItem>
+								<FormLabel>City ID</FormLabel>
 								<FormControl>
-									<Input placeholder="shadcn" {...field} />
+									<Input placeholder="Enter a city ID" {...field} />
 								</FormControl>
-								<FormDescription>This is your public display name.</FormDescription>
+								<FormDescription>Get the ID from here</FormDescription>
+								<FormMessage />
+							</FormItem>
+						)}
+					/>
+					<FormField
+						control={form.control}
+						name="name"
+						render={({ field }) => (
+							<FormItem>
+								<FormLabel>Name</FormLabel>
+								<FormControl>
+									<Input placeholder="Enter a cityname" {...field} />
+								</FormControl>
 								<FormMessage />
 							</FormItem>
 						)}

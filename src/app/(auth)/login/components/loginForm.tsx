@@ -14,6 +14,7 @@ import { Button } from '@/components/ui/button';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { useAuthStore } from '@/stores/auth.store';
+import { EMPTY_STRING } from '@/core';
 
 interface LoginFormProps extends React.HTMLAttributes<HTMLDivElement> {}
 
@@ -38,7 +39,10 @@ export const LoginForm = ({ className, ...props }: LoginFormProps): JSX.Element 
 		};
 	}, [clearError]);
 
-	const form = useForm<z.infer<typeof loginSchema>>({ resolver: zodResolver(loginSchema) });
+	const form = useForm<z.infer<typeof loginSchema>>({
+		resolver: zodResolver(loginSchema),
+		defaultValues: { email: EMPTY_STRING, password: EMPTY_STRING }
+	});
 
 	return (
 		<div className={cn('grid gap-6', className)} {...props}>

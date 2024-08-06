@@ -1,11 +1,11 @@
 import { AxiosError } from 'axios';
 
-import { API, AppError, type City, type SuccessResponse } from '../core';
+import { API, AppError, type Province, type SuccessResponse } from '../core';
 
-export class CitiesService {
-	static getCitites = async (): Promise<SuccessResponse<City[]>> => {
+export class ProvincesService {
+	static getProvinces = async (): Promise<SuccessResponse<Province[]>> => {
 		try {
-			const { data } = await API.get<SuccessResponse<City[]>>('/cities');
+			const { data } = await API.get<SuccessResponse<Province[]>>('/provinces');
 			return data;
 		} catch (error) {
 			if (error instanceof AxiosError) {
