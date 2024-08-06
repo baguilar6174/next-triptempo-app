@@ -1,7 +1,6 @@
 import { Route } from 'lucide-react';
 
 import { CustomIcon } from '@/components/CustomIcon';
-import { RoutesTable } from './Table';
 
 export const LastRoutes = (): JSX.Element => {
 	return (
@@ -11,7 +10,7 @@ export const LastRoutes = (): JSX.Element => {
 				<p className="text-xl">Last Routes</p>
 			</div>
 			<div>
-				<RoutesTable />
+				<p>Table</p>
 			</div>
 		</div>
 	);

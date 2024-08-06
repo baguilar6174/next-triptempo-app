@@ -8,7 +8,7 @@ import { z } from 'zod';
 import { Button } from '@/components/ui/button';
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import { EMPTY_STRING, FOUR, type Province } from '@/core';
+import { EMPTY_STRING, FOUR, TWO, type Province } from '@/core';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 
 interface FormCreateProps {
@@ -17,7 +17,10 @@ interface FormCreateProps {
 }
 
 const formSchema = z.object({
-	id: z.string({ required_error: 'Please enter a id.' }),
+	id: z
+		.string({ required_error: 'Please enter a id.' })
+		.min(TWO, { message: `ID must be at least ${TWO} characters.` })
+		.max(TWO, { message: `ID must be at most ${TWO} characters.` }),
 	province: z.string({ required_error: 'Please select a province.' }),
 	name: z
 		.string({ required_error: 'Please enter a name.' })
