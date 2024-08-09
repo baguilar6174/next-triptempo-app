@@ -6,10 +6,12 @@ import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
 import { Button } from '@/components/ui/button';
-import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { EMPTY_STRING, FOUR, TWO, type Province } from '@/core';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { useCitiesStore } from '@/stores/city.store';
+import { Loader } from '@/components/Loader';
 
 interface FormCreateProps {
 	setOpenModal: Dispatch<SetStateAction<boolean>>;
@@ -21,7 +23,7 @@ const formSchema = z.object({
 		.string({ required_error: 'Please enter a id.' })
 		.min(TWO, { message: `ID must be at least ${TWO} characters.` })
 		.max(TWO, { message: `ID must be at most ${TWO} characters.` }),
-	province: z.string({ required_error: 'Please select a province.' }),
+	provinceId: z.string({ required_error: 'Please select a province.' }),
 	name: z
 		.string({ required_error: 'Please enter a name.' })
 		.min(FOUR, { message: `Name must be at least ${FOUR} characters.` })
@@ -30,18 +32,17 @@ const formSchema = z.object({
 export const FormCreate = (props: FormCreateProps): JSX.Element => {
 	const { setOpenModal, provinces } = props;
 
-	// 1. Define your form.
+	const isLoading = useCitiesStore((state) => state.isLoading);
+	// const updatedCity = useCitiesStore((state) => state.updatedCity);
+	// const error = useCitiesStore((state) => state.error);
+	const create = useCitiesStore((state) => state.create);
+
 	const form = useForm<z.infer<typeof formSchema>>({
 		resolver: zodResolver(formSchema),
 		defaultValues: { id: EMPTY_STRING, name: EMPTY_STRING }
 	});
 
-	// 2. Define a submit handler.
-	function onSubmit(values: z.infer<typeof formSchema>): void {
-		// eslint-disable-next-line no-console
-		console.log(values);
-		setOpenModal(false);
-	}
+	if (isLoading) return <Loader />;
 
 	return (
 		<Form {...form}>
@@ -49,11 +50,11 @@ export const FormCreate = (props: FormCreateProps): JSX.Element => {
 				<div className="grid grid-cols-2 gap-3">
 					<FormField
 						control={form.control}
-						name="province"
+						name="provinceId"
 						render={({ field }) => (
 							<FormItem>
+								<FormLabel>Province</FormLabel>
 								<Select onValueChange={field.onChange} defaultValue={field.value}>
-									<FormLabel>Province</FormLabel>
 									<FormControl>
 										<SelectTrigger>
 											<SelectValue placeholder="Select a province" />
@@ -76,11 +77,10 @@ export const FormCreate = (props: FormCreateProps): JSX.Element => {
 						name="id"
 						render={({ field }) => (
 							<FormItem>
-								<FormLabel>City ID</FormLabel>
+								<FormLabel>City code</FormLabel>
 								<FormControl>
-									<Input placeholder="Enter a city ID" {...field} />
+									<Input placeholder="Enter city code" {...field} />
 								</FormControl>
-								<FormDescription>Get the ID from here</FormDescription>
 								<FormMessage />
 							</FormItem>
 						)}
@@ -103,4 +103,9 @@ export const FormCreate = (props: FormCreateProps): JSX.Element => {
 			</form>
 		</Form>
 	);
+
+	async function onSubmit(values: z.infer<typeof formSchema>): Promise<void> {
+		await create(values);
+		setOpenModal(false);
+	}
 };

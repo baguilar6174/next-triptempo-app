@@ -19,6 +19,12 @@ export interface City {
 	region: string;
 }
 
+export interface CreateCityDTO {
+	id: string;
+	name: string;
+	provinceId: string;
+}
+
 export interface Schedule {
 	id: number;
 	departureTime: string;

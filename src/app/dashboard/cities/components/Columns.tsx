@@ -5,6 +5,7 @@ import { ArrowUpDown, Pencil, Trash } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
 import { type City } from '@/core/entities';
+import { useCitiesStore } from '@/stores/city.store';
 
 export const columns: Array<ColumnDef<City>> = [
 	{
@@ -38,20 +39,33 @@ export const columns: Array<ColumnDef<City>> = [
 	{
 		id: 'actions',
 		header: 'Actions',
-		cell: ({ row }) => {
-			const { id } = row.original;
-			// eslint-disable-next-line no-console
-			console.log(id);
-			return (
-				<div className="flex gap-x-2">
-					<Button size="icon">
-						<Pencil className="h-4 w-4" />
-					</Button>
-					<Button variant="destructive" size="icon">
-						<Trash className="h-4 w-4" />
-					</Button>
-				</div>
-			);
-		}
+		cell: ({ row }) => <TableActions id={row.original.id} />
 	}
 ];
+
+interface TableActionsProps {
+	id: string;
+}
+
+export const TableActions = (props: TableActionsProps): JSX.Element => {
+	const { id } = props;
+
+	const deleteCity = useCitiesStore((state) => state.delete);
+
+	return (
+		<div className="flex gap-x-2">
+			<Button size="icon">
+				<Pencil className="h-4 w-4" />
+			</Button>
+			<Button
+				variant="destructive"
+				size="icon"
+				onClick={async () => {
+					await deleteCity(id);
+				}}
+			>
+				<Trash className="h-4 w-4" />
+			</Button>
+		</div>
+	);
+};
