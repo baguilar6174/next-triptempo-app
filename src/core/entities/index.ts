@@ -40,3 +40,12 @@ export interface TripItinerary {
 	price: number;
 	schedules: Schedule[];
 }
+export interface Route {
+	id: string;
+	endCity: string;
+	distance: number;
+	price: number;
+	estimatedTravelTime: number;
+	transportationProvider: string;
+	startCity: string;
+}

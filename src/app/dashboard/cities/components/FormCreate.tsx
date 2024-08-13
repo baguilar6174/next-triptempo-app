@@ -92,14 +92,16 @@ export const FormCreate = (props: FormCreateProps): JSX.Element => {
 							<FormItem>
 								<FormLabel>Name</FormLabel>
 								<FormControl>
-									<Input placeholder="Enter a cityname" {...field} />
+									<Input placeholder="Enter a city name" {...field} />
 								</FormControl>
 								<FormMessage />
 							</FormItem>
 						)}
 					/>
 				</div>
-				<Button type="submit">Submit</Button>
+				<div className="flex justify-end">
+					<Button type="submit">Create City</Button>
+				</div>
 			</form>
 		</Form>
 	);

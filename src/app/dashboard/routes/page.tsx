@@ -1,13 +1,15 @@
 import React from 'react';
 
 import { Text } from '@/components/Text';
+import { PageTable } from './components/PageTable';
 
 export default function RoutesPage(): JSX.Element {
 	return (
-		<div>
-			<Text tag="h1" className="mb-4">
-				Routes
-			</Text>
-		</div>
+		<React.Fragment>
+			<div className="flex justify-between items-center">
+				<Text tag="h2">Routes</Text>
+			</div>
+			<PageTable />
+		</React.Fragment>
 	);
 }

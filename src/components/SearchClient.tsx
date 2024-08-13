@@ -35,7 +35,7 @@ export const SearchClient: React.FC<SearchProps> = (props: SearchProps) => {
 
 	return (
 		<Container>
-			<Text tag="h1" className="text-center">
+			<Text tag="h1" className="text-center mt-5">
 				Trip Tempo
 			</Text>
 			<Text tag="h3">Where do you wanna go?</Text>
