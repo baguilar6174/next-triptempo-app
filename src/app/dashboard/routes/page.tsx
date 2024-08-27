@@ -1,15 +1,16 @@
 import React from 'react';
 
-import { Text } from '@/components/Text';
 import { PageTable } from './components/PageTable';
+import { PageHeader } from './components/PageHeader';
+import { CitiesService } from '@/services/cities.service';
 
-export default function RoutesPage(): JSX.Element {
+export default async function RoutesPage(): Promise<JSX.Element> {
+	const { result: cities } = await CitiesService.getAll();
+
 	return (
-		<React.Fragment>
-			<div className="flex justify-between items-center">
-				<Text tag="h2">Routes</Text>
-			</div>
+		<div>
+			<PageHeader cities={cities} />
 			<PageTable />
-		</React.Fragment>
+		</div>
 	);
 }

@@ -3,7 +3,7 @@ import { AxiosError } from 'axios';
 import { API, AppError, type Province, type SuccessResponse } from '../core';
 
 export class ProvincesService {
-	static getProvinces = async (): Promise<SuccessResponse<Province[]>> => {
+	static getAll = async (): Promise<SuccessResponse<Province[]>> => {
 		try {
 			const { data } = await API.get<SuccessResponse<Province[]>>('/provinces');
 			return data;

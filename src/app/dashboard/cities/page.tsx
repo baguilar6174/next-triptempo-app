@@ -5,7 +5,7 @@ import { ProvincesService } from '@/services/provinces.service';
 import { PageTable } from './components/PageTable';
 
 export default async function CitiesPage(): Promise<JSX.Element> {
-	const { result: provinces } = await ProvincesService.getProvinces();
+	const { result: provinces } = await ProvincesService.getAll();
 
 	return (
 		<div>
