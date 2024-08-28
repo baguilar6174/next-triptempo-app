@@ -8,7 +8,7 @@ import { z } from 'zod';
 import { Button } from '@/components/ui/button';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import { EMPTY_STRING, TWO, type City } from '@/core';
+import { EMPTY_STRING, type Provider, TWO, type City } from '@/core';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useCitiesStore } from '@/stores/city.store';
 import { Loader } from '@/components/Loader';
@@ -16,6 +16,7 @@ import { Loader } from '@/components/Loader';
 interface FormCreateProps {
 	setOpenModal: Dispatch<SetStateAction<boolean>>;
 	citites: City[];
+	providers: Provider[];
 }
 
 const formSchema = z.object({
@@ -25,17 +26,16 @@ const formSchema = z.object({
 		.max(TWO, { message: `ID must be at most ${TWO} characters.` }),
 	startCityId: z.string({ required_error: 'Please select a start city.' }),
 	endCityId: z.string({ required_error: 'Please select an end city.' }),
+	transportationProviderId: z.string({ required_error: 'Please select a transportation provider.' }),
 	distance: z.string({ required_error: 'Please enter a distance.' }),
 	estimatedTravelTime: z.string({ required_error: 'Please enter an estimated travel time.' }),
 	price: z.string({ required_error: 'Please enter a price.' })
 });
 
 export const FormCreate = (props: FormCreateProps): JSX.Element => {
-	const { setOpenModal, citites } = props;
+	const { setOpenModal, citites, providers } = props;
 
 	const isLoading = useCitiesStore((state) => state.isLoading);
-	// const updatedCity = useCitiesStore((state) => state.updatedCity);
-	// const error = useCitiesStore((state) => state.error);
 	// const create = useCitiesStore((state) => state.create);
 
 	const form = useForm<z.infer<typeof formSchema>>({
@@ -89,6 +89,30 @@ export const FormCreate = (props: FormCreateProps): JSX.Element => {
 										{citites.map((city) => (
 											<SelectItem key={city.id} value={String(city.id)}>
 												{city.name}, <span>{city.province}</span>
+											</SelectItem>
+										))}
+									</SelectContent>
+								</Select>
+								<FormMessage />
+							</FormItem>
+						)}
+					/>
+					<FormField
+						control={form.control}
+						name="transportationProviderId"
+						render={({ field }) => (
+							<FormItem>
+								<FormLabel>Provider</FormLabel>
+								<Select onValueChange={field.onChange} defaultValue={field.value}>
+									<FormControl>
+										<SelectTrigger>
+											<SelectValue placeholder="Select a transportation provider" />
+										</SelectTrigger>
+									</FormControl>
+									<SelectContent>
+										{providers.map((provider) => (
+											<SelectItem key={provider.id} value={provider.id}>
+												{provider.name}
 											</SelectItem>
 										))}
 									</SelectContent>

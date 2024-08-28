@@ -30,6 +30,13 @@ export interface Schedule {
 	departureTime: string;
 }
 
+export interface Provider {
+	id: string;
+	name: string;
+	logo: string | null;
+	details: string | null;
+}
+
 export interface TripItinerary {
 	id: string;
 	name: string;
@@ -40,6 +47,7 @@ export interface TripItinerary {
 	price: number;
 	schedules: Schedule[];
 }
+
 export interface Route {
 	id: string;
 	endCity: string;

@@ -12,14 +12,15 @@ import {
 import { Text } from '@/components/Text';
 import { Button } from '@/components/ui/button';
 import { FormCreate } from './FormCreate';
-import { type City } from '@/core';
+import { type Provider, type City } from '@/core';
 
 interface PageHeaderProps {
 	cities: City[];
+	providers: Provider[];
 }
 
 export const PageHeader = (props: PageHeaderProps): JSX.Element => {
-	const { cities } = props;
+	const { cities, providers } = props;
 
 	const [openModalCreate, setOpenModalCreate] = React.useState<boolean>(false);
 
@@ -35,7 +36,7 @@ export const PageHeader = (props: PageHeaderProps): JSX.Element => {
 						<DialogTitle>Create a new route</DialogTitle>
 						<DialogDescription>Complete the form to create a route</DialogDescription>
 					</DialogHeader>
-					<FormCreate setOpenModal={setOpenModalCreate} citites={cities} />
+					<FormCreate setOpenModal={setOpenModalCreate} citites={cities} providers={providers} />
 				</DialogContent>
 			</Dialog>
 		</div>
