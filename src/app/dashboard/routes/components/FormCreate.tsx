@@ -8,7 +8,7 @@ import { z } from 'zod';
 import { Button } from '@/components/ui/button';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import { EMPTY_STRING, type Provider, TWO, type City } from '@/core';
+import { EMPTY_STRING, type Provider, type City } from '@/core';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useCitiesStore } from '@/stores/city.store';
 import { Loader } from '@/components/Loader';
@@ -20,10 +20,6 @@ interface FormCreateProps {
 }
 
 const formSchema = z.object({
-	id: z
-		.string({ required_error: 'Please enter a id.' })
-		.min(TWO, { message: `ID must be at least ${TWO} characters.` })
-		.max(TWO, { message: `ID must be at most ${TWO} characters.` }),
 	startCityId: z.string({ required_error: 'Please select a start city.' }),
 	endCityId: z.string({ required_error: 'Please select an end city.' }),
 	transportationProviderId: z.string({ required_error: 'Please select a transportation provider.' }),
@@ -40,7 +36,7 @@ export const FormCreate = (props: FormCreateProps): JSX.Element => {
 
 	const form = useForm<z.infer<typeof formSchema>>({
 		resolver: zodResolver(formSchema),
-		defaultValues: { id: EMPTY_STRING, distance: EMPTY_STRING, estimatedTravelTime: EMPTY_STRING, price: EMPTY_STRING }
+		defaultValues: { distance: EMPTY_STRING, estimatedTravelTime: EMPTY_STRING, price: EMPTY_STRING }
 	});
 
 	if (isLoading) return <Loader />;
@@ -169,8 +165,16 @@ export const FormCreate = (props: FormCreateProps): JSX.Element => {
 	);
 
 	async function onSubmit(values: z.infer<typeof formSchema>): Promise<void> {
+		const { startCityId, endCityId, transportationProviderId, ...rest } = values;
+		const id = `${startCityId}-${endCityId}-${transportationProviderId}`;
 		// eslint-disable-next-line no-console
-		console.log({ values });
+		console.log({
+			id,
+			startCityId,
+			endCityId,
+			transportationProviderId,
+			...rest
+		});
 		setOpenModal(false);
 	}
 };

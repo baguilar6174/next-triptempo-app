@@ -21,9 +21,12 @@ import { Button } from './ui/button';
 interface DataTableProps<TData, TValue> {
 	columns: Array<ColumnDef<TData, TValue>>;
 	data: TData[];
+	filterBy?: string;
 }
 
-export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData, TValue>): JSX.Element | null {
+export function DataTable<TData, TValue>(props: DataTableProps<TData, TValue>): JSX.Element | null {
+	const { columns, data, filterBy } = props;
+
 	const [sorting, setSorting] = React.useState<SortingState>([]);
 	const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([]);
 	const [isMounted, setIsMounted] = React.useState<boolean>(false);
@@ -31,6 +34,8 @@ export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData
 	React.useEffect(() => {
 		setIsMounted(true);
 	}, []);
+
+	// TODO: implement global filter
 
 	const table = useReactTable({
 		data,
@@ -51,13 +56,15 @@ export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData
 
 	return (
 		<div className="p-4 bg-background shadow-md rounded-lg mt-4">
-			<div className="flex items-center mb-2">
-				<Input
-					placeholder="Filter city..."
-					value={(table.getColumn('name')?.getFilterValue() as string) ?? EMPTY_STRING}
-					onChange={(event) => table.getColumn('name')?.setFilterValue(event.target.value)}
-				/>
-			</div>
+			{filterBy && (
+				<div className="flex items-center mb-2">
+					<Input
+						placeholder="Filter..."
+						value={(table.getColumn(filterBy)?.getFilterValue() as string) ?? EMPTY_STRING}
+						onChange={(event) => table.getColumn(filterBy)?.setFilterValue(event.target.value)}
+					/>
+				</div>
+			)}
 			<div className="rounded-md border">
 				<Table>
 					<TableHeader>

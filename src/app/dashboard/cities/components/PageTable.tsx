@@ -14,5 +14,5 @@ export const PageTable = (): JSX.Element => {
 		void getAll();
 	}, [getAll]);
 
-	return <DataTable columns={columns} data={cities} />;
+	return <DataTable columns={columns} data={cities} filterBy="name" />;
 };
